@@ -25,6 +25,8 @@ class FSIAdminExtension extends Extension
         $container->setParameter('admin.default_locale', $config['default_locale']);
         $container->setParameter('admin.menu_config_path', $config['menu_config_path']);
         $container->setParameter('admin.elements.dirs', $config['annotations']['dirs']);
+        $container->setParameter('admin_resource_repository.resource.map_path', $config['map_path']);
+        $container->setParameter('admin_resource_repository.resource.value.class', $config['resource_class']);
 
         $this->setTemplateParameters($container, $config['templates']);
 
@@ -39,6 +41,8 @@ class FSIAdminExtension extends Extension
         $loader->load('context/form.xml');
         $loader->load('context/batch.xml');
         $loader->load('context/display.xml');
+
+        $loader->load($config['db_driver'] . '.xml');
 
         if (isset($config['data_grid']['yaml_configuration']) && $config['data_grid']['yaml_configuration']) {
             $loader->load('datagrid_yaml_configuration.xml');

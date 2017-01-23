@@ -12,11 +12,18 @@ use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\AdminElementPass
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ContextPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\KnpMenuBuilderPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ManagerVisitorPass;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceCKEditorPass;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceFSiCKEditorPass;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceFSiFilePass;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourcePass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceRepositoryPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\SetEventDispatcherPass;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TwigFormPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TwigGlobalsPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\FSIAdminExtension;
 use AdminPanel\Symfony\AdminBundle\Finder\AdminClassFinder;
+use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -47,6 +54,27 @@ class AdminPanelBundle extends Bundle
         $container->addCompilerPass(new DataGridPass());
         $container->addCompilerPass(new DataSourcePass());
         $container->addCompilerPass(new TemplatePathPass());
+
+        if ($container->hasExtension('fsi_doctrine_extensions')) {
+            $container->addCompilerPass(new ResourceFSiFilePass());
+        }
+
+        if ($container->hasExtension('fsi_form_extensions')) {
+            $container->addCompilerPass(new ResourceFSiCKEditorPass());
+        }
+
+        if ($container->hasExtension('ivory_ck_editor')) {
+            $container->addCompilerPass(new ResourceCKEditorPass());
+        }
+
+        $container->addCompilerPass(new TwigFormPass());
+        $container->addCompilerPass(new ResourcePass());
+        $container->addCompilerPass(
+            DoctrineOrmMappingsPass::createXmlMappingDriver(
+                $this->getDoctrineMappings(),
+                array('doctrine.orm.entity_manager')
+            )
+        );
     }
 
     /**
@@ -59,5 +87,15 @@ class AdminPanelBundle extends Bundle
         }
 
         return $this->extension;
+    }
+
+    /**
+     * @return array
+     */
+    private function getDoctrineMappings()
+    {
+        return array(
+            realpath(__DIR__ . '/Resources/config/doctrine/model') => 'AdminPanel\Symfony\AdminBundle\Model\ResourceRepository',
+        );
     }
 }

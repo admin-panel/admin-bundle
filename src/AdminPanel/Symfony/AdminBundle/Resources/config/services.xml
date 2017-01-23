@@ -22,6 +22,11 @@
         <parameter key="admin.controller.form.class">AdminPanel\Symfony\AdminBundle\Controller\FormController</parameter>
         <parameter key="admin.controller.batch.class">AdminPanel\Symfony\AdminBundle\Controller\BatchController</parameter>
         <parameter key="admin.controller.admin.class">AdminPanel\Symfony\AdminBundle\Controller\AdminController</parameter>
+        <parameter key="admin_resource_repository.resource.map_builder.class">AdminPanel\Symfony\AdminBundle\Repository\MapBuilder</parameter>
+        <parameter key="admin_resource_repository.resource.repository.class">AdminPanel\Symfony\AdminBundle\Repository\Repository</parameter>
+        <parameter key="admin_resource_repository.twig.extension.resource_repository.class">AdminPanel\Symfony\AdminBundle\Twig\ResourceRepositoryExtension</parameter>
+        <parameter key="admin_resource_repository.form.type.resource.class">AdminPanel\Symfony\AdminBundle\Form\ResourceRepository\Type\ResourceType</parameter>
+        <parameter key="admin_resource_repository.form.type.resource_collection.class">AdminPanel\Symfony\AdminBundle\Form\Type\ResourceCollectionType</parameter>
     </parameters>
 
     <services>
@@ -137,6 +142,66 @@
                  public="false">
             <argument type="service" id="admin.messages.flash"/>
             <tag name="twig.extension"/>
+        </service>
+
+        <service id="admin_resource_repository.resource.map_builder" class="%admin_resource_repository.resource.map_builder.class%">
+            <argument>%admin_resource_repository.resource.map_path%</argument>
+            <argument>%admin_resource_repository.resource.types%</argument>
+        </service>
+
+        <service id="admin_resource_repository.map_builder" alias="admin_resource_repository.resource.map_builder" />
+
+        <service id="admin_resource_repository.resource.repository" class="%admin_resource_repository.resource.repository.class%">
+            <argument type="service" id="admin_resource_repository.map_builder" />
+            <argument type="service" id="admin_resource_repository.entity.repository"/>
+            <argument type="string">%admin_resource_repository.resource.value.class%</argument>
+        </service>
+
+        <service id="admin_resource_repository.repository" alias="admin_resource_repository.resource.repository" />
+
+        <!-- Resouce Types -->
+        <service id="admin_resource_repository.resource.type.text" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\TextType">
+            <tag name="resource.type" alias="text"/>
+        </service>
+        <service id="admin_resource_repository.resource.type.textarea" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\TextareaType">
+            <tag name="resource.type" alias="textarea"/>
+        </service>
+        <service id="admin_resource_repository.resource.type.url" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\UrlType">
+            <tag name="resource.type" alias="url"/>
+        </service>
+        <service id="admin_resource_repository.resource.type.email" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\EmailType">
+            <tag name="resource.type" alias="email"/>
+        </service>
+        <service id="admin_resource_repository.resource.type.datetime" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\DatetimeType">
+            <tag name="resource.type" alias="datetime"/>
+        </service>
+        <service id="admin_resource_repository.resource.type.date" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\DateType">
+            <tag name="resource.type" alias="date"/>
+        </service>
+        <service id="admin_resource_repository.resource.type.time" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\TimeType">
+            <tag name="resource.type" alias="time"/>
+        </service>
+        <service id="admin_resource_repository.resource.type.integer" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\IntegerType">
+            <tag name="resource.type" alias="integer"/>
+        </service>
+        <service id="admin_resource_repository.resource.type.number" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\NumberType">
+            <tag name="resource.type" alias="number"/>
+        </service>
+        <service id="admin_resource_repository.resource.type.bool" class="AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\BoolType">
+            <tag name="resource.type" alias="bool"/>
+        </service>
+
+        <!-- Twig Extension -->
+        <service id="admin_resource_repository.twig.extension.resource_repository" class="%admin_resource_repository.twig.extension.resource_repository.class%">
+            <tag name="twig.extension" />
+            <argument type="service" id="admin_resource_repository.resource.repository"></argument>
+        </service>
+
+        <!-- Symfony Form Types -->
+        <service id="admin_resource_repository.form.type.resource" class="%admin_resource_repository.form.type.resource.class%">
+            <tag name="form.type" alias="resource" />
+            <argument type="service" id="admin_resource_repository.resource.map_builder"/>
+            <argument>%admin_resource_repository.resource.value.class%</argument>
         </service>
 
     </services>
