@@ -111,7 +111,7 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
-        $rootNode = $treeBuilder->root('fsi_resource_repository');
+        $rootNode = $treeBuilder->root('admin_resource_repository');
 
         $supportedDrivers = array('orm');
 

@@ -31,7 +31,7 @@ class ResourceRepositoryExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'fsi_resource_repository';
+        return 'admin_resource_repository';
     }
 
     /**

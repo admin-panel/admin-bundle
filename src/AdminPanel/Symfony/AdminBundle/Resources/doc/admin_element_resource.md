@@ -54,7 +54,7 @@ class Resource extends BaseResource
 ```yaml
 # app/config/config.yml
 
-fsi_resource_repository:
+admin_resource_repository:
     resource_class: FSi\Bundle\DemoBundle\Entity\Resource
 ```
 
