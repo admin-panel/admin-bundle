@@ -1,5 +1,5 @@
 {
-    "name": "admin-panel/admin-bundle",
+    "name": "kjaniszewski/admin-bundle",
     "type": "symfony-bundle",
     "description": "Admin panel generator for Symfony",
     "keywords": ["admin", "panel", "symfony2", "bundle"],
