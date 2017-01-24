@@ -24,7 +24,7 @@ interface Element extends RedirectableElement
     public function save(ResourceValue $resource);
 
     /**
-     * @return \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValueRepository
+     * @return \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValueRepository
      */
     public function getRepository();
 }

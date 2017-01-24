@@ -5,8 +5,8 @@ namespace AdminPanel\Symfony\AdminBundle\Doctrine\Admin;
 
 use AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\GenericResourceElement;
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
-use FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValue;
-use FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValueRepository;
+use AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValue;
+use AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValueRepository;
 
 /**
  * @author Norbert Orzechowicz <norbert@fsi.pl>
@@ -26,7 +26,7 @@ abstract class ResourceElement extends GenericResourceElement implements Element
 
         if (!$repository instanceof ResourceValueRepository) {
             throw new RuntimeException(sprintf(
-                'Repository for class %s must implement \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValueRepository',
+                'Repository for class %s must implement \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValueRepository',
                 $this->getClassName()
             ));
         }
@@ -35,7 +35,7 @@ abstract class ResourceElement extends GenericResourceElement implements Element
     }
 
     /**
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValue $resource
+     * @param \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValue $resource
      */
     public function save(ResourceValue $resource)
     {

@@ -54,6 +54,15 @@ class AdminPanelBundleSpec extends ObjectBehavior
         $builder->addCompilerPass(Argument::type(DataSourcePass::class))
             ->shouldBeCalled();
 
+        $builder->hasExtension(Argument::type('string'))->shouldBeCalled();
+
+        $builder->addCompilerPass(Argument::type('AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TwigFormPass'))
+            ->shouldBeCalled();
+        $builder->addCompilerPass(Argument::type('AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourcePass'))
+            ->shouldBeCalled();
+        $builder->addCompilerPass(Argument::type('Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass'))
+            ->shouldBeCalled();
+
         $this->build($builder);
     }
 }

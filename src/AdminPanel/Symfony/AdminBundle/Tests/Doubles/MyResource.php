@@ -28,7 +28,7 @@ class MyResource extends GenericResourceElement
     }
 
     /**
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValue $resource
+     * @param \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValue $resource
      */
     public function save(ResourceValue $resource)
     {

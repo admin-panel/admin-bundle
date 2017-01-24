@@ -9,11 +9,11 @@ use Prophecy\Argument;
 class ResourceFormBuilderSpec extends ObjectBehavior
 {
     /**
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Repository\MapBuilder $mapBuilder
+     * @param \AdminPanel\Symfony\AdminBundle\Repository\MapBuilder $mapBuilder
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
      * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\GenericResourceElement $element
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValueRepository $valueRepository
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Repository\Resource\Type\TextType $resource
+     * @param \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValueRepository $valueRepository
+     * @param \AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\TextType $resource
      */
     function let($mapBuilder, $formFactory, $element, $valueRepository, $resource)
     {
@@ -49,8 +49,8 @@ class ResourceFormBuilderSpec extends ObjectBehavior
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
      * @param \Symfony\Component\Form\Test\FormBuilderInterface $formBuilder
      * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\GenericResourceElement $element
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValueRepository $valueRepository
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValue $resourceValue
+     * @param \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValueRepository $valueRepository
+     * @param \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValue $resourceValue
      * @param \Symfony\Component\Form\FormInterface $form
      */
     function it_builds_form_for_resource_group(

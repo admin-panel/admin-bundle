@@ -20,7 +20,7 @@ class ResourceElementSpec extends ObjectBehavior
     /**
      * @param \Doctrine\Common\Persistence\ManagerRegistry $registry
      * @param \Doctrine\Common\Persistence\ObjectManager $om
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValueRepository $repository
+     * @param \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValueRepository $repository
      */
     function it_return_repository($registry, $om, $repository)
     {

@@ -3,8 +3,8 @@
 namespace AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository;
 
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
-use FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValueRepository;
-use FSi\Bundle\ResourceRepositoryBundle\Repository\MapBuilder;
+use AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValueRepository;
+use AdminPanel\Symfony\AdminBundle\Repository\MapBuilder;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -17,7 +17,7 @@ class ResourceFormBuilder
     protected $formFactory;
 
     /**
-     * @var \FSi\Bundle\ResourceRepositoryBundle\Repository\MapBuilder
+     * @var \AdminPanel\Symfony\AdminBundle\Repository\MapBuilder
      */
     protected $mapBuilder;
 
@@ -78,8 +78,8 @@ class ResourceFormBuilder
 
     /**
      * @param Element $element
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValueRepository $valueRepository
-     * @param array|\FSi\Bundle\ResourceRepositoryBundle\Repository\Resource\Type\ResourceInterface[] $resources
+     * @param \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValueRepository $valueRepository
+     * @param array|\AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\ResourceInterface[] $resources
      * @return array
      */
     private function createFormData(
@@ -101,7 +101,7 @@ class ResourceFormBuilder
     /**
      * @param Element $element
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array|\FSi\Bundle\ResourceRepositoryBundle\Repository\Resource\Type\ResourceInterface[] $resources
+     * @param array|\AdminPanel\Symfony\AdminBundle\Repository\Resource\Type\ResourceInterface[] $resources
      */
     private function buildForm(
         Element $element,

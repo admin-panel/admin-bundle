@@ -12,7 +12,7 @@ class ResourceRepositoryContextSpec extends ObjectBehavior
     /**
      * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
      * @param \AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ResourceElement $element
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Repository\MapBuilder $builder
+     * @param \AdminPanel\Symfony\AdminBundle\Repository\MapBuilder $builder
      * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\ResourceFormBuilder $resourceFormBuilder
      * @param \Symfony\Component\Form\Form $form
      */

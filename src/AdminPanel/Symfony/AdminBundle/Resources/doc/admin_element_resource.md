@@ -38,7 +38,7 @@ public function registerBundles()
 namespace FSi\Bundle\DemoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FSi\Bundle\ResourceRepositoryBundle\Model\Resource as BaseResource;
+use AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\Resource as BaseResource;
 
 /**
  * @ORM\Entity(repositoryClass="FSi\Bundle\ResourceRepositoryBundle\Entity\ResourceRepository")

@@ -13,7 +13,8 @@ class ResourceRepositoryPassSpec extends ObjectBehavior
      */
     public function it_does_nothing_when_there_is_no_resource_extension($container)
     {
-        $container->hasExtension('fsi_resource_repository')->willReturn(false);
+        $container->hasExtension('admin_resource_repository')->willReturn(false);
+        $container->hasExtension(Argument::type('string'))->shouldBeCalled();
         $this->process($container);
     }
 
@@ -24,7 +25,7 @@ class ResourceRepositoryPassSpec extends ObjectBehavior
     public function it_loads_resources_config_only_if_resource_repository_extension_exists($container, $bag)
     {
         $container->hasExtension(Argument::type('string'))->willReturn(false);
-        $container->hasExtension('fsi_resource_repository')->willReturn(true);
+        $container->hasExtension('admin_resource_repository')->willReturn(true);
 
         $container->addResource(Argument::allOf(
             Argument::type('Symfony\Component\Config\Resource\FileResource'),
