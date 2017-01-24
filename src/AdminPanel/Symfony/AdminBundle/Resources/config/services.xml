@@ -145,7 +145,7 @@
         </service>
 
         <service id="admin_resource_repository.resource.map_builder" class="%admin_resource_repository.resource.map_builder.class%">
-            <argument>%admin_resource_repository.resource.map_path%</argument>
+            <argument>%admin.resource.map_path%</argument>
             <argument>%admin_resource_repository.resource.types%</argument>
         </service>
 

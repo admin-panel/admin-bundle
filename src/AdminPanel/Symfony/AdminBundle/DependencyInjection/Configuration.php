@@ -19,6 +19,8 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('fsi_admin');
 
+        $supportedDrivers = array('orm');
+
         $rootNode
             ->validate()
                 ->always(function ($v) {
@@ -111,11 +113,8 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
-        $rootNode = $treeBuilder->root('admin_resource_repository');
-
-        $supportedDrivers = array('orm');
-
-        $rootNode->children()
+        $rootNode
+            ->children()
             ->scalarNode('db_driver')
             ->defaultValue('orm')
             ->validate()

@@ -94,8 +94,8 @@ class AdminPanelBundle extends Bundle
      */
     private function getDoctrineMappings()
     {
-        return array(
+        return [
             realpath(__DIR__ . '/Resources/config/doctrine/model') => 'AdminPanel\Symfony\AdminBundle\Model\ResourceRepository',
-        );
+        ];
     }
 }

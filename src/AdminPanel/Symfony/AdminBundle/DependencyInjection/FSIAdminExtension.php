@@ -25,8 +25,8 @@ class FSIAdminExtension extends Extension
         $container->setParameter('admin.default_locale', $config['default_locale']);
         $container->setParameter('admin.menu_config_path', $config['menu_config_path']);
         $container->setParameter('admin.elements.dirs', $config['annotations']['dirs']);
-        $container->setParameter('admin_resource_repository.resource.map_path', $config['map_path']);
-        $container->setParameter('admin_resource_repository.resource.value.class', $config['resource_class']);
+        $container->setParameter('admin.map_path', $config['map_path']);
+        $container->setParameter('admin.resource_class', $config['resource_class']);
 
         $this->setTemplateParameters($container, $config['templates']);
 
