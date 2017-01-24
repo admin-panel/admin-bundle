@@ -10,6 +10,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\AdminAnnotatedElementPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\AdminElementPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ContextPass;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\DataGridPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\KnpMenuBuilderPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ManagerVisitorPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceCKEditorPass;
@@ -18,6 +19,7 @@ use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceFSiFileP
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourcePass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceRepositoryPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\SetEventDispatcherPass;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TemplatePathPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TwigFormPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TwigGlobalsPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\FSIAdminExtension;
