@@ -115,7 +115,7 @@ class DisplayNewsElement extends DisplayElement
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            "template" => "@FSiAdmin/Display/display.html.twig"
+            "template" => "@AdminPanel/Display/display.html.twig"
         ));
     }
 }

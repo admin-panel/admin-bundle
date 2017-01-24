@@ -4,7 +4,7 @@
 namespace AdminPanel\Symfony\AdminBundle\Tests\Doubles;
 
 use AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\GenericResourceElement;
-use FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValue;
+use AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValue;
 
 class MyResource extends GenericResourceElement
 {

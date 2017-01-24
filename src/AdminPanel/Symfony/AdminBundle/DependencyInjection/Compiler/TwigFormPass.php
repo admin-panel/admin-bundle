@@ -25,7 +25,7 @@ class TwigFormPass implements CompilerPassInterface
 
         $container->setParameter('twig.form.resources', array_merge(
             $container->getParameter('twig.form.resources'),
-            array('@AdminPanelBundle/Form/form_div_layout.html.twig')
+            array('@AdminPanel/Form/form_div_layout.html.twig')
         ));
     }
 }

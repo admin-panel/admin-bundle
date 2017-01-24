@@ -4,7 +4,7 @@
 namespace AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository;
 
 use AdminPanel\Symfony\AdminBundle\Admin\RedirectableElement;
-use FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValue;
+use AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValue;
 
 interface Element extends RedirectableElement
 {
@@ -19,7 +19,7 @@ interface Element extends RedirectableElement
     public function getResourceFormOptions();
 
     /**
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Model\ResourceValue $resource
+     * @param \AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceValue $resource
      */
     public function save(ResourceValue $resource);
 

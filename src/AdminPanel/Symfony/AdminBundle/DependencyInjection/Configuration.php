@@ -115,17 +115,20 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->scalarNode('db_driver')
-            ->defaultValue('orm')
-            ->validate()
-            ->ifNotInArray($supportedDrivers)
-            ->thenInvalid('The driver %s is not supported. Please choose one of ' . implode(', ', $supportedDrivers))
-            ->end()
-            ->cannotBeOverwritten()
-            ->cannotBeEmpty()
-            ->end()
-            ->scalarNode('map_path')->defaultValue('%kernel.root_dir%/config/resource_map.yml')->end()
-            ->scalarNode('resource_class')->isRequired()->cannotBeEmpty()->end();
+            ->arrayNode('resource')
+            ->children()
+                ->scalarNode('db_driver')
+                ->defaultValue('orm')
+                ->validate()
+                ->ifNotInArray($supportedDrivers)
+                ->thenInvalid('The driver %s is not supported. Please choose one of ' . implode(', ', $supportedDrivers))
+                ->end()
+                ->cannotBeOverwritten()
+                ->cannotBeEmpty()
+                ->end()
+                ->scalarNode('map_path')->defaultValue('%kernel.root_dir%/config/resource_map.yml')->end()
+                ->scalarNode('resource_class')->isRequired()->cannotBeEmpty()->end()
+            ->end();
 
         return $treeBuilder;
     }

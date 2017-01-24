@@ -36,7 +36,7 @@ public function registerBundles()
 # app/config/routing.yml
 
 admin:
-    resource: "@FSiAdminBundle/Resources/config/routing/admin.yml"
+    resource: "@AdminPanelBundle/Resources/config/routing/admin.yml"
     prefix: /admin
 ```
 

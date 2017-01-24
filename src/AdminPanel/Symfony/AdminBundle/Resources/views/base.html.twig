@@ -54,14 +54,14 @@
             }
         </style>
     {% endblock %}
-    <script src="{{ asset('bundles/fsiadmin/js/require.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/adminpanel/js/require.js') }}" type="text/javascript"></script>
     <script>
         requirejs.config({
             shim: {"bootstrap": {"deps": ['jquery']}},
             paths: {
-                "jquery": "{{ asset('bundles/fsiadmin/js/jquery-1.11.2.min') }}",
-                "bootstrap": "{{ asset('bundles/fsiadmin/js/bootstrap.min') }}",
-                "collection": "{{ asset('bundles/fsiadmin/js/collection') }}"
+                "jquery": "{{ asset('bundles/adminpanel/js/jquery-1.11.2.min') }}",
+                "bootstrap": "{{ asset('bundles/adminpanel/js/bootstrap.min') }}",
+                "collection": "{{ asset('bundles/adminpanel/js/collection') }}"
             }
         });
     </script>
@@ -81,8 +81,8 @@
         </div>
         <div class="collapse navbar-collapse admin-navbar-collapse">
             {% block navigation %}
-                {{ knp_menu_render('fsi_admin.menu.main', {template: '@FSiAdmin/Admin/main_menu_theme.html.twig', currentClass: 'active', ancestorClass: 'active'}) }}
-                {{ knp_menu_render('fsi_admin.menu.tools', {template: '@FSiAdmin/Admin/tools_menu_theme.html.twig', currentClass: 'active', ancestorClass: ''}) }}
+                {{ knp_menu_render('fsi_admin.menu.main', {template: '@AdminPanel/Admin/main_menu_theme.html.twig', currentClass: 'active', ancestorClass: 'active'}) }}
+                {{ knp_menu_render('fsi_admin.menu.tools', {template: '@AdminPanel/Admin/tools_menu_theme.html.twig', currentClass: 'active', ancestorClass: ''}) }}
             {% endblock %}
         </div>
     </div>

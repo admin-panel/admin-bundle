@@ -403,7 +403,7 @@ Next, we have to modify the template for the `User` edit form:
 
 ```twig
 {# src/Acme/DemoBundle/Resources/views/Admin/user_edit.html.twig #}
-{% extends '@FSiAdmin/CRUD/edit.html.twig' %}
+{% extends '@AdminPanel/CRUD/edit.html.twig' %}
 
 {% block content %}
     {{ parent() }}
@@ -438,7 +438,7 @@ and add it to the elment's service options:
 Then, we have to prepare the `UserInvoice` element list template:
 
 ```twig
-{% extends '@FSiAdmin/List/list.html.twig' %}
+{% extends '@AdminPanel/List/list.html.twig' %}
 
 {% block themes %}
     {% datasource_route datasource_view 'fsi_admin_form' with {'element' : 'users', 'id' : element.userId} %}

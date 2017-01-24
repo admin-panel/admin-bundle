@@ -9,10 +9,11 @@
 namespace AdminPanel\Symfony\AdminBundle\Entity;
 
 use AdminPanel\Symfony\AdminBundle\Model\ResourceRepository\ResourceFSiFile as BaseResource;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="FSi\Bundle\ResourceRepositoryBundle\Entity\ResourceRepository")
- * @ORM\Table(name="fsi_resource")
+ * @ORM\Entity(repositoryClass="AdminPanel\Symfony\AdminBundle\Entity\ResourceRepository\ResourceRepository")
+ * @ORM\Table(name="admin_resource")
  */
 class FakeResource extends BaseResource
 {
