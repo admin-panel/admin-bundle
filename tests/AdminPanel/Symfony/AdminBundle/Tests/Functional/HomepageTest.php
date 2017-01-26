@@ -24,7 +24,7 @@ class HomepageTest extends FunctionalTestCase
     public function test_that_homepage_is_working()
     {
         (new Homepage($this->client))
-            ->open('GET')
+            ->open()
             ->shouldSeePageTitle('Admin')
         ;
     }
