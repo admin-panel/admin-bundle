@@ -2,3 +2,5 @@
 composer.lock
 composer.phar
 bin
+tests/var
+!tests/var/.gitkeep

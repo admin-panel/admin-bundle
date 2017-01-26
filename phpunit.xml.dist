@@ -10,9 +10,13 @@
          syntaxCheck="false"
          bootstrap="tests/bootstrap.php"
 >
+    <php>
+        <server name="KERNEL_DIR" value="tests/AdminPanel/Symfony/AdminBundle/Tests/Functional" />
+    </php>
     <testsuites>
         <testsuite name="Admin Panel Test Suite">
             <directory suffix=".php">./tests</directory>
+            <exclude>./tests/AdminPanel/Symfony/AdminBundle/Tests/Functional/FunctionalTestCase.php</exclude>
         </testsuite>
     </testsuites>
 </phpunit>
