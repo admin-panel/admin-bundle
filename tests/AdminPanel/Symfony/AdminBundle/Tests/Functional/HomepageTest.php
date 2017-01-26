@@ -5,25 +5,27 @@ declare (strict_types = 1);
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional;
 
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Page\Homepage;
+use Symfony\Bundle\FrameworkBundle\Client;
 
 class HomepageTest extends FunctionalTestCase
 {
     /**
-     * @var Homepage
+     * @var Client
      */
-    private $page;
+    private $client;
 
     public function setUp()
     {
         parent::setUp();
 
-        $client = self::createClient();
-        $this->page = new Homepage($client);
+        $this->client = self::createClient();
     }
 
     public function test_that_homepage_is_working()
     {
-        $this->page->open('GET');
-        $this->page->shouldBeSuccessfull();
+        (new Homepage($this->client))
+            ->open('GET')
+            ->shouldSeePageTitle('Admin')
+        ;
     }
 }

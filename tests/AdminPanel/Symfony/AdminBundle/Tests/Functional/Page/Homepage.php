@@ -14,11 +14,11 @@ final class Homepage extends BasePage
         return '/';
     }
 
-    public function shouldBeSuccessfull()
+    public function shouldSeePageTitle(string $expectedTitle) : Homepage
     {
         $title = trim($this->getCrawler()->filter('.navbar-brand')->text());
 
-        \PHPUnit_Framework_Assert::assertEquals('admin.title', $title);
+        \PHPUnit_Framework_Assert::assertEquals($expectedTitle, $title);
         \PHPUnit_Framework_Assert::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         return $this;

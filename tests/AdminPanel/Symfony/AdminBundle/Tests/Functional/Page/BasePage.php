@@ -33,7 +33,7 @@ abstract class BasePage implements Page
      * @param string $method
      * @param array $urlParameters
      * @param array $parameters
-     * @return Page
+     * @return self|Page
      */
     public function open(string $method = 'GET', array $urlParameters = [], array $parameters = []) : Page
     {

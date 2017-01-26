@@ -5,14 +5,15 @@ declare (strict_types = 1);
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional;
 
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
-use AdminPanel\Symfony\AdminBundle\Tests\Functional\Page\UserListPage;
+use AdminPanel\Symfony\AdminBundle\Tests\Functional\Page\ListPage;
+use Symfony\Bundle\FrameworkBundle\Client;
 
-class ElementListTest extends FunctionalTestCase
+class ListPageTest extends FunctionalTestCase
 {
     /**
-     * @var UserListPage
+     * @var Client
      */
-    private $page;
+    private $client;
 
     public function setUp()
     {
@@ -21,27 +22,26 @@ class ElementListTest extends FunctionalTestCase
         $this->createUser('l3l0');
         $this->createUser('otherUser');
 
-        $client = self::createClient();
-        $this->page = new UserListPage($client);
+        $this->client = self::createClient();
     }
 
     public function test_that_list_of_elements_is_shown()
     {
-        $this->page->open('GET');
-        $this->page->shouldHaveElementsOnTheList(2);
+        (new ListPage($this->client))
+            ->open()
+            ->shouldHaveElementsOnTheList(2)
+        ;
     }
 
     public function test_adding_new_element()
     {
-        $this->page->open('GET');
-        $listPage = $this
-            ->page
+        (new ListPage($this->client))
+            ->open()
             ->openAddNewElementForm()
             ->fillForm('l3l086')
             ->pressSubmitButton()
+            ->shouldHaveElementsOnTheList(3)
         ;
-
-        $listPage->shouldHaveElementsOnTheList(3);
     }
 
     /**

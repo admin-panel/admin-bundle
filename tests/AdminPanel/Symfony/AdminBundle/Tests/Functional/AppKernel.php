@@ -72,6 +72,7 @@ class AppKernel extends Kernel
     ) {
         $c->setParameter('locale', 'en');
         $c->loadFromExtension('framework', [
+            'translator' => ['fallback' => '%locale%'],
             'secret' => 'secret123',
             'test' => true,
             'form' => true,
@@ -110,7 +111,7 @@ class AppKernel extends Kernel
      */
     public function getCacheDir() : string
     {
-        return '/dev/shm/admin-bundle/cache/' .  $this->environment;
+        return __DIR__ . '/var/cache/' .  $this->environment;
     }
 
     /**
@@ -118,6 +119,6 @@ class AppKernel extends Kernel
      */
     public function getLogDir() : string
     {
-        return '/dev/shm/admin-bundle/logs';
+        return __DIR__ . '/var/logs/' ;
     }
 }
