@@ -6,6 +6,8 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 
 error_reporting(E_ALL | E_STRICT);
 
+const VAR_DIR = __DIR__ . '/var';
+
 /**
  * @var \Composer\Autoload\ClassLoader $loader
  */

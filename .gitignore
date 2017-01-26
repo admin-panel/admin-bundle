@@ -2,4 +2,4 @@
 composer.lock
 composer.phar
 bin
-tests/AdminPanel/Symfony/AdminBundle/Tests/Functional/var
+tests/var

@@ -111,7 +111,7 @@ class AppKernel extends Kernel
      */
     public function getCacheDir() : string
     {
-        return __DIR__ . '/var/cache/' .  $this->environment;
+        return VAR_DIR . '/cache/' .  $this->environment;
     }
 
     /**
@@ -119,6 +119,6 @@ class AppKernel extends Kernel
      */
     public function getLogDir() : string
     {
-        return __DIR__ . '/var/logs/' ;
+        return VAR_DIR . '/logs/' ;
     }
 }
