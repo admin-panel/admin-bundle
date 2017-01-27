@@ -55,65 +55,29 @@ class ListPage extends BasePage
     }
 
     /**
+     * @param string $buttonLabel
      * @param int $whichElement
      * @return ListPage
      */
-    public function shouldHaveEditButtonOnElementNumber(int $whichElement) : ListPage
+    public function shouldHaveButtonOnElementNumber(string $buttonLabel, int $whichElement) : ListPage
     {
-        $elements = $this->getCrawler()->filter(sprintf('#%s tbody tr', $this->pageName))->each(function ($node, $i) use ($whichElement) {
-            if (($whichElement - 1) == $i) {
-                \PHPUnit_Framework_Assert::assertEquals(1, $node->filter('[title="Edit"]')->count());
+        $elements = $this
+            ->getCrawler()
+            ->filter(sprintf('#%s tbody tr', $this->pageName))
+            ->each(function ($node, $i) use ($buttonLabel, $whichElement) {
+                if (($whichElement - 1) == $i) {
+                    \PHPUnit_Framework_Assert::assertEquals(1, $node->filter(sprintf('[title="%s"]', $buttonLabel))->count());
 
-                return $node->text();
+                    return $node->text();
+                }
             }
-        });
+        );
 
         $elements = array_unique($elements);
         if (!$elements) {
             \PHPUnit_Framework_Assert::fail(sprintf('Element %d do not find', $whichElement));
         }
-        return $this;
-    }
 
-    /**
-     * @param int $whichElement
-     * @return ListPage
-     */
-    public function shouldHaveDisplayButtonOnElementNumber(int $whichElement) : ListPage
-    {
-        $elements = $this->getCrawler()->filter(sprintf('#%s tbody tr', $this->pageName))->each(function ($node, $i) use ($whichElement) {
-            if (($whichElement - 1) == $i) {
-                \PHPUnit_Framework_Assert::assertEquals(1, $node->filter('[title="Display"]')->count());
-
-                return $node->text();
-            }
-        });
-
-        $elements = array_unique($elements);
-        if (!$elements) {
-            \PHPUnit_Framework_Assert::fail(sprintf('Element %d do not find', $whichElement));
-        }
-        return $this;
-    }
-
-    /**
-     * @param int $whichElement
-     * @return ListPage
-     */
-    public function shouldHaveCustomButtonOnElementNumber(int $whichElement) : ListPage
-    {
-        $elements = $this->getCrawler()->filter(sprintf('#%s tbody tr', $this->pageName))->each(function ($node, $i) use ($whichElement) {
-            if (($whichElement - 1) == $i) {
-                \PHPUnit_Framework_Assert::assertEquals(1, $node->filter('[title="Custom"]')->count());
-
-                return $node->text();
-            }
-        });
-
-        $elements = array_unique($elements);
-        if (!$elements) {
-            \PHPUnit_Framework_Assert::fail(sprintf('Element %d do not find', $whichElement));
-        }
         return $this;
     }
 
@@ -134,23 +98,11 @@ class ListPage extends BasePage
      */
     public function clickEditButtonForElementWithNumber(int $whichElement) : Page
     {
-        $elements = $this->getCrawler()->filter(sprintf('#%s tbody tr', $this->pageName))->each(function ($node, $i) use ($whichElement) {
-            if (($whichElement - 1) == $i) {
-                $link = $node->filter('[title="Edit"]')->link();
-                $this->client->click($link);
-
-                return $node->text();
-            }
-        });
-
-        $elements = array_unique($elements);
-        if (!$elements) {
-            \PHPUnit_Framework_Assert::fail(sprintf('Element %d do not find', $whichElement));
-
-            return $this;
+        if ($this->clickButtonForElementWithNumber('Edit', $whichElement)) {
+            return new EditPage($this->client, $this->pageName, $this);
         }
 
-        return new EditPage($this->client, $this->pageName, $this);
+        return $this;
     }
 
     /**
@@ -159,22 +111,39 @@ class ListPage extends BasePage
      */
     public function clickCustomButtonForElementWithNumber(int $whichElement) : Page
     {
-        $elements = $this->getCrawler()->filter(sprintf('#%s tbody tr', $this->pageName))->each(function ($node, $i) use ($whichElement) {
-            if (($whichElement - 1) == $i) {
-                $link = $node->filter('[title="Custom"]')->link();
-                $this->client->click($link);
+        if ($this->clickButtonForElementWithNumber('Custom', $whichElement)) {
+            return new CustomActionPage($this->client, $this);
+        }
 
-                return $node->text();
-            }
-        });
+        return $this;
+    }
+
+    /**
+     * @param string $buttonLabel
+     * @param int $whichElement
+     * @return bool
+     */
+    private function clickButtonForElementWithNumber(string $buttonLabel, int $whichElement) : bool
+    {
+        $elements = $this
+            ->getCrawler()
+            ->filter(sprintf('#%s tbody tr', $this->pageName))
+            ->each(function ($node, $i) use ($buttonLabel, $whichElement) {
+                if (($whichElement - 1) == $i) {
+                    $link = $node->filter(sprintf('[title="%s"]', $buttonLabel))->link();
+                    $this->client->click($link);
+
+                    return $node->text();
+                }
+            });
 
         $elements = array_unique($elements);
         if (!$elements) {
             \PHPUnit_Framework_Assert::fail(sprintf('Element %d do not find', $whichElement));
 
-            return $this;
+            return false;
         }
 
-        return new CustomActionPage($this->client, $this);
+        return true;
     }
 }

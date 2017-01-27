@@ -30,12 +30,12 @@ class ListPageTest extends FunctionalTestCase
         (new ListPage($this->client))
             ->open()
             ->shouldHaveElementsOnTheList(2)
-            ->shouldHaveEditButtonOnElementNumber(1)
-            ->shouldHaveEditButtonOnElementNumber(2)
-            ->shouldHaveDisplayButtonOnElementNumber(1)
-            ->shouldHaveDisplayButtonOnElementNumber(2)
-            ->shouldHaveCustomButtonOnElementNumber(1)
-            ->shouldHaveCustomButtonOnElementNumber(2)
+            ->shouldHaveButtonOnElementNumber('Edit', 1)
+            ->shouldHaveButtonOnElementNumber('Edit', 2)
+            ->shouldHaveButtonOnElementNumber('Display', 1)
+            ->shouldHaveButtonOnElementNumber('Display', 2)
+            ->shouldHaveButtonOnElementNumber('Custom', 1)
+            ->shouldHaveButtonOnElementNumber('Custom', 2)
         ;
     }
 
