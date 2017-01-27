@@ -87,6 +87,8 @@ final class CustomTemplateUserElement extends CRUDElement
         parent::setDefaultOptions($resolver);
 
         $resolver->setDefaults([
+            "allow_add" => false,
+            "allow_delete" => false,
             "template_list" => "@app/admin/list.html.twig",
             "template_form" => "@app/admin/form.html.twig"
         ]);
