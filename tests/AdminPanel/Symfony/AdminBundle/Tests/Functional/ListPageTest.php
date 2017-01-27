@@ -69,6 +69,15 @@ class ListPageTest extends FunctionalTestCase
         ;
     }
 
+    public function test_custom_list_template_for_element()
+    {
+        (new ListPage($this->client, 'admin_custom_template_users'))
+            ->open()
+            ->shouldHaveElementsOnTheList(2)
+            ->shouldSeePageHeader('List of Users (custom template)')
+        ;
+    }
+
     /**
      * @param string $username
      * @param bool $hasNewsletter

@@ -41,6 +41,7 @@ abstract class BasePage implements Page
 
         if (!in_array($this->client->getResponse()->getStatusCode(), [200, 302])) {
             $this->printLastResponse();
+
             throw new \RuntimeException(sprintf("Can't open \"%s\"", $this->getUrl()));
         }
 

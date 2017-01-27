@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional;
 
+use AdminPanel\Symfony\AdminBundle\Tests\Functional\Element\CustomTemplateUserElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Element\UserElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -99,6 +100,13 @@ class AppKernel extends Kernel
                 'storage_id' => 'session.storage.mock_file'
             ]
         ]);
+        $c->loadFromExtension('twig',
+            [
+                'paths' => [
+                    __DIR__ . '/config/Resources/views' => 'app'
+                ]
+            ]
+        );
         $c->loadFromExtension('doctrine', [
             'dbal' => [
                 'driver' => 'pdo_sqlite',
@@ -119,7 +127,11 @@ class AppKernel extends Kernel
 
         $definition = new Definition(UserElement::class);
         $definition->addTag('admin.element');
-        $c->setDefinition('admin_user_element', $definition);
+        $c->setDefinition('user_admin_element', $definition);
+
+        $definition = new Definition(CustomTemplateUserElement::class);
+        $definition->addTag('admin.element');
+        $c->setDefinition('custom_template_user_admin_element', $definition);
     }
 
     /**

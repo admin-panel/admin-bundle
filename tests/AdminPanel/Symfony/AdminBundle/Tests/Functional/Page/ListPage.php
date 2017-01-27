@@ -119,6 +119,20 @@ class ListPage extends BasePage
     }
 
     /**
+     * @param string $expectedTitle
+     * @return ListPage
+     */
+    public function shouldSeePageHeader(string $expectedTitle) : ListPage
+    {
+        $title = trim($this->getCrawler()->filter('#page-header')->text());
+
+        \PHPUnit_Framework_Assert::assertEquals($expectedTitle, $title);
+        \PHPUnit_Framework_Assert::assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        return $this;
+    }
+
+    /**
      * @param string $buttonLabel
      * @param int $whichElement
      * @return bool
