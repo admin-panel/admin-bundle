@@ -25,7 +25,32 @@ class User
     public $username;
 
     /**
-     * @return mixed
+     * @ORM\Column(type="boolean")
+     */
+    public $hasNewsletter = false;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    public $credits = 0.00;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    public $createdAt;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    public $itemQuantity = 0;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @return int
      */
     public function getId()
     {

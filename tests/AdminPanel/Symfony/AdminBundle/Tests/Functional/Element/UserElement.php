@@ -29,6 +29,42 @@ final class UserElement extends CRUDElement
         $datagrid->addColumn('username', 'text', [
             'label' => 'Username'
         ]);
+        $datagrid->addColumn('hasNewsletter', 'boolean', [
+            'label' => 'Has newsletter?'
+        ]);
+        $datagrid->addColumn('createdAt', 'datetime', [
+            'label' => 'Created at'
+        ]);
+        $datagrid->addColumn('credits', 'money', [
+            'label' => 'Credits',
+            'currency' => 'EUR'
+        ]);
+        $datagrid->addColumn('actions', 'action', [
+            'label' => 'Actions',
+            'field_mapping' => ['id'],
+            'actions' => [
+                'edit' => [
+                    'element' => 'admin_users'
+                ],
+                'display' => [
+                    'element' => 'admin_users',
+                    'route_name' => 'fsi_admin_display',
+                    'parameters_field_mapping' => [
+                        'id' => 'id'
+                    ]
+                ],
+                'custom' => [
+                    'url_attr' => [
+                        'class' => 'btn btn-warning btn-small-horizontal',
+                        'title' => 'Custom'
+                    ],
+                    'route_name' => 'custom_action',
+                    'parameters_field_mapping' => [
+                        'id' => 'id'
+                    ]
+                ]
+            ]
+        ]);
 
         return $datagrid;
     }
