@@ -5,10 +5,13 @@ declare (strict_types = 1);
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional;
 
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Element\UserElement;
+use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
@@ -33,6 +36,18 @@ class AppKernel extends Kernel
         ];
     }
 
+    public function customAction(int $id)
+    {
+        $doctrine = $this->getContainer()->get('doctrine');
+        $user = $doctrine->getRepository(User::class)->find($id);
+
+        if (!$user) {
+            throw new NotFoundHttpException();
+        }
+
+        return new Response(sprintf('Hello %s', $user->username));
+    }
+
     /**
      * Add or import routes into your application.
      *
@@ -44,6 +59,7 @@ class AppKernel extends Kernel
     protected function configureRoutes(RouteCollectionBuilder $routes)
     {
         $routes->mount('/', $routes->import('@AdminPanelBundle/Resources/config/routing/admin.yml'));
+        $routes->add('/custom-action', 'kernel:customAction', 'custom_action');
     }
 
     /**

@@ -19,8 +19,8 @@ class ListPageTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->createUser('l3l0');
-        $this->createUser('otherUser');
+        $this->createUser('l3l0', true, 10.30, 6);
+        $this->createUser('otherUser', false, 5.35, 4);
 
         $this->client = self::createClient();
     }
@@ -30,6 +30,12 @@ class ListPageTest extends FunctionalTestCase
         (new ListPage($this->client))
             ->open()
             ->shouldHaveElementsOnTheList(2)
+            ->shouldHaveButtonOnElementNumber('Edit', 1)
+            ->shouldHaveButtonOnElementNumber('Edit', 2)
+            ->shouldHaveButtonOnElementNumber('Display', 1)
+            ->shouldHaveButtonOnElementNumber('Display', 2)
+            ->shouldHaveButtonOnElementNumber('Custom', 1)
+            ->shouldHaveButtonOnElementNumber('Custom', 2)
         ;
     }
 
@@ -37,6 +43,7 @@ class ListPageTest extends FunctionalTestCase
     {
         (new ListPage($this->client))
             ->open()
+            ->shouldHaveAddNewElementButton()
             ->openAddNewElementForm()
             ->fillForm('l3l086')
             ->pressSubmitButton()
@@ -44,14 +51,42 @@ class ListPageTest extends FunctionalTestCase
         ;
     }
 
+    public function test_that_can_go_to_edit_page()
+    {
+        (new ListPage($this->client))
+            ->open()
+            ->clickEditButtonForElementWithNumber(1)
+            ->shouldBeRedirectedTo('/list/admin_users?id={id}')
+        ;
+    }
+
+    public function test_that_can_go_to_custom_page()
+    {
+        (new ListPage($this->client))
+            ->open()
+            ->clickCustomButtonForElementWithNumber(1)
+            ->shouldBeRedirectedTo('/custom-action?id={id}')
+        ;
+    }
+
     /**
      * @param string $username
+     * @param bool $hasNewsletter
+     * @param float $credits
+     * @param int $itemQuantity
      * @return User
      */
-    private function createUser(string $username) : User
-    {
+    private function createUser(
+        string $username,
+        bool $hasNewsletter = false,
+        float $credits = 0.00,
+        int $itemQuantity = 0
+    ) : User {
         $user = new User();
         $user->username = $username;
+        $user->hasNewsletter = $hasNewsletter;
+        $user->credits = $credits;
+        $user->itemQuantity = $itemQuantity;
 
         $this->manager->persist($user);
         $this->manager->flush();
