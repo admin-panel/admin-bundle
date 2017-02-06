@@ -36,6 +36,8 @@ class ListPageTest extends FunctionalTestCase
             ->shouldHaveButtonOnElementNumber('Display', 2)
             ->shouldHaveButtonOnElementNumber('Custom', 1)
             ->shouldHaveButtonOnElementNumber('Custom', 2)
+            ->shouldHaveAddNewElementButton()
+            ->shouldHaveDeleteBatchAction()
         ;
     }
 
@@ -75,6 +77,22 @@ class ListPageTest extends FunctionalTestCase
             ->open()
             ->shouldHaveElementsOnTheList(2)
             ->shouldSeePageHeader('List of Users (custom template)')
+        ;
+    }
+
+    public function test_that_cannot_add_element_which_have_disabled_allow_add_option()
+    {
+        (new ListPage($this->client, 'admin_custom_template_users'))
+            ->open()
+            ->shouldNotHaveAddNewElementButton()
+        ;
+    }
+
+    public function test_that_cannot_delete_element_which_have_disabled_allow_delete_option()
+    {
+        (new ListPage($this->client, 'admin_custom_template_users'))
+            ->open()
+            ->shouldNotHaveDeleteBatchAction()
         ;
     }
 

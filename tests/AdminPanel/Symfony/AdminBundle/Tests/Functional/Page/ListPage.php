@@ -93,6 +93,51 @@ class ListPage extends BasePage
     }
 
     /**
+     * @return ListPage
+     */
+    public function shouldHaveDeleteBatchAction() : ListPage
+    {
+        $options = $this->getCrawler()->filter('#batch_action_action');
+        $options = $options->each(function ($element) {
+            if ($element->text() === 'Delete') {
+                return $element->text();
+            }
+        });
+        $options = array_unique($options);
+        \PHPUnit_Framework_Assert::assertGreaterThan(0, count($options));
+
+        return $this;
+    }
+
+    /**
+     * @return ListPage
+     */
+    public function shouldNotHaveDeleteBatchAction() : ListPage
+    {
+        $options = $this->getCrawler()->filter('#batch_action_action');
+        $options = $options->each(function ($element) {
+            if ($element->text() === 'Delete') {
+                return $element->text();
+            }
+        });
+        $options = array_unique($options);
+        \PHPUnit_Framework_Assert::assertEquals(0, count($options));
+
+        return $this;
+    }
+
+    /**
+     * @return ListPage
+     */
+    public function shouldNotHaveAddNewElementButton() : ListPage
+    {
+        $linkNodes = $this->getCrawler()->selectLink('Add new');
+        \PHPUnit_Framework_Assert::assertEquals(0, $linkNodes->count());
+
+        return $this;
+    }
+
+    /**
      * @param int $whichElement
      * @return ListPage|EditPage
      */
