@@ -4,29 +4,15 @@ declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional;
 
-use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Page\ListPage;
-use Symfony\Bundle\FrameworkBundle\Client;
 
 class ListPageTest extends FunctionalTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->createUser('l3l0', true, 10.30, 6);
-        $this->createUser('otherUser', false, 5.35, 4);
-
-        $this->client = self::createClient();
-    }
-
     public function test_that_list_of_elements_is_shown()
     {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
         (new ListPage($this->client))
             ->open()
             ->shouldHaveElementsOnTheList(2)
@@ -43,6 +29,9 @@ class ListPageTest extends FunctionalTestCase
 
     public function test_adding_new_element()
     {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
         (new ListPage($this->client))
             ->open()
             ->shouldHaveAddNewElementButton()
@@ -55,6 +44,9 @@ class ListPageTest extends FunctionalTestCase
 
     public function test_that_can_go_to_edit_page()
     {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
         (new ListPage($this->client))
             ->open()
             ->clickEditButtonForElementWithNumber(1)
@@ -64,6 +56,9 @@ class ListPageTest extends FunctionalTestCase
 
     public function test_that_can_go_to_custom_page()
     {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
         (new ListPage($this->client))
             ->open()
             ->clickCustomButtonForElementWithNumber(1)
@@ -73,6 +68,9 @@ class ListPageTest extends FunctionalTestCase
 
     public function test_custom_list_template_for_element()
     {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
         (new ListPage($this->client, 'admin_custom_template_users'))
             ->open()
             ->shouldHaveElementsOnTheList(2)
@@ -82,6 +80,9 @@ class ListPageTest extends FunctionalTestCase
 
     public function test_that_cannot_add_element_which_have_disabled_allow_add_option()
     {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
         (new ListPage($this->client, 'admin_custom_template_users'))
             ->open()
             ->shouldNotHaveAddNewElementButton()
@@ -90,6 +91,9 @@ class ListPageTest extends FunctionalTestCase
 
     public function test_that_cannot_delete_element_which_have_disabled_allow_delete_option()
     {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
         (new ListPage($this->client, 'admin_custom_template_users'))
             ->open()
             ->shouldNotHaveDeleteBatchAction()
@@ -98,6 +102,9 @@ class ListPageTest extends FunctionalTestCase
 
     public function test_that_list_of_elements_is_shown_for_dbal_driver()
     {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
         (new ListPage($this->client, 'admin_users_dbal'))
             ->open()
             ->shouldHaveElementsOnTheList(2)
@@ -112,28 +119,73 @@ class ListPageTest extends FunctionalTestCase
         ;
     }
 
-    /**
-     * @param string $username
-     * @param bool $hasNewsletter
-     * @param float $credits
-     * @param int $itemQuantity
-     * @return User
-     */
-    private function createUser(
-        string $username,
-        bool $hasNewsletter = false,
-        float $credits = 0.00,
-        int $itemQuantity = 0
-    ) : User {
-        $user = new User();
-        $user->username = $username;
-        $user->hasNewsletter = $hasNewsletter;
-        $user->credits = $credits;
-        $user->itemQuantity = $itemQuantity;
+    public function test_that_can_sort_list_using_text_type()
+    {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
 
-        $this->manager->persist($user);
-        $this->manager->flush();
+        (new ListPage($this->client))
+            ->open()
+            ->sortBy('Username', 'DESC')
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 2)
+            ->sortBy('Username', 'ASC')
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 2)
+        ;
+    }
 
-        return $user;
+    public function test_that_can_sort_list_using_datetime_type()
+    {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
+        (new ListPage($this->client))
+            ->open()
+            ->sortBy('Created at', 'DESC')
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 2)
+            ->sortBy('Created at', 'ASC')
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 2)
+        ;
+    }
+
+    public function test_that_can_sort_list_using_number_type()
+    {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
+        (new ListPage($this->client))
+            ->open()
+            ->sortBy('Credits', 'ASC')
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 2)
+            ->sortBy('Credits', 'DESC')
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 2)
+        ;
+    }
+
+    public function test_that_can_filter_result_by_different_types()
+    {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
+        (new ListPage($this->client))
+            ->open()
+            ->fillFilterForm([
+                'Username' => 'l3l'
+            ])
+            ->pressSearchButton()
+            ->shouldHaveElementsOnTheList(1)
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
+            ->fillFilterForm([
+                'Credits' => 5.35
+            ])
+            ->pressSearchButton()
+            ->shouldHaveElementsOnTheList(1)
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
+        ;
     }
 }
