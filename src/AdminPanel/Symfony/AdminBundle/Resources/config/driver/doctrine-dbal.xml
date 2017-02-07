@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="datasource.driver.doctrine_dbal.factory.class">FSi\Component\DataSource\Driver\Doctrine\DBAL\Factory</parameter>
+    </parameters>
+
+    <services>
+        <!-- Doctrine extensions -->
+        <service id="datasource.driver.doctrine_dbal.extension" class="%datasource.driver.extension.class%">
+            <argument type="service" id="service_container" />
+            <argument type="string">doctrine-dbal</argument>
+            <!-- All services with tag "datasource.driver.doctrine_db.field" are inserted here by DataSourcePass -->
+            <argument type="collection" />
+            <!-- All services with tag "datasource.driver.doctrine_orm.field.subscriber" are inserted here by DataSourcePass -->
+            <argument type="collection" />
+            <!-- All services with tag "datasource.driver.doctrine_orm.subscriber" are inserted here by DataSourcePass -->
+            <argument type="collection" />
+            <tag name="datasource.driver.extension" alias="doctrine-dbal" />
+        </service>
+
+        <!-- DoctrineFactory -->
+        <service id="datasource.driver.doctrine_dbal.factory" class="%datasource.driver.doctrine_dbal.factory.class%">
+            <argument type="collection">
+                <!--
+                We don't need to be able to add more extensions.
+                 * more fields can be registered with the datasource.driver.doctrine_dbal.field tag
+                 * more field subscribers can be registered with the datasource.driver.doctrine_dbal.field.subscriber tag
+                 * more listeners can be registered with the datasource.listener tag
+                -->
+                <argument type="service" id="datasource.driver.doctrine_dbal.extension" />
+            </argument>
+            <tag name="datasource.driver.factory"/>
+        </service>
+
+        <!-- Doctrine/CoreExtension -->
+        <service id="datasource.driver.doctrine_dbal.field.date" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\DateField">
+            <tag name="datasource.driver.doctrine-dbal.field" alias="date" />
+        </service>
+        <service id="datasource.driver.doctrine_dbal.field.datetime" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\DateTimeField">
+            <tag name="datasource.driver.doctrine-dbal.field" alias="datetime" />
+        </service>
+        <service id="datasource.driver.doctrine_dbal.field.number" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\NumberField">
+            <tag name="datasource.driver.doctrine-dbal.field" alias="number" />
+        </service>
+        <service id="datasource.driver.doctrine_dbal.field.text" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\TextField">
+            <tag name="datasource.driver.doctrine-dbal.field" alias="text" />
+        </service>
+        <service id="datasource.driver.doctrine_dbal.field.boolean" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\BooleanField">
+            <tag name="datasource.driver.doctrine-dbal.field" alias="boolean" />
+        </service>
+
+        <!-- OrderingExtension -->
+        <service id="datasource.driver.doctrine_dbal.subscriber.ordering" class="FSi\Component\DataSource\Extension\Core\Ordering\Driver\DBAL\DoctrineExtension">
+            <tag name="datasource.driver.doctrine-dbal.subscriber" alias="ordering" />
+        </service>
+        <service id="datasource.driver.doctrine_dbal.field.subscriber.ordering" class="FSi\Component\DataSource\Extension\Core\Ordering\Field\DBAL\FieldExtension">
+            <tag name="datasource.driver.doctrine-dbal.field.subscriber" alias="ordering" />
+        </service>
+
+
+        <!-- Symfony/FormExtension -->
+        <service id="datasource.driver.doctrine_dbal.field.subscriber.symfonyform" class="FSi\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension">
+            <tag name="datasource.driver.doctrine-dbal.field.subscriber" alias="symfonyform" />
+            <argument type="service" id="form.factory" />
+        </service>
+        <service id="datasource.driver.doctrine_dbal.field.subscriber.symfony_null_form" class="AdminPanel\Symfony\AdminBundle\DataSource\Extension\Symfony\Form\Field\FormFieldExtension">
+            <tag name="datasource.driver.doctrine-dbal.field.subscriber" alias="symfony_null_form" />
+            <argument type="service" id="translator" />
+        </service>
+
+    </services>
+</container>

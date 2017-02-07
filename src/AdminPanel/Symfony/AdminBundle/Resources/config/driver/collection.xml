@@ -69,7 +69,7 @@
             <tag name="datasource.driver.collection.field.subscriber" alias="symfonyform" />
             <argument type="service" id="form.factory" />
         </service>
-        <service id="datasource.driver.collection.field.subscriber.symfony_null_form" class="FSi\Bundle\DataSourceBundle\DataSource\Extension\Symfony\Form\Field\FormFieldExtension">
+        <service id="datasource.driver.collection.field.subscriber.symfony_null_form" class="AdminPanel\Symfony\AdminBundle\DataSource\Extension\Symfony\Form\Field\FormFieldExtension">
             <tag name="datasource.driver.collection.field.subscriber" alias="symfony_null_form" />
             <argument type="service" id="translator" />
         </service>
