@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional;
 
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Element\CustomTemplateUserElement;
+use AdminPanel\Symfony\AdminBundle\Tests\Functional\Element\DbalUserElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Element\UserElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -93,6 +94,9 @@ class AppKernel extends Kernel
             'secret' => 'secret123',
             'test' => true,
             'form' => true,
+            'csrf_protection' => [
+                'enabled' => true
+            ],
             'templating' => [
                 'engines' => ['twig']
             ],
@@ -132,6 +136,10 @@ class AppKernel extends Kernel
         $definition = new Definition(CustomTemplateUserElement::class);
         $definition->addTag('admin.element');
         $c->setDefinition('custom_template_user_admin_element', $definition);
+
+        $definition = new Definition(DbalUserElement::class);
+        $definition->addTag('admin.element');
+        $c->setDefinition('dbal_user_admin_element', $definition);
     }
 
     /**

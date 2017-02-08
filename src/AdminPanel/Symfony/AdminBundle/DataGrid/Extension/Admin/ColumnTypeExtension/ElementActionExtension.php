@@ -56,7 +56,7 @@ class ElementActionExtension extends ColumnAbstractTypeExtension
             unset($actions[$action]['element']);
         }
 
-        $column->setOption('actions', array_replace_recursive($actions, $generatedActions));
+        $column->setOption('actions', array_replace_recursive($generatedActions, $actions));
 
         return parent::filterValue($column, $value);
     }

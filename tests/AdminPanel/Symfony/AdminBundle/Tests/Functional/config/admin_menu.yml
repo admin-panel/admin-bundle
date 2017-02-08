@@ -1,3 +1,4 @@
 menu:
   - {"id": "admin_users", "name": "Users"}
   - {"id": "admin_custom_template_users", "name": "Users (custom template)"}
+  - {"id": "admin_users_dbal", "name": "Users (dbal)"}

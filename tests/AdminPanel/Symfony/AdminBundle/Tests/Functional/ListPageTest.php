@@ -96,6 +96,22 @@ class ListPageTest extends FunctionalTestCase
         ;
     }
 
+    public function test_that_list_of_elements_is_shown_for_dbal_driver()
+    {
+        (new ListPage($this->client, 'admin_users_dbal'))
+            ->open()
+            ->shouldHaveElementsOnTheList(2)
+            ->shouldHaveButtonOnElementNumber('Edit', 1)
+            ->shouldHaveButtonOnElementNumber('Edit', 2)
+            ->shouldHaveButtonOnElementNumber('Display', 1)
+            ->shouldHaveButtonOnElementNumber('Display', 2)
+            ->shouldHaveButtonOnElementNumber('Custom', 1)
+            ->shouldHaveButtonOnElementNumber('Custom', 2)
+            ->shouldHaveAddNewElementButton()
+            ->shouldHaveDeleteBatchAction()
+        ;
+    }
+
     /**
      * @param string $username
      * @param bool $hasNewsletter
