@@ -34,7 +34,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
         $translator->expects($this->any())
             ->method('trans')
             ->will($this->returnCallback(function ($id, array $params, $translation_domain) {
-                if ($translation_domain != 'DataSourceBundle') {
+                if ($translation_domain != 'FSiAdminBundle') {
                     throw new \RuntimeException(sprintf('Unknown translation domain %s', $translation_domain));
                 }
                 switch ($id) {
@@ -83,7 +83,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
         $translator->expects($this->any())
             ->method('trans')
             ->will($this->returnCallback(function ($id, array $params, $translation_domain) {
-                if ($translation_domain != 'DataSourceBundle') {
+                if ($translation_domain != 'FSiAdminBundle') {
                     throw new \RuntimeException(sprintf('Unknown translation domain %s', $translation_domain));
                 }
                 switch ($id) {

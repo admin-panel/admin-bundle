@@ -6,6 +6,7 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Functional;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -15,6 +16,16 @@ class FunctionalTestCase extends WebTestCase
      * @var EntityManager
      */
     protected $manager;
+
+    /**
+     * @var DatabaseContext
+     */
+    protected $dbContext;
+
+    /**
+     * @var Client
+     */
+    protected $client;
 
     /**
      * Creates a Kernel.
@@ -48,8 +59,11 @@ class FunctionalTestCase extends WebTestCase
             ->get('doctrine')
             ->getManager()
         ;
+        $this->dbContext = new DatabaseContext($this->manager);
 
         $this->createSchema();
+
+        $this->client = self::createClient();
     }
 
     /**

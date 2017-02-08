@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Page;
 
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Component\DomCrawler\Form;
 
 class ListPage extends BasePage
 {
@@ -12,6 +13,11 @@ class ListPage extends BasePage
      * @var string
      */
     private $pageName;
+
+    /**
+     * @var Form
+     */
+    private $form;
 
     /**
      * @param Client $client
@@ -31,6 +37,54 @@ class ListPage extends BasePage
     public function getUrl() : string
     {
         return '/list/' . $this->pageName;
+    }
+
+    /**
+     * @param string $columnName
+     * @param string $order
+     * @return ListPage
+     */
+    public function sortBy(string $columnName, string $order = 'ASC') : ListPage
+    {
+        $sortLinkContainer = $this->getCrawler()->filter(
+            sprintf(
+                ".datagrid-header span:contains('%s')",
+                $columnName,
+                strtolower($order)
+            )
+        );
+
+        $link = $sortLinkContainer
+                ->parents()
+                ->first()
+                ->filter(sprintf('.sort-%s', strtolower($order)))
+                ->link()
+        ;
+        $this->client->click($link);
+
+        return new self($this->client, $this->pageName, $this);
+    }
+
+    /**
+     * @param string $username
+     * @param int $position
+     * @return ListPage
+     */
+    public function shouldHaveElementOnTheListAtPosition(string $username, int $position) : ListPage
+    {
+        $actualUsername = $this
+            ->getCrawler()
+            ->filter(
+                sprintf('#%s tbody tr:nth-child(%d) td.datagrid-cell', $this->pageName, $position)
+            )
+            ->first()
+            ->text()
+        ;
+        $actualUsername = trim($actualUsername);
+
+        \PHPUnit_Framework_Assert::assertEquals($username, $actualUsername);
+
+        return $this;
     }
 
     /**
@@ -173,6 +227,30 @@ class ListPage extends BasePage
 
         \PHPUnit_Framework_Assert::assertEquals($expectedTitle, $title);
         \PHPUnit_Framework_Assert::assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        return $this;
+    }
+
+    /**
+     * @param array $filterCriteria
+     * @return ListPage
+     */
+    public function fillFilterForm(array $filterCriteria) : ListPage
+    {
+        $this->form = $this->getCrawler()->filter("form.filters")->form([
+            sprintf('%s[fields][username]', $this->pageName) => $filterCriteria['Username'] ?? '',
+            sprintf('%s[fields][credits]', $this->pageName) => $filterCriteria['Credits'] ?? '',
+        ], 'GET');
+
+        return $this;
+    }
+
+    /**
+     * @return ListPage
+     */
+    public function pressSearchButton() : ListPage
+    {
+        $this->client->submit($this->form);
 
         return $this;
     }

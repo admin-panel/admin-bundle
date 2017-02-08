@@ -68,8 +68,9 @@ class ElementActionExtension extends ColumnAbstractTypeExtension
     {
         if (!($column instanceof Action)) {
             throw new RuntimeException(sprintf(
-                '%s can extend only FSi\Bundle\DataGridBundle\DataGrid\Extension\Symfony\ColumnType\Action, but got %s',
+                '%s can extend only %s, but got %s',
                 get_class($this),
+                Action::class,
                 get_class($column)
             ));
         }

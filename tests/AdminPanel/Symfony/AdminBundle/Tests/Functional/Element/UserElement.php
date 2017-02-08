@@ -84,6 +84,42 @@ final class UserElement extends CRUDElement
             'admin_users' // this is the ID of the element's datasource
         );
         $datasource->setMaxResults(10);
+        $datasource->addField(
+            'username',
+            'text',
+            'like',
+            [
+                'sortable' => true,
+                'form_filter' => true
+            ]
+        );
+        $datasource->addField(
+            'createdAt',
+            'datetime',
+            'eq',
+            [
+                'sortable' => true,
+                'form_filter' => true
+            ]
+        );
+        $datasource->addField(
+            'hasNewsletter',
+            'boolean',
+            'eq',
+            [
+                'sortable' => true,
+                'form_filter' => true
+            ]
+        );
+        $datasource->addField(
+            'credits',
+            'number',
+            'eq',
+            [
+                'sortable' => true,
+                'form_filter' => true
+            ]
+        );
 
         return $datasource;
     }
