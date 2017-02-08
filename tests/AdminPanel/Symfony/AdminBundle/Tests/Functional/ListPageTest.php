@@ -188,4 +188,60 @@ class ListPageTest extends FunctionalTestCase
             ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
         ;
     }
+
+    public function test_pagination()
+    {
+        $this->dbContext->createUsers(15);
+
+        (new ListPage($this->client))
+            ->open()
+            ->shouldHavePages(2)
+            ->shouldHaveElementsOnTheList(10)
+            ->openPage(2)
+            ->shouldHaveElementsOnTheList(5)
+        ;
+    }
+
+    public function test_pagination_for_dbal_driver()
+    {
+        $this->dbContext->createUsers(15);
+
+        (new ListPage($this->client, 'admin_users_dbal'))
+            ->open()
+            ->shouldHavePages(2)
+            ->shouldHaveElementsOnTheList(10)
+            ->openPage(2)
+            ->shouldHaveElementsOnTheList(5)
+        ;
+    }
+
+    public function test_change_list_elements_number()
+    {
+        $this->dbContext->createUsers(15);
+
+        (new ListPage($this->client))
+            ->open('GET', [], ['admin_users' => ['max_results' => 2]])
+            ->shouldHavePages(8)
+            ->shouldHaveElementsOnTheList(2)
+            ->openPage(2)
+            ->shouldHaveElementsOnTheList(2)
+            ->openPage(8)
+            ->shouldHaveElementsOnTheList(1)
+        ;
+    }
+
+    public function test_change_list_elements_number_for_dbal_driver()
+    {
+        $this->dbContext->createUsers(15);
+
+        (new ListPage($this->client, 'admin_users_dbal'))
+            ->open('GET', [], ['admin_users_dbal' => ['max_results' => 2]])
+            ->shouldHavePages(8)
+            ->shouldHaveElementsOnTheList(2)
+            ->openPage(2)
+            ->shouldHaveElementsOnTheList(2)
+            ->openPage(8)
+            ->shouldHaveElementsOnTheList(1)
+        ;
+    }
 }

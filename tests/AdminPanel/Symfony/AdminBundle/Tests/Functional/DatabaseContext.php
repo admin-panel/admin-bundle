@@ -23,6 +23,21 @@ final class DatabaseContext
     }
 
     /**
+     * @param int $howMany
+     * @return User[]
+     */
+    public function createUsers(int $howMany) : array
+    {
+        $users = [];
+
+        for($i = 1; $i <= $howMany; ++$i) {
+            $users[] = $this->createUser(sprintf('user-%d', $i));
+        }
+
+        return $users;
+    }
+
+    /**
      * @param string $username
      * @param bool $hasNewsletter
      * @param float $credits
