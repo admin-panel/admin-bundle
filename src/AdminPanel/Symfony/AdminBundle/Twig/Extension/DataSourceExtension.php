@@ -241,7 +241,7 @@ class DataSourceExtension extends \Twig_Extension
                 'additional_parameters' => [],
                 'active_class' => 'active',
                 'disabled_class' => 'disabled',
-                'translation_domain' => 'DataSourceBundle'
+                'translation_domain' => 'FSiAdminBundle'
             ])
             ->setAllowedTypes('route', 'string')
             ->setAllowedTypes('additional_parameters', 'array')

@@ -6,6 +6,7 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Page;
 
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Form;
+use Symfony\Component\DomCrawler\Link;
 
 class ListPage extends BasePage
 {
@@ -144,6 +145,41 @@ class ListPage extends BasePage
         \PHPUnit_Framework_Assert::assertGreaterThan(0, $linkNodes->count());
 
         return $this;
+    }
+
+    /**
+     * @return ListPage
+     */
+    public function shouldHavePages(int $howMany) : ListPage
+    {
+        $link = $this->getCrawler()->selectLink('last')->link();
+
+        $queryString = parse_url($link->getUri(), PHP_URL_QUERY);
+        $queryStringInfo = [];
+        parse_str($queryString, $queryStringInfo);
+
+        if (! isset($queryStringInfo[$this->pageName]['page'])) {
+            \PHPUnit_Framework_Assert::fail('Cannot parse last link query string');
+        }
+
+        \PHPUnit_Framework_Assert::assertEquals($howMany, (int) $queryStringInfo[$this->pageName]['page'], 'Page numbers in last link match expected one');
+
+        return $this;
+    }
+
+    /**
+     * @param int $pageNumber
+     * @return ListPage
+     */
+    public function openPage(int $pageNumber) : ListPage
+    {
+        $link = $this->getCrawler()->filter('.pagination')->selectLink($pageNumber);
+
+        \PHPUnit_Framework_Assert::assertGreaterThan(0, $link->count(), 'Paginator link found on page');
+
+        $this->client->click($link->link());
+
+        return new ListPage($this->client, $this->pageName, $this);
     }
 
     /**

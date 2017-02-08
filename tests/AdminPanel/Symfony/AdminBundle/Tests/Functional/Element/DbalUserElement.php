@@ -97,6 +97,7 @@ final class DbalUserElement extends CRUDElement
             'countField' => 'u.id',
             'indexField' => 'id'
         ], $this->getId());
+        $datasource->setMaxResults(10);
 
         $datasource->addField('username', 'text', 'like', [
             'field' => 'u.username',
