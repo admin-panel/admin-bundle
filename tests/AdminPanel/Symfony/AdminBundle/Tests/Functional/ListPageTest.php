@@ -16,41 +16,11 @@ class ListPageTest extends FunctionalTestCase
         (new ListPage($this->client))
             ->open()
             ->shouldHaveElementsOnTheList(2)
-            ->shouldHaveButtonOnElementNumber('Edit', 1)
-            ->shouldHaveButtonOnElementNumber('Edit', 2)
             ->shouldHaveButtonOnElementNumber('Display', 1)
             ->shouldHaveButtonOnElementNumber('Display', 2)
             ->shouldHaveButtonOnElementNumber('Custom', 1)
             ->shouldHaveButtonOnElementNumber('Custom', 2)
-            ->shouldHaveAddNewElementButton()
             ->shouldHaveDeleteBatchAction()
-        ;
-    }
-
-    public function test_adding_new_element()
-    {
-        $this->dbContext->createUser('l3l0', true, 10.30, 6);
-        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
-
-        (new ListPage($this->client))
-            ->open()
-            ->shouldHaveAddNewElementButton()
-            ->openAddNewElementForm()
-            ->fillForm('l3l086')
-            ->pressSubmitButton()
-            ->shouldHaveElementsOnTheList(3)
-        ;
-    }
-
-    public function test_that_can_go_to_edit_page()
-    {
-        $this->dbContext->createUser('l3l0', true, 10.30, 6);
-        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
-
-        (new ListPage($this->client))
-            ->open()
-            ->clickEditButtonForElementWithNumber(1)
-            ->shouldBeRedirectedTo('/list/admin_users?id={id}')
         ;
     }
 
@@ -78,17 +48,6 @@ class ListPageTest extends FunctionalTestCase
         ;
     }
 
-    public function test_that_cannot_add_element_which_have_disabled_allow_add_option()
-    {
-        $this->dbContext->createUser('l3l0', true, 10.30, 6);
-        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
-
-        (new ListPage($this->client, 'admin_custom_template_users'))
-            ->open()
-            ->shouldNotHaveAddNewElementButton()
-        ;
-    }
-
     public function test_that_cannot_delete_element_which_have_disabled_allow_delete_option()
     {
         $this->dbContext->createUser('l3l0', true, 10.30, 6);
@@ -108,13 +67,10 @@ class ListPageTest extends FunctionalTestCase
         (new ListPage($this->client, 'admin_users_dbal'))
             ->open()
             ->shouldHaveElementsOnTheList(2)
-            ->shouldHaveButtonOnElementNumber('Edit', 1)
-            ->shouldHaveButtonOnElementNumber('Edit', 2)
             ->shouldHaveButtonOnElementNumber('Display', 1)
             ->shouldHaveButtonOnElementNumber('Display', 2)
             ->shouldHaveButtonOnElementNumber('Custom', 1)
             ->shouldHaveButtonOnElementNumber('Custom', 2)
-            ->shouldHaveAddNewElementButton()
             ->shouldHaveDeleteBatchAction()
         ;
     }

@@ -43,17 +43,6 @@ class CRUDElementSpec extends ObjectBehavior
     /**
      * @param \Doctrine\Common\Persistence\ObjectManager $om
      */
-    public function it_should_save_object_at_object_manager($om)
-    {
-        $om->persist(Argument::type('stdClass'))->shouldBeCalled();
-        $om->flush()->shouldBeCalled();
-
-        $this->save(new \stdClass());
-    }
-
-    /**
-     * @param \Doctrine\Common\Persistence\ObjectManager $om
-     */
     public function it_should_remove_object_from_object_manager($om)
     {
         $om->remove(Argument::type('stdClass'))->shouldBeCalled();

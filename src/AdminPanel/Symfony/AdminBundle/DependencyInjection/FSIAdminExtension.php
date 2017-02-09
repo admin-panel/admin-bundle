@@ -34,7 +34,6 @@ class FSIAdminExtension extends Extension
         $loader->load('knp-menu.xml');
         $loader->load('locale_listener.xml');
         $loader->load('context/list.xml');
-        $loader->load('context/form.xml');
         $loader->load('context/batch.xml');
         $loader->load('context/display.xml');
 

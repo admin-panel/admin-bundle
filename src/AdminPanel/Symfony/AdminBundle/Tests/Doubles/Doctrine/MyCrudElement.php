@@ -34,8 +34,4 @@ class MyCrudElement extends CRUDElement
     protected function initDataSource(DataSourceFactoryInterface $factory)
     {
     }
-
-    protected function initForm(FormFactoryInterface $factory, $data = null)
-    {
-    }
 }

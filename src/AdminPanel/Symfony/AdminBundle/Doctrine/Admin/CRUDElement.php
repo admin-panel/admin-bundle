@@ -13,15 +13,6 @@ abstract class CRUDElement extends AbstractCRUD implements Element
     /**
      * {@inheritdoc}
      */
-    public function save($object)
-    {
-        $this->getObjectManager()->persist($object);
-        $this->getObjectManager()->flush();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function saveDataGrid()
     {
         $this->getObjectManager()->flush();

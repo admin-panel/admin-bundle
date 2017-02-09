@@ -10,8 +10,6 @@ use FSi\Component\DataGrid\DataGridFactoryInterface;
 use FSi\Component\DataGrid\DataGridInterface;
 use FSi\Component\DataSource\DataSourceFactoryInterface;
 use FSi\Component\DataSource\DataSourceInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,11 +24,6 @@ abstract class AbstractCRUD extends AbstractElement implements CRUDElement
      * @var \FSi\Component\DataGrid\DataGridFactoryInterface
      */
     protected $datagridFactory;
-
-    /**
-     * @var \Symfony\Component\Form\FormFactoryInterface
-     */
-    protected $formFactory;
 
     /**
      * {@inheritdoc}
@@ -63,35 +56,15 @@ abstract class AbstractCRUD extends AbstractElement implements CRUDElement
     {
         $resolver->setDefaults([
             'allow_delete' => true,
-            'allow_add' => true,
             'template_crud_list' => null,
-            'template_crud_create' => null,
-            'template_crud_edit' => null,
             'template_list' => function (Options $options) {
                 return $options['template_crud_list'];
-            },
-            'template_form' => function (Options $options) {
-                return $options['template_crud_edit'];
             }
         ]);
 
-        $resolver->setNormalizer('template_crud_create', function (Options $options, $value) {
-            if ($value !== $options['template_crud_edit']) {
-                throw new RuntimeException(
-                    'CRUD admin element options "template_crud_create" and "template_crud_edit" have both to have the same value'
-                );
-            }
-
-            return $value;
-        });
-
         $resolver->setAllowedTypes('allow_delete', 'bool');
-        $resolver->setAllowedTypes('allow_add', 'bool');
         $resolver->setAllowedTypes('template_crud_list', ['null', 'string']);
-        $resolver->setAllowedTypes('template_crud_create', ['null', 'string']);
-        $resolver->setAllowedTypes('template_crud_edit', ['null', 'string']);
         $resolver->setAllowedTypes('template_list', ['null', 'string']);
-        $resolver->setAllowedTypes('template_form', ['null', 'string']);
     }
 
     /**
@@ -116,14 +89,6 @@ abstract class AbstractCRUD extends AbstractElement implements CRUDElement
     public function setDataSourceFactory(DataSourceFactoryInterface $factory)
     {
         $this->datasourceFactory = $factory;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setFormFactory(FormFactoryInterface $factory)
-    {
-        $this->formFactory = $factory;
     }
 
     /**
@@ -170,20 +135,6 @@ abstract class AbstractCRUD extends AbstractElement implements CRUDElement
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function createForm($data = null)
-    {
-        $form = $this->initForm($this->formFactory, $data);
-
-        if (!is_object($form) || !$form instanceof FormInterface) {
-            throw new RuntimeException('initForm should return instanceof Symfony\\Component\\Form\\FormInterface');
-        }
-
-        return $form;
-    }
-
-    /**
      * Initialize DataGrid.
      *
      * @param \FSi\Component\DataGrid\DataGridFactoryInterface $factory
@@ -198,13 +149,4 @@ abstract class AbstractCRUD extends AbstractElement implements CRUDElement
      * @return \FSi\Component\DataSource\DataSourceInterface
      */
     abstract protected function initDataSource(DataSourceFactoryInterface $factory);
-
-    /**
-     * Initialize create Form. This form will be used in createAction in CRUDController.
-     *
-     * @param \Symfony\Component\Form\FormFactoryInterface $factory
-     * @param mixed $data
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    abstract protected function initForm(FormFactoryInterface $factory, $data = null);
 }

@@ -89,14 +89,6 @@ class ListPage extends BasePage
     }
 
     /**
-     * @return CreateFormPage
-     */
-    public function openAddNewElementForm() : CreateFormPage
-    {
-        return (new CreateFormPage($this->client, $this->pageName, $this))->open();
-    }
-
-    /**
      * @param int $howManyElements
      * @return ListPage
      */
@@ -132,17 +124,6 @@ class ListPage extends BasePage
         if (!$elements) {
             \PHPUnit_Framework_Assert::fail(sprintf('Element %d do not find', $whichElement));
         }
-
-        return $this;
-    }
-
-    /**
-     * @return ListPage
-     */
-    public function shouldHaveAddNewElementButton() : ListPage
-    {
-        $linkNodes = $this->getCrawler()->selectLink('Add new');
-        \PHPUnit_Framework_Assert::assertGreaterThan(0, $linkNodes->count());
 
         return $this;
     }
@@ -212,30 +193,6 @@ class ListPage extends BasePage
         });
         $options = array_unique($options);
         \PHPUnit_Framework_Assert::assertEquals(0, count($options));
-
-        return $this;
-    }
-
-    /**
-     * @return ListPage
-     */
-    public function shouldNotHaveAddNewElementButton() : ListPage
-    {
-        $linkNodes = $this->getCrawler()->selectLink('Add new');
-        \PHPUnit_Framework_Assert::assertEquals(0, $linkNodes->count());
-
-        return $this;
-    }
-
-    /**
-     * @param int $whichElement
-     * @return ListPage|EditPage
-     */
-    public function clickEditButtonForElementWithNumber(int $whichElement) : Page
-    {
-        if ($this->clickButtonForElementWithNumber('Edit', $whichElement)) {
-            return new EditPage($this->client, $this->pageName, $this);
-        }
 
         return $this;
     }

@@ -37,9 +37,6 @@ class AdminElementParamConverterSpec extends ObjectBehavior
         $configuration->getClass()->willReturn('AdminPanel\Symfony\AdminBundle\Admin\CRUD\AbstractCRUD');
         $this->supports($configuration)->shouldReturn(true);
 
-        $configuration->getClass()->willReturn('AdminPanel\Symfony\AdminBundle\Admin\CRUD\FormElement');
-        $this->supports($configuration)->shouldReturn(true);
-
         $configuration->getClass()->willReturn('AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement');
         $this->supports($configuration)->shouldReturn(true);
 

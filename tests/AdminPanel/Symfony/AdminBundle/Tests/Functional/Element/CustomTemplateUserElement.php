@@ -8,9 +8,6 @@ use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\CRUDElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
 use FSi\Component\DataSource\DataSourceFactoryInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CustomTemplateUserElement extends CRUDElement
@@ -87,25 +84,8 @@ final class CustomTemplateUserElement extends CRUDElement
         parent::setDefaultOptions($resolver);
 
         $resolver->setDefaults([
-            "allow_add" => false,
             "allow_delete" => false,
-            "template_list" => "@app/admin/list.html.twig",
-            "template_form" => "@app/admin/form.html.twig"
+            "template_list" => "@app/admin/list.html.twig"
         ]);
-    }
-
-    /**
-     * Initialize create Form. This form will be used in createAction in CRUDController.
-     *
-     * @param \Symfony\Component\Form\FormFactoryInterface $factory
-     * @param mixed $data
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    protected function initForm(FormFactoryInterface $factory, $data = null)
-    {
-        $builder = $factory->createBuilder(FormType::class, $data, ['data_class' => User::class]);
-        $builder->add('username', TextType::class, ['required' => true]);
-
-        return $builder->getForm();
     }
 }

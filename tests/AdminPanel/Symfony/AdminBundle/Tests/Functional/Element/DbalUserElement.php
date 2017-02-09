@@ -48,12 +48,6 @@ final class DbalUserElement extends CRUDElement
             'label' => 'Actions',
             'field_mapping' => ['[id]'],
             'actions' => [
-                'edit' => [
-                    'element' => $this->getId(),
-                    'parameters_field_mapping' => [
-                        'id' => '[id]'
-                    ],
-                ],
                 'display' => [
                     'element' => $this->getId(),
                     'route_name' => 'fsi_admin_display',
@@ -144,20 +138,5 @@ final class DbalUserElement extends CRUDElement
     public function getClassName()
     {
         return User::class;
-    }
-
-    /**
-     * Initialize create Form. This form will be used in createAction in CRUDController.
-     *
-     * @param \Symfony\Component\Form\FormFactoryInterface $factory
-     * @param mixed $data
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    protected function initForm(FormFactoryInterface $factory, $data = null)
-    {
-        $builder = $factory->createBuilder(FormType::class, $data, ['data_class' => User::class]);
-        $builder->add('username', TextType::class, ['required' => true]);
-
-        return $builder->getForm();
     }
 }

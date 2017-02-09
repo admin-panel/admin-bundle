@@ -83,34 +83,14 @@ class AbstractCRUDSpec extends ObjectBehavior
             ->during('createDataSource');
     }
 
-    /**
-     * @param \Symfony\Component\Form\FormFactoryInterface $factory
-     */
-    public function it_throw_exception_when_init_form_does_not_return_instance_of_form($factory)
-    {
-        $this->setFormFactory($factory);
-        $factory->create(Argument::cetera())->willReturn(null);
-
-        $this->shouldThrow(new RuntimeException("initForm should return instanceof Symfony\\Component\\Form\\FormInterface"))
-            ->during('createForm', [null]);
-    }
-
     public function it_has_default_options_values()
     {
         $options = $this->getOptions();
         $options->shouldHaveKey('allow_delete');
-        $options->shouldHaveKey('allow_add');
         $options->shouldHaveKey('template_crud_list');
-        $options->shouldHaveKey('template_crud_create');
-        $options->shouldHaveKey('template_crud_edit');
         $options->shouldHaveKey('template_list');
-        $options->shouldHaveKey('template_form');
         $options['allow_delete']->shouldBe(true);
-        $options['allow_add']->shouldBe(true);
         $options['template_crud_list']->shouldBe(null);
-        $options['template_crud_create']->shouldBe(null);
-        $options['template_crud_edit']->shouldBe(null);
         $options['template_list']->shouldBe(null);
-        $options['template_form']->shouldBe(null);
     }
 }
