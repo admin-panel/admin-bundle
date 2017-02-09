@@ -292,6 +292,36 @@ class ListPage extends BasePage
     }
 
     /**
+     * @param array $elementNumbers
+     * @return ListPage
+     */
+    public function batchDeleteElements(array $elementNumbers) : ListPage
+    {
+        $elementNumbers = array_map(function ($number) {
+            return (string) $number;
+        }, $elementNumbers);
+
+        $token = $this->getCrawler()->filter('.form.hidden')->form()->get('batch_action[_token]')->getValue();
+        $this->client->request(
+            'POST',
+            sprintf('/batch/%s?redirect_uri=/list/%s', $this->pageName, $this->pageName),
+            [
+                'indexes' => $elementNumbers,
+                'batch_action' => [
+                    '_token' => $token
+                ]
+            ]
+        );
+
+        $listPage = new ListPage($this->client, $this->pageName, $this);
+        if ($this->client->getResponse()->getStatusCode() === 302) {
+            return $listPage->open();
+        }
+
+        return $listPage;
+    }
+
+    /**
      * @param string $buttonLabel
      * @param int $whichElement
      * @return bool
