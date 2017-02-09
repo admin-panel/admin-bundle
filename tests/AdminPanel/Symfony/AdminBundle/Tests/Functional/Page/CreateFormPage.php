@@ -57,6 +57,7 @@ class CreateFormPage extends BasePage
         $status = $this->client->getResponse()->getStatusCode();
 
         $listPage = new ListPage($this->client, $this->pageName, $this);
+
         if ($status === 302 && $listPage->getUrl() === $this->client->getResponse()->getTargetUrl()) {
             return $listPage->open();
         }

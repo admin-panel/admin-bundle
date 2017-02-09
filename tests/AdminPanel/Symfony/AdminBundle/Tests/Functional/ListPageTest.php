@@ -244,4 +244,19 @@ class ListPageTest extends FunctionalTestCase
             ->shouldHaveElementsOnTheList(1)
         ;
     }
+
+    public function test_delete_batch_action()
+    {
+        $this->dbContext->createUser('l3l0');
+        $this->dbContext->createUser('otherUser');
+        $this->dbContext->createUser('niflheim');
+
+        (new ListPage($this->client))
+            ->open()
+            ->shouldHaveElementsOnTheList(3)
+            ->batchDeleteElements([1, 3])
+            ->shouldHaveElementsOnTheList(1)
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
+        ;
+    }
 }

@@ -44,7 +44,11 @@ final class UserElement extends CRUDElement
             'field_mapping' => ['id'],
             'actions' => [
                 'edit' => [
-                    'element' => 'admin_users'
+                    'element' => 'admin_users',
+                    'route_name' => 'fsi_admin_crud_edit',
+                    'parameters_field_mapping' => [
+                        'id' => 'id'
+                    ]
                 ],
                 'display' => [
                     'element' => 'admin_users',
@@ -96,15 +100,6 @@ final class UserElement extends CRUDElement
         $datasource->addField(
             'createdAt',
             'datetime',
-            'eq',
-            [
-                'sortable' => true,
-                'form_filter' => true
-            ]
-        );
-        $datasource->addField(
-            'hasNewsletter',
-            'boolean',
             'eq',
             [
                 'sortable' => true,
