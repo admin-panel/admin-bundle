@@ -256,6 +256,7 @@ class ListPageTest extends FunctionalTestCase
             ->shouldHaveElementsOnTheList(3)
             ->batchDeleteElements([1, 3])
             ->shouldHaveElementsOnTheList(1)
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
         ;
     }
 }
