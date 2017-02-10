@@ -105,16 +105,6 @@
     {% endspaceless %}
 {% endblock %}
 
-{#  pattern: datagrid_column_type_action_cell_action_{action_name} #}
-{% block datagrid_column_type_action_cell_action_display %}
-    {% spaceless %}
-        <a href="{{ attr.href }}" title="{{ 'crud.list.datagrid.action.display'|trans({}, 'FSiAdminBundle') }}"
-           class="btn btn-warning btn-sm">
-            <span class="glyphicon glyphicon-zoom-in icon-white"></span>
-        </a>
-    {% endspaceless %}
-{% endblock %}
-
 {%- block datagrid_header_class -%}
     datagrid-header
 {%- endblock datagrid_header_class -%}

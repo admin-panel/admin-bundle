@@ -35,7 +35,6 @@ class FSIAdminExtension extends Extension
         $loader->load('locale_listener.xml');
         $loader->load('context/list.xml');
         $loader->load('context/batch.xml');
-        $loader->load('context/display.xml');
 
         if (isset($config['data_grid']['yaml_configuration']) && $config['data_grid']['yaml_configuration']) {
             $loader->load('datagrid_yaml_configuration.xml');

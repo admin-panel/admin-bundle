@@ -16,7 +16,6 @@
         <parameter key="admin.element.factory.worker.doctrine.class">AdminPanel\Symfony\AdminBundle\Factory\Worker\DoctrineWorker</parameter>
         <parameter key="admin.element.factory.worker.request_stack.class">AdminPanel\Symfony\AdminBundle\Factory\Worker\RequestStackWorker</parameter>
         <parameter key="admin.controller.resource.class">AdminPanel\Symfony\AdminBundle\Controller\ResourceController</parameter>
-        <parameter key="admin.controller.display.class">AdminPanel\Symfony\AdminBundle\Controller\DisplayController</parameter>
         <parameter key="admin.controller.list.class">AdminPanel\Symfony\AdminBundle\Controller\ListController</parameter>
         <parameter key="admin.controller.batch.class">AdminPanel\Symfony\AdminBundle\Controller\BatchController</parameter>
         <parameter key="admin.controller.admin.class">AdminPanel\Symfony\AdminBundle\Controller\AdminController</parameter>
@@ -73,13 +72,6 @@
             <argument type="service" id="templating"/>
             <argument type="service" id="admin.context.manager"/>
             <argument>%admin.templates.resource%</argument>
-            <tag name="admin.event_dispatcher_aware"/>
-        </service>
-
-        <service id="admin.controller.display" class="%admin.controller.display.class%">
-            <argument type="service" id="templating"/>
-            <argument type="service" id="admin.context.manager"/>
-            <argument>%admin.templates.display%</argument>
             <tag name="admin.event_dispatcher_aware"/>
         </service>
 

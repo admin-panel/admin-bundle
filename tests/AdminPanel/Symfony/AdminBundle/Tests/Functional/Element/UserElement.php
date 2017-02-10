@@ -40,13 +40,6 @@ final class UserElement extends ListElement
             'label' => 'Actions',
             'field_mapping' => ['id'],
             'actions' => [
-                'display' => [
-                    'element' => 'admin_users',
-                    'route_name' => 'fsi_admin_display',
-                    'parameters_field_mapping' => [
-                        'id' => 'id'
-                    ]
-                ],
                 'custom' => [
                     'url_attr' => [
                         'class' => 'btn btn-warning btn-small-horizontal',
