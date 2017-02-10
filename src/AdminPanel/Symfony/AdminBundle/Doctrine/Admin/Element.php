@@ -6,7 +6,7 @@ namespace AdminPanel\Symfony\AdminBundle\Doctrine\Admin;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-interface Element extends CRUDInterface, DoctrineAwareInterface
+interface Element extends DoctrineAwareInterface
 {
     /**
      * Class name that represent entity. It might be returned in Symfony2 style:

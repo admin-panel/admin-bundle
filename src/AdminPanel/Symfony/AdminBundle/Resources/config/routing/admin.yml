@@ -14,12 +14,6 @@ fsi_admin_list:
     defaults:
         _controller: admin.controller.list:listAction
 
-fsi_admin_form:
-    path: /form/{element}/{id}
-    defaults:
-        _controller: admin.controller.form:formAction
-        id: null
-
 fsi_admin_batch:
     path: /batch/{element}
     defaults:
@@ -30,20 +24,6 @@ fsi_admin_crud_list:
     path: /list/{element}
     defaults:
         _controller: admin.controller.list:listAction
-
-# Deprecated since version 1.1, to be removed in 1.2. Use fsi_admin_form instead.
-fsi_admin_crud_create:
-    path: /form/{element}/{id}
-    defaults:
-        _controller: admin.controller.form:formAction
-        id: null
-
-# Deprecated since version 1.1, to be removed in 1.2. Use fsi_admin_form instead.
-fsi_admin_crud_edit:
-    path: /form/{element}/{id}
-    defaults:
-        _controller: admin.controller.form:formAction
-        id: null
 
 # Deprecated since version 1.1, to be removed in 1.2. Use fsi_admin_batch instead.
 fsi_admin_crud_delete:
@@ -56,7 +36,3 @@ fsi_admin_resource:
     defaults:
         _controller: admin.controller.resource:resourceAction
 
-fsi_admin_display:
-    path: /display/{element}/{id}
-    defaults:
-        _controller: admin.controller.display:displayAction

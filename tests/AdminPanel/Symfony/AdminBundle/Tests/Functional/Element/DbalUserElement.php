@@ -4,15 +4,12 @@ declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
-use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\CRUDElement;
+use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
 use FSi\Component\DataSource\DataSourceFactoryInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormFactoryInterface;
 
-final class DbalUserElement extends CRUDElement
+final class DbalUserElement extends ListElement
 {
     /**
      * Initialize DataGrid.
@@ -48,19 +45,6 @@ final class DbalUserElement extends CRUDElement
             'label' => 'Actions',
             'field_mapping' => ['[id]'],
             'actions' => [
-                'edit' => [
-                    'element' => $this->getId(),
-                    'parameters_field_mapping' => [
-                        'id' => '[id]'
-                    ],
-                ],
-                'display' => [
-                    'element' => $this->getId(),
-                    'route_name' => 'fsi_admin_display',
-                    'parameters_field_mapping' => [
-                        'id' => '[id]'
-                    ],
-                ],
                 'custom' => [
                     'url_attr' => [
                         'class' => 'btn btn-warning btn-small-horizontal',
@@ -144,20 +128,5 @@ final class DbalUserElement extends CRUDElement
     public function getClassName()
     {
         return User::class;
-    }
-
-    /**
-     * Initialize create Form. This form will be used in createAction in CRUDController.
-     *
-     * @param \Symfony\Component\Form\FormFactoryInterface $factory
-     * @param mixed $data
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    protected function initForm(FormFactoryInterface $factory, $data = null)
-    {
-        $builder = $factory->createBuilder(FormType::class, $data, ['data_class' => User::class]);
-        $builder->add('username', TextType::class, ['required' => true]);
-
-        return $builder->getForm();
     }
 }

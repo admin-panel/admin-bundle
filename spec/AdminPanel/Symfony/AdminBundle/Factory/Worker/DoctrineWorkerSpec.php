@@ -17,7 +17,7 @@ class DoctrineWorkerSpec extends ObjectBehavior
     }
 
     /**
-     * @param \AdminPanel\Symfony\AdminBundle\Doctrine\Admin\CRUDElement $element
+     * @param \AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement $element
      * @param \Doctrine\Common\Persistence\ManagerRegistry $managerRegistry
      */
     public function it_mount_datagrid_factory_to_elements_that_are_doctrine_elements($element, $managerRegistry)
