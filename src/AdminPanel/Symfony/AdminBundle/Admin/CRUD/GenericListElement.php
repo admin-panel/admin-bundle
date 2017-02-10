@@ -12,7 +12,7 @@ use FSi\Component\DataSource\DataSourceFactoryInterface;
 use FSi\Component\DataSource\DataSourceInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class GenericListElement extends AbstractElement implements ListElement
+abstract class GenericListElement extends AbstractElement implements ListElement, DeleteElement
 {
     /**
      * @var \FSi\Component\DataSource\DataSourceFactoryInterface
@@ -35,13 +35,17 @@ abstract class GenericListElement extends AbstractElement implements ListElement
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function getSuccessRouteParameters()
     {
-        $resolver->setDefaults([
-            'template_list' => null,
-        ]);
+        return $this->getRouteParameters();
+    }
 
-        $resolver->setAllowedTypes('template_list', ['null', 'string']);
+    /**
+     * {@inheritdoc}
+     */
+    public function getSuccessRoute()
+    {
+        return $this->getRoute();
     }
 
     /**
@@ -71,6 +75,21 @@ abstract class GenericListElement extends AbstractElement implements ListElement
             throw new RuntimeException('initDataGrid should return instanceof FSi\\Component\\DataGrid\\DataGridInterface');
         }
 
+        if ($this->options['allow_delete']) {
+            if (!$datagrid->hasColumnType('batch')) {
+                $datagrid->addColumn('batch', 'batch', [
+                    'actions' => [
+                        'delete' => [
+                            'route_name' => 'fsi_admin_batch',
+                            'additional_parameters' => ['element' => $this->getId()],
+                            'label' => 'crud.list.batch.delete'
+                        ]
+                    ],
+                    'display_order' => -1000
+                ]);
+            }
+        }
+
         return $datagrid;
     }
 
@@ -86,6 +105,28 @@ abstract class GenericListElement extends AbstractElement implements ListElement
         }
 
         return $datasource;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'allow_delete' => true,
+            'template_list' => null,
+        ]);
+
+        $resolver->setAllowedTypes('allow_delete', 'bool');
+        $resolver->setAllowedTypes('template_list', ['null', 'string']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function apply($object)
+    {
+        $this->delete($object);
     }
 
     /**

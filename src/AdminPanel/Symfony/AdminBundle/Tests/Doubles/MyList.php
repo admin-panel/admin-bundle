@@ -29,4 +29,8 @@ class MyList extends GenericListElement
     public function saveDataGrid()
     {
     }
+
+    public function delete($object)
+    {
+    }
 }

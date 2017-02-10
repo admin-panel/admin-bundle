@@ -4,15 +4,12 @@ declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
-use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\CRUDElement;
+use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
 use FSi\Component\DataSource\DataSourceFactoryInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormFactoryInterface;
 
-final class UserElement extends CRUDElement
+final class UserElement extends ListElement
 {
     /**
      * Initialize DataGrid.

@@ -40,7 +40,7 @@ class ListWorkerSpec extends ObjectBehavior
     }
 
     /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\AbstractCRUD $element
+     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListElement $element
      * @param \FSi\Component\DataSource\DataSourceFactory $dataSourceFactory
      * @param \FSi\Component\DataGrid\DataGridFactory $dataGridFactory
      */

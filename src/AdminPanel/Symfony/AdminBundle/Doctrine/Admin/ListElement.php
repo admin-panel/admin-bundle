@@ -17,4 +17,13 @@ abstract class ListElement extends GenericListElement implements Element
     {
         $this->getObjectManager()->flush();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete($object)
+    {
+        $this->getObjectManager()->remove($object);
+        $this->getObjectManager()->flush();
+    }
 }

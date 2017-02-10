@@ -65,6 +65,7 @@ class GenericListElementSpec extends ObjectBehavior
     public function it_has_default_options_values()
     {
         $this->getOptions()->shouldReturn([
+            'allow_delete' => true,
             'template_list' => null,
         ]);
     }
