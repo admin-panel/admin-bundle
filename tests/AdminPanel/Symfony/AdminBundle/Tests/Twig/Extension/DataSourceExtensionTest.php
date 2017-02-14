@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundleBundle\Tests\Twig\Extension;
 
+use AdminPanel\Component\DataSource\Field\FieldViewInterface;
 use AdminPanel\Symfony\AdminBundle\Twig\Extension\DataSourceExtension;
-use FSi\Component\DataSource\DataSourceViewInterface;
+use AdminPanel\Component\DataSource\DataSourceViewInterface;
 use Symfony\Bridge\Twig\Form\TwigRenderer;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Bridge\Twig\Extension\FormExtension;
@@ -73,17 +74,17 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
         $this->twig->initRuntime();
 
         $datasourceView = $this->getDataSourceView('datasource');
-        $fieldView1 = $this->getMock('FSi\Component\DataSource\Field\FieldViewInterface', ['__construct', 'getName', 'getType', 'getComparison', 'getParameter', 'getDataSourceView', 'setDataSourceView', 'hasAttribute', 'getAttribute', 'getAttributes', 'setAttribute', 'removeAttribute']);
+        $fieldView1 = $this->createMock(FieldViewInterface::class);
         $fieldView1->expects($this->atLeastOnce())
             ->method('hasAttribute')
             ->with('form')
             ->will($this->returnValue(true));
-        $fieldView2 = $this->getMock('FSi\Component\DataSource\Field\FieldViewInterface', ['__construct', 'getName', 'getType', 'getComparison', 'getParameter', 'getDataSourceView', 'setDataSourceView', 'hasAttribute', 'getAttribute', 'getAttributes', 'setAttribute', 'removeAttribute']);
+        $fieldView2 = $this->createMock(FieldViewInterface::class);
         $fieldView2->expects($this->atLeastOnce())
             ->method('hasAttribute')
             ->with('form')
             ->will($this->returnValue(false));
-        $fieldView3 = $this->getMock('FSi\Component\DataSource\Field\FieldViewInterface', ['__construct', 'getName', 'getType', 'getComparison', 'getParameter', 'getDataSourceView', 'setDataSourceView', 'hasAttribute', 'getAttribute', 'getAttributes', 'setAttribute', 'removeAttribute']);
+        $fieldView3 = $this->createMock(FieldViewInterface::class);
         $fieldView3->expects($this->atLeastOnce())
             ->method('hasAttribute')
             ->with('form')
@@ -102,11 +103,7 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->twig->addExtension($this->extension);
         $this->twig->initRuntime();
-        $template = $this->getMock(
-            '\Twig_Template',
-            ['hasBlock', 'render', 'display', 'getEnvironment', 'displayBlock', 'getParent', 'getTemplateName', 'doDisplay'],
-            [$this->twig]
-        );
+        $template = $this->createMock('\Twig_Template');
 
         $template->expects($this->at(0))
             ->method('hasBlock')
@@ -143,16 +140,8 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
         $this->twig->addExtension($this->extension);
         $this->twig->initRuntime();
 
-        $parent = $this->getMock(
-            '\Twig_Template',
-            ['hasBlock', 'render', 'display', 'getEnvironment', 'displayBlock', 'getParent', 'getTemplateName', 'doDisplay'],
-            [$this->twig]
-        );
-        $template = $this->getMock(
-            '\Twig_Template',
-            ['hasBlock', 'render', 'display', 'getEnvironment', 'displayBlock', 'getParent', 'getTemplateName', 'doDisplay'],
-            [$this->twig]
-        );
+        $parent = $this->createMock('\Twig_Template');
+        $template = $this->createMock('\Twig_Template');
 
         $template->expects($this->at(0))
             ->method('hasBlock')
@@ -196,7 +185,7 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function getRouter()
     {
-        $router = $this->getMock('\Symfony\Component\Routing\RouterInterface', ['getRouteCollection', 'match', 'setContext', 'getContext', 'generate']);
+        $router = $this->createMock('\Symfony\Component\Routing\RouterInterface');
         $router->expects($this->any())
             ->method('generate')
             ->will($this->returnValue('some_route'));
@@ -206,7 +195,7 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function getContainer()
     {
-        $container = $this->getMock(
+        $container = $this->createMock(
             '\Symfony\Component\DependencyInjection\ContainerInterface'
         );
         $container->expects($this->any())
@@ -219,7 +208,7 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function getDataSourceView($name)
     {
-        $datasourceView = $this->getMockBuilder('FSi\Component\DataSource\DataSourceViewInterface')
+        $datasourceView = $this->getMockBuilder('AdminPanel\Component\DataSource\DataSourceViewInterface')
             ->disableOriginalConstructor()
             ->getMock();
 

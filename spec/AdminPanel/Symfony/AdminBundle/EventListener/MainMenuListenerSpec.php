@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\EventListener;
 
+use AdminPanel\Symfony\AdminBundle\Admin\Manager;
 use AdminPanel\Symfony\AdminBundle\Event\MenuEvent;
 use AdminPanel\Symfony\AdminBundle\Menu\Builder\Exception\InvalidYamlStructureException;
 use AdminPanel\Symfony\AdminBundle\Menu\Item\Item;
@@ -13,10 +14,7 @@ use Prophecy\Prophet;
 
 class MainMenuListenerSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Manager $manager
-     */
-    public function let($manager)
+    public function let(Manager $manager)
     {
         $prophet = new Prophet();
         $manager->getElement(Argument::type('string'))->will(function ($args) use ($prophet) {
@@ -34,11 +32,7 @@ class MainMenuListenerSpec extends ObjectBehavior
         $this->beConstructedWith($manager, __DIR__ . '/admin_menu.yml');
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Manager $manager
-     * @param \AdminPanel\Symfony\AdminBundle\Event\MenuEvent $event
-     */
-    public function it_throws_exception_when_yaml_definition_of_menu_is_invalid($manager, $event)
+    public function it_throws_exception_when_yaml_definition_of_menu_is_invalid(Manager $manager, MenuEvent $event)
     {
         $menuYaml = __DIR__ . '/invalid_admin_menu.yml';
         $this->beConstructedWith($manager, $menuYaml);

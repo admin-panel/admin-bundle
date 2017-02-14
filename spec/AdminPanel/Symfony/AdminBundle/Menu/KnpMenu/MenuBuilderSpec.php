@@ -4,44 +4,32 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Menu\KnpMenu;
 
+use AdminPanel\Symfony\AdminBundle\Menu\Builder\Builder;
+use AdminPanel\Symfony\AdminBundle\Menu\Item\Item;
+use AdminPanel\Symfony\AdminBundle\Menu\KnpMenu\ItemDecorator;
+use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use PhpSpec\ObjectBehavior;
 
 class MenuBuilderSpec extends ObjectBehavior
 {
-    /**
-     * @param \Knp\Menu\FactoryInterface $factory
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\KnpMenu\ItemDecorator $itemDecorator
-     */
-    public function let($factory, $itemDecorator)
+    public function let(FactoryInterface $factory, ItemDecorator $itemDecorator)
     {
         $this->beConstructedWith($factory, $itemDecorator);
     }
 
-    /**
-     * @param \Knp\Menu\FactoryInterface $factory
-     * @param \Knp\Menu\ItemInterface $knpRootItem
-     * @param \Knp\Menu\ItemInterface $knpFirstItem
-     * @param \Knp\Menu\ItemInterface $knpSecondItem
-     * @param \Knp\Menu\ItemInterface $knpChildOfSecondItem
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\KnpMenu\ItemDecorator $itemDecorator
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Builder\Builder $builder
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\Item $rootItem
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\Item $firstItem
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\Item $secondItem
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\Item $childOfSecondItem
-     */
     public function it_builds_knp_menu_and_decorates_items(
-        $factory,
-        $knpRootItem,
-        $knpFirstItem,
-        $knpSecondItem,
-        $knpChildOfSecondItem,
-        $itemDecorator,
-        $builder,
-        $rootItem,
-        $firstItem,
-        $secondItem,
-        $childOfSecondItem
+        FactoryInterface $factory,
+        ItemInterface $knpRootItem,
+        ItemInterface $knpFirstItem,
+        ItemInterface $knpSecondItem,
+        ItemInterface $knpChildOfSecondItem,
+        ItemDecorator $itemDecorator,
+        Builder $builder,
+        Item $rootItem,
+        Item $firstItem,
+        Item $secondItem,
+        Item $childOfSecondItem
     ) {
         $builder->buildMenu()->willReturn($rootItem);
         $firstItem->getName()->willReturn('first item');

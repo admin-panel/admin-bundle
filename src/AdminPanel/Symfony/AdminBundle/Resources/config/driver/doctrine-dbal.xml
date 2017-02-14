@@ -5,7 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="datasource.driver.doctrine_dbal.factory.class">FSi\Component\DataSource\Driver\Doctrine\DBAL\Factory</parameter>
+        <parameter key="datasource.driver.doctrine_dbal.factory.class">AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Factory</parameter>
     </parameters>
 
     <services>
@@ -37,33 +37,33 @@
         </service>
 
         <!-- Doctrine/CoreExtension -->
-        <service id="datasource.driver.doctrine_dbal.field.date" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\DateField">
+        <service id="datasource.driver.doctrine_dbal.field.date" class="AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\DateField">
             <tag name="datasource.driver.doctrine-dbal.field" alias="date" />
         </service>
-        <service id="datasource.driver.doctrine_dbal.field.datetime" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\DateTimeField">
+        <service id="datasource.driver.doctrine_dbal.field.datetime" class="AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\DateTimeField">
             <tag name="datasource.driver.doctrine-dbal.field" alias="datetime" />
         </service>
-        <service id="datasource.driver.doctrine_dbal.field.number" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\NumberField">
+        <service id="datasource.driver.doctrine_dbal.field.number" class="AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\NumberField">
             <tag name="datasource.driver.doctrine-dbal.field" alias="number" />
         </service>
-        <service id="datasource.driver.doctrine_dbal.field.text" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\TextField">
+        <service id="datasource.driver.doctrine_dbal.field.text" class="AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\TextField">
             <tag name="datasource.driver.doctrine-dbal.field" alias="text" />
         </service>
-        <service id="datasource.driver.doctrine_dbal.field.boolean" class="FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\BooleanField">
+        <service id="datasource.driver.doctrine_dbal.field.boolean" class="AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\BooleanField">
             <tag name="datasource.driver.doctrine-dbal.field" alias="boolean" />
         </service>
 
         <!-- OrderingExtension -->
-        <service id="datasource.driver.doctrine_dbal.subscriber.ordering" class="FSi\Component\DataSource\Extension\Core\Ordering\Driver\DBAL\DoctrineExtension">
+        <service id="datasource.driver.doctrine_dbal.subscriber.ordering" class="AdminPanel\Component\DataSource\Extension\Core\Ordering\Driver\DBAL\DoctrineExtension">
             <tag name="datasource.driver.doctrine-dbal.subscriber" alias="ordering" />
         </service>
-        <service id="datasource.driver.doctrine_dbal.field.subscriber.ordering" class="FSi\Component\DataSource\Extension\Core\Ordering\Field\DBAL\FieldExtension">
+        <service id="datasource.driver.doctrine_dbal.field.subscriber.ordering" class="AdminPanel\Component\DataSource\Extension\Core\Ordering\Field\DBAL\FieldExtension">
             <tag name="datasource.driver.doctrine-dbal.field.subscriber" alias="ordering" />
         </service>
 
 
         <!-- Symfony/FormExtension -->
-        <service id="datasource.driver.doctrine_dbal.field.subscriber.symfonyform" class="FSi\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension">
+        <service id="datasource.driver.doctrine_dbal.field.subscriber.symfonyform" class="AdminPanel\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension">
             <tag name="datasource.driver.doctrine-dbal.field.subscriber" alias="symfonyform" />
             <argument type="service" id="form.factory" />
         </service>

@@ -7,15 +7,13 @@ namespace spec\AdminPanel\Symfony\AdminBundle\EventListener;
 use AdminPanel\Symfony\AdminBundle\Event\BatchEvents;
 use AdminPanel\Symfony\AdminBundle\Event\FormEvent;
 use AdminPanel\Symfony\AdminBundle\Event\FormEvents;
+use AdminPanel\Symfony\AdminBundle\Message\FlashMessages;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Form\Form;
 
 class MessagesListenerSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Message\FlashMessages $flashMessages
-     */
-    public function let($flashMessages)
+    public function let(FlashMessages $flashMessages)
     {
         $this->beConstructedWith($flashMessages);
     }
@@ -29,13 +27,11 @@ class MessagesListenerSpec extends ObjectBehavior
         ]);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\FormEvent $event
-     * @param \Symfony\Component\Form\Form $form
-     * @param \AdminPanel\Symfony\AdminBundle\Message\FlashMessages $flashMessages
-     */
-    public function it_not_set_error_message_when_form_is_valid($event, $form, $flashMessages)
-    {
+    public function it_not_set_error_message_when_form_is_valid(
+        FormEvent $event,
+        Form $form,
+        FlashMessages $flashMessages
+    ) {
         $event->getForm()->willReturn($form);
         $form->isValid()->willReturn(true);
         $flashMessages->error('messages.form.error')->shouldNotBeCalled();
@@ -43,13 +39,11 @@ class MessagesListenerSpec extends ObjectBehavior
         $this->onFormRequestPostSubmit($event);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\FormEvent $event
-     * @param \Symfony\Component\Form\Form $form
-     * @param \AdminPanel\Symfony\AdminBundle\Message\FlashMessages $flashMessages
-     */
-    public function it_set_error_message_when_form_is_invalid($event, $form, $flashMessages)
-    {
+    public function it_set_error_message_when_form_is_invalid(
+        FormEvent $event,
+        Form $form,
+        FlashMessages $flashMessages
+    ) {
         $event->getForm()->willReturn($form);
         $form->isValid()->willReturn(false);
         $flashMessages->error('messages.form.error')->shouldBeCalled();
@@ -57,21 +51,13 @@ class MessagesListenerSpec extends ObjectBehavior
         $this->onFormRequestPostSubmit($event);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\FormEvent $event
-     * @param \AdminPanel\Symfony\AdminBundle\Message\FlashMessages $flashMessages
-     */
-    public function it_add_message_on_post_save($event, $flashMessages)
+    public function it_add_message_on_post_save(FormEvent $event, FlashMessages $flashMessages)
     {
         $flashMessages->success('messages.form.save')->shouldBeCalled();
         $this->onFormDataPostSave($event);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\FormEvent $event
-     * @param \AdminPanel\Symfony\AdminBundle\Message\FlashMessages $flashMessages
-     */
-    public function it_add_message_on_batch_post_apply($event, $flashMessages)
+    public function it_add_message_on_batch_post_apply(FormEvent $event, FlashMessages $flashMessages)
     {
         $flashMessages->success('messages.batch.success')->shouldBeCalled();
         $this->onBatchObjectsPostApply($event);

@@ -13,7 +13,7 @@ interface ListElement extends DataIndexerElement, DataSourceAwareInterface, Data
     public function createDataGrid();
 
     /**
-     * @return \FSi\Component\DataSource\DataSource|null
+     * @return \AdminPanel\Component\DataSource\DataSource|null
      * @throws \AdminPanel\Symfony\AdminBundle\Exception\RuntimeException
      */
     public function createDataSource();

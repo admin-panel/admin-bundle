@@ -10,12 +10,12 @@ use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
 use AdminPanel\Symfony\AdminBundle\Admin\Element;
 use AdminPanel\Symfony\AdminBundle\Factory\Worker;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
-use FSi\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 
 class ListWorker implements Worker
 {
     /**
-     * @var DataSourceFactoryInterface
+     * @var \AdminPanel\Component\DataSource\DataSourceFactoryInterface
      */
     private $dataSourceFactory;
 

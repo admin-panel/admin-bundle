@@ -25,7 +25,7 @@ class BooleanColumnExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function getTranslator()
     {
-        $translator = $this->getMock('Symfony\Component\Translation\TranslatorInterface');
+        $translator = $this->createMock('Symfony\Component\Translation\TranslatorInterface');
 
         $translator->expects($this->at(0))
             ->method('trans')
@@ -42,6 +42,6 @@ class BooleanColumnExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function getFormFactory()
     {
-        return $this->getMock('Symfony\Component\Form\FormFactoryInterface');
+        return $this->createMock('Symfony\Component\Form\FormFactoryInterface');
     }
 }

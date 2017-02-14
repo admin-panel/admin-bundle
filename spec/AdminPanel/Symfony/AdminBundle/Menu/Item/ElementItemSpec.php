@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Menu\Item;
 
+use AdminPanel\Symfony\AdminBundle\Admin\Element;
 use PhpSpec\ObjectBehavior;
 
 class ElementItemSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Element $element
-     */
-    public function let($element)
+    public function let(Element $element)
     {
         $this->beConstructedWith('some name', $element);
     }

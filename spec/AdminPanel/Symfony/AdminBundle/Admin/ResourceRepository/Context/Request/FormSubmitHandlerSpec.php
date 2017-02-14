@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Context\Request;
 
+use AdminPanel\Symfony\AdminBundle\Event\FormEvent;
 use AdminPanel\Symfony\AdminBundle\Event\FormEvents;
+use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
 use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class FormSubmitHandlerSpec extends ObjectBehavior
 {
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     * @param \AdminPanel\Symfony\AdminBundle\Event\FormEvent $event
-     */
-    public function let($eventDispatcher, $event)
+    public function let(EventDispatcher $eventDispatcher, FormEvent $event)
     {
         $event->hasResponse()->willReturn(false);
         $this->beConstructedWith($eventDispatcher);
@@ -27,11 +27,7 @@ class FormSubmitHandlerSpec extends ObjectBehavior
         $this->shouldHaveType('AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface');
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\ListEvent $listEvent
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function it_throw_exception_for_non_list_event($listEvent, $request)
+    public function it_throw_exception_for_non_list_event(ListEvent $listEvent, Request $request)
     {
         $this->shouldThrow(
             new RequestHandlerException(
@@ -40,25 +36,19 @@ class FormSubmitHandlerSpec extends ObjectBehavior
         )->during('handleRequest', [$listEvent, $request]);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\FormEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function it_do_nothing_on_non_POST_request($event, $request)
+    public function it_do_nothing_on_non_POST_request(FormEvent $event, Request $request)
     {
         $request->isMethod('POST')->willReturn(false);
 
         $this->handleRequest($event, $request)->shouldReturn(null);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\FormEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     * @param \Symfony\Component\Form\Form $form
-     */
-    public function it_submit_form_on_POST_request($event, $request, $eventDispatcher, $form)
-    {
+    public function it_submit_form_on_POST_request(
+        FormEvent $event,
+        Request $request,
+        EventDispatcher $eventDispatcher,
+        Form $form
+    ) {
         $request->isMethod('POST')->willReturn(true);
 
         $eventDispatcher->dispatch(FormEvents::FORM_REQUEST_PRE_SUBMIT, $event)
@@ -73,13 +63,11 @@ class FormSubmitHandlerSpec extends ObjectBehavior
         $this->handleRequest($event, $request)->shouldReturn(null);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\FormEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     */
-    public function it_return_response_from_request_pre_submit_event($event, $request, $eventDispatcher)
-    {
+    public function it_return_response_from_request_pre_submit_event(
+        FormEvent $event,
+        Request $request,
+        EventDispatcher $eventDispatcher
+    ) {
         $request->isMethod('POST')->willReturn(true);
 
         $eventDispatcher->dispatch(FormEvents::FORM_REQUEST_PRE_SUBMIT, $event)
@@ -92,14 +80,12 @@ class FormSubmitHandlerSpec extends ObjectBehavior
             ->shouldReturnAnInstanceOf('Symfony\Component\HttpFoundation\Response');
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\FormEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     * @param \Symfony\Component\Form\Form $form
-     */
-    public function it_return_response_from_request_post_submit_event($event, $request, $eventDispatcher, $form)
-    {
+    public function it_return_response_from_request_post_submit_event(
+        FormEvent $event,
+        Request $request,
+        EventDispatcher $eventDispatcher,
+        Form $form
+    ) {
         $request->isMethod('POST')->willReturn(true);
 
         $eventDispatcher->dispatch(FormEvents::FORM_REQUEST_PRE_SUBMIT, $event)

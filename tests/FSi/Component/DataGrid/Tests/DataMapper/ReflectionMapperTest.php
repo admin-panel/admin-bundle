@@ -24,7 +24,7 @@ class ReflectionMapperTest extends \PHPUnit_Framework_TestCase
         $entity = new EntityMapper();
         $entity->setSurname('foosurname');
 
-        $this->setExpectedException('FSi\Component\DataGrid\Exception\DataMappingException');
+        $this->expectException('FSi\Component\DataGrid\Exception\DataMappingException');
         $mapper->getData('surname', $entity);
     }
 

@@ -29,8 +29,8 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->router = $this->getMock('Symfony\Component\Routing\RouterInterface');
-        $this->requestStack = $this->getMock('Symfony\Component\HttpFoundation\RequestStack');
+        $this->router = $this->createMock('Symfony\Component\Routing\RouterInterface');
+        $this->requestStack = $this->createMock('Symfony\Component\HttpFoundation\RequestStack');
         $this->requestStack->expects($this->any())
             ->method('getMasterRequest')
             ->will($this->returnValue(new Request()));

@@ -6,6 +6,10 @@ namespace spec\AdminPanel\Symfony\AdminBundle\EventListener;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class LocaleListenerSpec extends ObjectBehavior
@@ -27,26 +31,22 @@ class LocaleListenerSpec extends ObjectBehavior
         );
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function it_do_nothing_when_request_does_not_have_previous_session($event, $request)
-    {
+    public function it_do_nothing_when_request_does_not_have_previous_session(
+        GetResponseEvent $event,
+        Request $request
+    ) {
         $event->getRequest()->shouldBeCalled()->willReturn($request);
         $request->hasPreviousSession()->shouldBeCalled()->willReturn(false);
         $request->getSession()->shouldNotBeCalled();
         $this->onKernelRequest($event);
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $requestAttributes
-     * @param \Symfony\Component\HttpFoundation\Session\Session $session
-     */
-    public function it_set_default_locale_if_request_does_not_have_locale_param($event, $request, $requestAttributes, $session)
-    {
+    public function it_set_default_locale_if_request_does_not_have_locale_param(
+        GetResponseEvent $event,
+        Request $request,
+        ParameterBag $requestAttributes,
+        Session $session
+    ) {
         $request->attributes = $requestAttributes;
         $event->getRequest()->willReturn($request);
         $request->hasPreviousSession()->willReturn(true);
@@ -57,14 +57,12 @@ class LocaleListenerSpec extends ObjectBehavior
         $this->onKernelRequest($event);
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $requestAttributes
-     * @param \Symfony\Component\HttpFoundation\Session\Session $session
-     */
-    public function it_does_not_set_locale_if_request_alread_has_locale($event, $request, $requestAttributes, $session)
-    {
+    public function it_does_not_set_locale_if_request_alread_has_locale(
+        GetResponseEvent $event,
+        Request $request,
+        ParameterBag $requestAttributes,
+        Session $session
+    ) {
         $request->attributes = $requestAttributes;
         $requestAttributes->has('_locale')->willReturn(true);
         $event->getRequest()->willReturn($request);

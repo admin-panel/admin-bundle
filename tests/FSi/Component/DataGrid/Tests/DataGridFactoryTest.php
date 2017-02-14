@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace FSi\Component\DataGrid\Tests;
 
+use FSi\Component\DataGrid\Data\IndexingStrategyInterface;
 use FSi\Component\DataGrid\DataGridFactory;
+use FSi\Component\DataGrid\DataMapper\DataMapperInterface;
 use FSi\Component\DataGrid\Tests\Fixtures\FooExtension;
 
 class DataGridFactoryTest extends \PHPUnit_Framework_TestCase
@@ -17,8 +19,8 @@ class DataGridFactoryTest extends \PHPUnit_Framework_TestCase
             new FooExtension(),
         ];
 
-        $dataMapper = $this->getMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
-        $indexingStrategy = $this->getMock('FSi\Component\DataGrid\Data\IndexingStrategyInterface');
+        $dataMapper = $this->createMock(DataMapperInterface::class);
+        $indexingStrategy = $this->createMock(IndexingStrategyInterface::class);
 
         $this->factory = new DataGridFactory($extensions, $dataMapper, $indexingStrategy);
     }

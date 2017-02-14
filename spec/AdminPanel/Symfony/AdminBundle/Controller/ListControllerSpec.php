@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Controller;
 
+use AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\ListElementContext;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
 use AdminPanel\Symfony\AdminBundle\Event\AdminEvents;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ListControllerSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface $templating
-     */
-    public function let($manager, $templating)
+    public function let(ContextManager $manager, EngineInterface $templating)
     {
         $this->beConstructedWith(
             $templating,
@@ -23,23 +26,14 @@ class ListControllerSpec extends ObjectBehavior
         );
     }
 
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\ListElementContext $context
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface $templating
-     */
     public function it_dispatch_event_if_displatcher_present(
-        $dispatcher,
-        $request,
-        $response,
-        $element,
-        $manager,
-        $context,
-        $templating
+        EventDispatcherInterface $dispatcher,
+        Request $request,
+        Response $response,
+        ListElement $element,
+        ContextManager $manager,
+        ListElementContext $context,
+        EngineInterface $templating
     ) {
         $this->setEventDispatcher($dispatcher);
 
@@ -57,15 +51,10 @@ class ListControllerSpec extends ObjectBehavior
         $this->listAction($element, $request)->shouldReturn($response);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
     public function it_throw_exception_when_cant_find_context_builder_that_supports_admin_element(
-        $element,
-        $manager,
-        $request
+        ListElement $element,
+        ContextManager $manager,
+        Request $request
     ) {
         $element->getId()->willReturn("my_awesome_list_element");
         $manager->createContext(Argument::type('string'), $element)->shouldBeCalled()->willReturn(null);
@@ -74,21 +63,13 @@ class ListControllerSpec extends ObjectBehavior
             ->during('listAction', [$element, $request]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\ListElementContext $context
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface $templating
-     */
     public function it_render_default_template_in_list_action(
-        $request,
-        $response,
-        $element,
-        $manager,
-        $context,
-        $templating
+        Request $request,
+        Response $response,
+        ListElement $element,
+        ContextManager $manager,
+        ListElementContext $context,
+        EngineInterface $templating
     ) {
         $manager->createContext('fsi_admin_list', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn(null);
@@ -99,21 +80,13 @@ class ListControllerSpec extends ObjectBehavior
         $this->listAction($element, $request)->shouldReturn($response);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\ListElementContext $context
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface $templating
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     */
     public function it_render_template_from_element_in_list_action(
-        $manager,
-        $element,
-        $context,
-        $request,
-        $templating,
-        $response
+        Request $request,
+        Response $response,
+        ListElement $element,
+        ContextManager $manager,
+        ListElementContext $context,
+        EngineInterface $templating
     ) {
         $manager->createContext('fsi_admin_list', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn(null);
@@ -125,19 +98,12 @@ class ListControllerSpec extends ObjectBehavior
         $this->listAction($element, $request)->shouldReturn($response);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\ListElementContext $context
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     */
     public function it_return_response_from_context_in_list_action(
-        $manager,
-        $element,
-        $context,
-        $request,
-        $response
+        Request $request,
+        Response $response,
+        ListElement $element,
+        ContextManager $manager,
+        ListElementContext $context
     ) {
         $manager->createContext('fsi_admin_list', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn($response);

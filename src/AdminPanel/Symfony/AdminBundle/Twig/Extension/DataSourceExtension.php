@@ -8,9 +8,9 @@ use AdminPanel\Symfony\AdminBundle\Twig\TokenParser\DataSourceRouteTokenParser;
 use AdminPanel\Symfony\AdminBundle\Twig\TokenParser\DataSourceThemeTokenParser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FSi\Component\DataSource\DataSourceViewInterface;
-use FSi\Component\DataSource\Extension\Core\Pagination\PaginationExtension;
-use FSi\Component\DataSource\Field\FieldViewInterface;
+use AdminPanel\Component\DataSource\DataSourceViewInterface;
+use AdminPanel\Component\DataSource\Extension\Core\Pagination\PaginationExtension;
+use AdminPanel\Component\DataSource\Field\FieldViewInterface;
 
 class DataSourceExtension extends \Twig_Extension
 {
@@ -150,7 +150,7 @@ class DataSourceExtension extends \Twig_Extension
     {
         $fields = $view->getFields();
         $count = 0;
-        /** @var $field \FSi\Component\DataSource\Field\FieldViewInterface */
+        /** @var $field \AdminPanel\Component\DataSource\Field\FieldViewInterface */
         foreach ($fields as $field) {
             if ($field->hasAttribute('form')) {
                 $count++;

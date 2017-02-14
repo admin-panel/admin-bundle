@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Admin\CRUD;
 
-use FSi\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 
 /**
  * @deprecated Deprecated since version 1.1, to be removed in 1.2. Use
@@ -13,7 +13,7 @@ use FSi\Component\DataSource\DataSourceFactoryInterface;
 interface DataSourceAwareInterface
 {
     /**
-     * @param \FSi\Component\DataSource\DataSourceFactoryInterface $factory
+     * @param \AdminPanel\Component\DataSource\DataSourceFactoryInterface $factory
      */
     public function setDataSourceFactory(DataSourceFactoryInterface $factory);
 }

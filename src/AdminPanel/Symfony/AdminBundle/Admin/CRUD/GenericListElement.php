@@ -8,14 +8,14 @@ use AdminPanel\Symfony\AdminBundle\Admin\AbstractElement;
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
 use FSi\Component\DataGrid\DataGridInterface;
-use FSi\Component\DataSource\DataSourceFactoryInterface;
-use FSi\Component\DataSource\DataSourceInterface;
+use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class GenericListElement extends AbstractElement implements ListElement, DeleteElement
 {
     /**
-     * @var \FSi\Component\DataSource\DataSourceFactoryInterface
+     * @var \AdminPanel\Component\DataSource\DataSourceFactoryInterface
      */
     protected $datasourceFactory;
 
@@ -101,7 +101,7 @@ abstract class GenericListElement extends AbstractElement implements ListElement
         $datasource = $this->initDataSource($this->datasourceFactory);
 
         if (!is_object($datasource) || !$datasource instanceof DataSourceInterface) {
-            throw new RuntimeException('initDataSource should return instanceof FSi\\Component\\DataSource\\DataSourceInterface');
+            throw new RuntimeException('initDataSource should return instanceof AdminPanel\\Component\\DataSource\\DataSourceInterface');
         }
 
         return $datasource;
@@ -140,8 +140,8 @@ abstract class GenericListElement extends AbstractElement implements ListElement
     /**
      * Initialize DataSource.
      *
-     * @param \FSi\Component\DataSource\DataSourceFactoryInterface $factory
-     * @return \FSi\Component\DataSource\DataSourceInterface
+     * @param \AdminPanel\Component\DataSource\DataSourceFactoryInterface $factory
+     * @return \AdminPanel\Component\DataSource\DataSourceInterface
      */
     abstract protected function initDataSource(DataSourceFactoryInterface $factory);
 }

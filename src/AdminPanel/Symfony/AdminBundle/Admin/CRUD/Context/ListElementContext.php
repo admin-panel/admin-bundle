@@ -9,7 +9,7 @@ use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
 use AdminPanel\Symfony\AdminBundle\Admin\Element;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
 use FSi\Component\DataGrid\DataGrid;
-use FSi\Component\DataSource\DataSource;
+use AdminPanel\Component\DataSource\DataSource;
 use Symfony\Component\HttpFoundation\Request;
 
 class ListElementContext extends ContextAbstract
@@ -20,7 +20,7 @@ class ListElementContext extends ContextAbstract
     protected $element;
 
     /**
-     * @var DataSource
+     * @var \AdminPanel\Component\DataSource\DataSource
      */
     protected $dataSource;
 

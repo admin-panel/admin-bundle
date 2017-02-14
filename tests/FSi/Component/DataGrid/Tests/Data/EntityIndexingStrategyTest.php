@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FSi\Component\DataGrid\Tests\Data;
 
+use FSi\Component\DataGrid\DataMapper\DataMapperInterface;
 use FSi\Component\DataGrid\Tests\Fixtures\Entity;
 use FSi\Component\DataGrid\Data\EntityIndexingStrategy;
 use FSi\Component\DataGrid\Tests\Fixtures\EntityManagerMock;
@@ -14,12 +15,12 @@ class EntityIndexingStrategyTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->dataMapper = $this->getMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
+        $this->dataMapper = $this->createMock(DataMapperInterface::class);
     }
 
     public function testInvalidObject()
     {
-        $registry = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $registry = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry');
 
         $strategy = new EntityIndexingStrategy($registry);
         $this->assertSame(null, $strategy->getIndex('foo', $this->dataMapper));
@@ -29,11 +30,11 @@ class EntityIndexingStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $self = $this;
 
-        $registry = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $registry = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry');
         $registry->expects($this->once())
             ->method('getManagerForClass')
             ->will($this->returnCallback(function () use ($self) {
-                $metadataFactory = $self->getMock('Doctrine\ORM\Mapping\ClassMetadataFactory');
+                $metadataFactory = $self->createMock('Doctrine\ORM\Mapping\ClassMetadataFactory');
                 $metadataFactory->expects($self->once())
                     ->method('getMetadataFor')
                     ->will($self->returnCallback(function () use ($self) {
@@ -67,11 +68,11 @@ class EntityIndexingStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $self = $this;
 
-        $registry = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $registry = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry');
         $registry->expects($this->once())
             ->method('getManagerForClass')
             ->will($this->returnCallback(function () use ($self) {
-                $metadataFactory = $self->getMock('Doctrine\ORM\Mapping\ClassMetadataFactory');
+                $metadataFactory = $self->createMock('Doctrine\ORM\Mapping\ClassMetadataFactory');
                 $metadataFactory->expects($self->once())
                     ->method('getMetadataFor')
                     ->will($self->returnCallback(function () use ($self) {
@@ -102,11 +103,11 @@ class EntityIndexingStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $self = $this;
 
-        $registry = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $registry = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry');
         $registry->expects($this->any())
             ->method('getManagerForClass')
             ->will($this->returnCallback(function () use ($self) {
-                $metadataFactory = $self->getMock('Doctrine\ORM\Mapping\ClassMetadataFactory');
+                $metadataFactory = $self->createMock('Doctrine\ORM\Mapping\ClassMetadataFactory');
                 $metadataFactory->expects($self->any())
                     ->method('getMetadataFor')
                     ->will($self->returnCallback(function () use ($self) {
@@ -137,7 +138,7 @@ class EntityIndexingStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testGetIndexForNonEntities()
     {
-        $registry = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $registry = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry');
         $strategy = new EntityIndexingStrategy($registry);
         $this->assertSame(null, $strategy->getIndex(new \stdClass(), $this->dataMapper));
     }
