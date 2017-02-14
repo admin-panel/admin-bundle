@@ -6,7 +6,7 @@ namespace AdminPanel\Symfony\AdminBundleBundle\Tests\DataGrid\Extension\View\Col
 
 use AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnTypeExtension\FormExtension;
 use AdminPanel\Symfony\AdminBundle\DataGrid\Extension\View\ColumnTypeExtension\BooleanColumnExtension;
-use FSi\Component\DataGrid\Extension\Core\ColumnType\Boolean;
+use AdminPanel\Component\DataGrid\Extension\Core\ColumnType\Boolean;
 
 class BooleanColumnExtensionTest extends \PHPUnit_Framework_TestCase
 {

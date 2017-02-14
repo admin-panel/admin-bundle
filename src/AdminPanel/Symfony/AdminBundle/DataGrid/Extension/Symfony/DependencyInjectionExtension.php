@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony;
 
-use FSi\Component\DataGrid\DataGridAbstractExtension;
+use AdminPanel\Component\DataGrid\DataGridAbstractExtension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DependencyInjectionExtension extends DataGridAbstractExtension

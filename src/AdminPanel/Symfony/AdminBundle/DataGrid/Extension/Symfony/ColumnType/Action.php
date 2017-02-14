@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnType;
 
-use FSi\Component\DataGrid\Column\ColumnAbstractType;
-use FSi\Component\DataGrid\Exception\UnexpectedTypeException;
+use AdminPanel\Component\DataGrid\Column\ColumnAbstractType;
+use AdminPanel\Component\DataGrid\Exception\UnexpectedTypeException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;

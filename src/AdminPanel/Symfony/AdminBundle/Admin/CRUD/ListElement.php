@@ -7,7 +7,7 @@ namespace AdminPanel\Symfony\AdminBundle\Admin\CRUD;
 interface ListElement extends DataIndexerElement, DataSourceAwareInterface, DataGridAwareInterface
 {
     /**
-     * @return \FSi\Component\DataGrid\DataGrid|null
+     * @return \AdminPanel\Component\DataGrid\DataGrid|null
      * @throws \AdminPanel\Symfony\AdminBundle\Exception\RuntimeException
      */
     public function createDataGrid();

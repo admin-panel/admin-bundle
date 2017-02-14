@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\View\ColumnTypeExtension;
 
-use FSi\Component\DataGrid\Column\ColumnTypeInterface;
-use FSi\Component\DataGrid\Column\ColumnAbstractTypeExtension;
-use FSi\Component\DataGrid\Column\CellViewInterface;
-use FSi\Component\DataGrid\Column\HeaderViewInterface;
+use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
+use AdminPanel\Component\DataGrid\Column\ColumnAbstractTypeExtension;
+use AdminPanel\Component\DataGrid\Column\CellViewInterface;
+use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
 
 class ColumnViewOptionsExtension extends ColumnAbstractTypeExtension
 {

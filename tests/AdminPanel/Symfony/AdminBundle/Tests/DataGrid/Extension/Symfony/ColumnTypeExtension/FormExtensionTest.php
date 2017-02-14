@@ -11,7 +11,7 @@ use Doctrine\ORM\QueryBuilder;
 use AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnTypeExtension\FormExtension;
 use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\Entity;
 use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\EntityCategory;
-use FSi\Component\DataGrid\DataGrid;
+use AdminPanel\Component\DataGrid\DataGrid;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
 use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
@@ -146,7 +146,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
 
         $formFactory = new FormFactory($formRegistry, $resolvedTypeFactory);
 
-        $this->dataGrid = $this->createMock('FSi\Component\DataGrid\DataGridInterface');
+        $this->dataGrid = $this->createMock('AdminPanel\Component\DataGrid\DataGridInterface');
         $this->dataGrid->expects($this->any())
             ->method('getName')
             ->will($this->returnValue('grid'));
@@ -248,7 +248,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function createColumnMock()
     {
-        $column = $this->createMock('FSi\Component\DataGrid\Column\ColumnTypeInterface');
+        $column = $this->createMock('AdminPanel\Component\DataGrid\Column\ColumnTypeInterface');
 
         $column->expects($this->any())
             ->method('getDataMapper')
@@ -279,7 +279,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function getDataMapperReturnCallback()
     {
-        $dataMapper = $this->createMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
+        $dataMapper = $this->createMock('AdminPanel\Component\DataGrid\DataMapper\DataMapperInterface');
         $dataMapper->expects($this->any())
             ->method('getData')
             ->will($this->returnCallback(function ($field, $object) {

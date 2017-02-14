@@ -7,10 +7,10 @@ namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnTypeEx
 use AdminPanel\Symfony\AdminBundle\Form\Type\RowType;
 use AdminPanel\Symfony\AdminBundle\Form\Type\Symfony3RowType;
 use Doctrine\Common\Util\ClassUtils;
-use FSi\Component\DataGrid\Column\CellViewInterface;
-use FSi\Component\DataGrid\Column\ColumnAbstractTypeExtension;
-use FSi\Component\DataGrid\Column\ColumnTypeInterface;
-use FSi\Component\DataGrid\DataGridInterface;
+use AdminPanel\Component\DataGrid\Column\CellViewInterface;
+use AdminPanel\Component\DataGrid\Column\ColumnAbstractTypeExtension;
+use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
+use AdminPanel\Component\DataGrid\DataGridInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -131,7 +131,7 @@ class FormExtension extends ColumnAbstractTypeExtension
     /**
      * Create Form Objects for column and rowset index.
      *
-     * @param \FSi\Component\DataGrid\Column\ColumnTypeInterface $column
+     * @param \AdminPanel\Component\DataGrid\Column\ColumnTypeInterface $column
      * @param mixed $index
      * @param mixed $object
      * @return FormInterface

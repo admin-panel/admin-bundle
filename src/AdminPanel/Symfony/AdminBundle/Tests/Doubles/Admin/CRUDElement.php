@@ -6,7 +6,7 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Doubles\Admin;
 
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\DataGridAwareInterface;
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\DataSourceAwareInterface;
-use FSi\Component\DataGrid\DataGridFactoryInterface;
+use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 
 class CRUDElement extends SimpleAdminElement implements DataGridAwareInterface, DataSourceAwareInterface
@@ -15,7 +15,7 @@ class CRUDElement extends SimpleAdminElement implements DataGridAwareInterface, 
     private $dataSourceFactory;
 
     /**
-     * @param \FSi\Component\DataGrid\DataGridFactoryInterface $factory
+     * @param \AdminPanel\Component\DataGrid\DataGridFactoryInterface $factory
      */
     public function setDataGridFactory(DataGridFactoryInterface $factory)
     {

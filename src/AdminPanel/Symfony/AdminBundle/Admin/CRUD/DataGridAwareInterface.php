@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Admin\CRUD;
 
-use FSi\Component\DataGrid\DataGridFactoryInterface;
+use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 
 /**
  * @deprecated Deprecated since version 1.1, to be removed in 1.2. Use
@@ -13,7 +13,7 @@ use FSi\Component\DataGrid\DataGridFactoryInterface;
 interface DataGridAwareInterface
 {
     /**
-     * @param \FSi\Component\DataGrid\DataGridFactoryInterface $factory
+     * @param \AdminPanel\Component\DataGrid\DataGridFactoryInterface $factory
      */
     public function setDataGridFactory(DataGridFactoryInterface $factory);
 }

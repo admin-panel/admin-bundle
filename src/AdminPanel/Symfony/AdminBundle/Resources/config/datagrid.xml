@@ -8,10 +8,10 @@
         <parameter key="admin.datagrid.extension.column_type.element_action.class">AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Admin\ColumnTypeExtension\ElementActionExtension</parameter>
         <parameter key="admin.datagrid.extension.column_type.batch_action.class">AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Admin\ColumnTypeExtension\BatchActionExtension</parameter>
         <parameter key="admin.datagrid.extension.column_type.attributes.class">AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Admin\ColumnTypeExtension\AttributesExtension</parameter>
-        <parameter key="datagrid.factory.class">FSi\Component\DataGrid\DataGridFactory</parameter>
-        <parameter key="datagrid.data_mapper.chain.class">FSi\Component\DataGrid\DataMapper\ChainMapper</parameter>
-        <parameter key="datagrid.data_mapper.reflection.class">FSi\Component\DataGrid\DataMapper\ReflectionMapper</parameter>
-        <parameter key="datagrid.data_mapper.property_accessor.class">FSi\Component\DataGrid\DataMapper\PropertyAccessorMapper</parameter>
+        <parameter key="datagrid.factory.class">AdminPanel\Component\DataGrid\DataGridFactory</parameter>
+        <parameter key="datagrid.data_mapper.chain.class">AdminPanel\Component\DataGrid\DataMapper\ChainMapper</parameter>
+        <parameter key="datagrid.data_mapper.reflection.class">AdminPanel\Component\DataGrid\DataMapper\ReflectionMapper</parameter>
+        <parameter key="datagrid.data_mapper.property_accessor.class">AdminPanel\Component\DataGrid\DataMapper\PropertyAccessorMapper</parameter>
         <parameter key="datagrid.extension.class">AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\DependencyInjectionExtension</parameter>
     </parameters>
 
@@ -75,43 +75,43 @@
         </service>
 
         <!-- CoreExtension -->
-        <service id="datagrid.column.batch" class="FSi\Component\DataGrid\Extension\Core\ColumnType\Batch">
+        <service id="datagrid.column.batch" class="AdminPanel\Component\DataGrid\Extension\Core\ColumnType\Batch">
             <tag name="datagrid.column" alias="batch" />
         </service>
-        <service id="datagrid.column.boolean" class="FSi\Component\DataGrid\Extension\Core\ColumnType\Boolean">
+        <service id="datagrid.column.boolean" class="AdminPanel\Component\DataGrid\Extension\Core\ColumnType\Boolean">
             <tag name="datagrid.column" alias="boolean" />
         </service>
-        <service id="datagrid.column.collection" class="FSi\Component\DataGrid\Extension\Core\ColumnType\Collection">
+        <service id="datagrid.column.collection" class="AdminPanel\Component\DataGrid\Extension\Core\ColumnType\Collection">
             <tag name="datagrid.column" alias="collection" />
         </service>
-        <service id="datagrid.column.number" class="FSi\Component\DataGrid\Extension\Core\ColumnType\Number">
+        <service id="datagrid.column.number" class="AdminPanel\Component\DataGrid\Extension\Core\ColumnType\Number">
             <tag name="datagrid.column" alias="number" />
         </service>
-        <service id="datagrid.column.text" class="FSi\Component\DataGrid\Extension\Core\ColumnType\Text">
+        <service id="datagrid.column.text" class="AdminPanel\Component\DataGrid\Extension\Core\ColumnType\Text">
             <tag name="datagrid.column" alias="text" />
         </service>
-        <service id="datagrid.column.datetime" class="FSi\Component\DataGrid\Extension\Core\ColumnType\DateTime">
+        <service id="datagrid.column.datetime" class="AdminPanel\Component\DataGrid\Extension\Core\ColumnType\DateTime">
             <tag name="datagrid.column" alias="datetime" />
         </service>
-        <service id="datagrid.column.money" class="FSi\Component\DataGrid\Extension\Core\ColumnType\Money">
+        <service id="datagrid.column.money" class="AdminPanel\Component\DataGrid\Extension\Core\ColumnType\Money">
             <tag name="datagrid.column" alias="money" />
         </service>
-        <service id="datagrid.column_extension.default" class="FSi\Component\DataGrid\Extension\Core\ColumnTypeExtension\DefaultColumnOptionsExtension">
+        <service id="datagrid.column_extension.default" class="AdminPanel\Component\DataGrid\Extension\Core\ColumnTypeExtension\DefaultColumnOptionsExtension">
             <tag name="datagrid.column_extension" alias="core.default"/>
         </service>
-        <service id="datagrid.column_extension.value_format" class="FSi\Component\DataGrid\Extension\Core\ColumnTypeExtension\ValueFormatColumnOptionsExtension">
+        <service id="datagrid.column_extension.value_format" class="AdminPanel\Component\DataGrid\Extension\Core\ColumnTypeExtension\ValueFormatColumnOptionsExtension">
             <tag name="datagrid.column_extension" alias="core.value_format"/>
         </service>
-        <service id="datagrid.subscriber.core.column_order" class="FSi\Component\DataGrid\Extension\Core\EventSubscriber\ColumnOrder">
+        <service id="datagrid.subscriber.core.column_order" class="AdminPanel\Component\DataGrid\Extension\Core\EventSubscriber\ColumnOrder">
             <tag name="datagrid.subscriber" alias="core.column_order"/>
         </service>
         <!-- CoreExtension -->
 
         <!-- DoctrineExtension -->
-        <service id="datagrid.column.entity" class="FSi\Component\DataGrid\Extension\Doctrine\ColumnType\Entity">
+        <service id="datagrid.column.entity" class="AdminPanel\Component\DataGrid\Extension\Doctrine\ColumnType\Entity">
             <tag name="datagrid.column" alias="entity" />
         </service>
-        <service id="datagrid.column_extension.doctrine.value_format" class="FSi\Component\DataGrid\Extension\Doctrine\ColumnTypeExtension\ValueFormatColumnOptionsExtension">
+        <service id="datagrid.column_extension.doctrine.value_format" class="AdminPanel\Component\DataGrid\Extension\Doctrine\ColumnTypeExtension\ValueFormatColumnOptionsExtension">
             <tag name="datagrid.column_extension" alias="doctrine.value_format"/>
             <argument type="service" id="router" />
         </service>

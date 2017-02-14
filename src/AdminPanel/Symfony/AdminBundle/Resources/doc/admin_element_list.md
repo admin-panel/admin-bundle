@@ -9,7 +9,7 @@
 namespace FSi\Bundle\DemoBundle\Admin;
 
 use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
-use FSi\Component\DataGrid\DataGridFactoryInterface;
+use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use AdminPanel\Symfony\AdminBundle\Annotation as Admin;
 
@@ -59,7 +59,7 @@ class SubscriberElement extends ListElement
      */
     protected function initDataGrid(DataGridFactoryInterface $factory)
     {
-        /* @var $datagrid \FSi\Component\DataGrid\DataGrid */
+        /* @var $datagrid \AdminPanel\Component\DataGrid\DataGrid */
         $datagrid = $factory->createDataGrid(
             'admin_subscribers' // this is the ID of the element's datagrid
         );

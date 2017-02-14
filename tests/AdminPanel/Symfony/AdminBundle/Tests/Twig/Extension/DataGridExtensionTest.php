@@ -6,9 +6,9 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Twig\Extension;
 
 use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\TwigRuntimeLoader;
 use AdminPanel\Symfony\AdminBundle\Twig\Extension\DataGridExtension;
-use FSi\Component\DataGrid\Column\CellViewInterface;
-use FSi\Component\DataGrid\Column\HeaderViewInterface;
-use FSi\Component\DataGrid\DataGridViewInterface;
+use AdminPanel\Component\DataGrid\Column\CellViewInterface;
+use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
+use AdminPanel\Component\DataGrid\DataGridViewInterface;
 use Symfony\Bridge\Twig\Form\TwigRenderer;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Bridge\Twig\Extension\FormExtension;
@@ -728,7 +728,7 @@ class DataGridExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function getDataGridView($name)
     {
-        $datagridView = $this->getMockBuilder('FSi\Component\DataGrid\DataGridViewInterface')
+        $datagridView = $this->getMockBuilder('AdminPanel\Component\DataGrid\DataGridViewInterface')
             ->disableOriginalConstructor()
             ->getMock();
 

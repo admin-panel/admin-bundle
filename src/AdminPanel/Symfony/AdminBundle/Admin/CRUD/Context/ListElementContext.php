@@ -8,7 +8,7 @@ use AdminPanel\Symfony\AdminBundle\Admin\Context\ContextAbstract;
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
 use AdminPanel\Symfony\AdminBundle\Admin\Element;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
-use FSi\Component\DataGrid\DataGrid;
+use AdminPanel\Component\DataGrid\DataGrid;
 use AdminPanel\Component\DataSource\DataSource;
 use Symfony\Component\HttpFoundation\Request;
 

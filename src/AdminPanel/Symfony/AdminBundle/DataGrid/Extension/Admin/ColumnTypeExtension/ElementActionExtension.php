@@ -7,8 +7,8 @@ namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Admin\ColumnTypeExte
 use AdminPanel\Symfony\AdminBundle\Admin\Manager;
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
 use AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnType\Action;
-use FSi\Component\DataGrid\Column\ColumnAbstractTypeExtension;
-use FSi\Component\DataGrid\Column\ColumnTypeInterface;
+use AdminPanel\Component\DataGrid\Column\ColumnAbstractTypeExtension;
+use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
 
 class ElementActionExtension extends ColumnAbstractTypeExtension
 {
@@ -62,7 +62,7 @@ class ElementActionExtension extends ColumnAbstractTypeExtension
     }
 
     /**
-     * @param \FSi\Component\DataGrid\Column\ColumnTypeInterface $column
+     * @param \AdminPanel\Component\DataGrid\Column\ColumnTypeInterface $column
      */
     private function validateColumn(ColumnTypeInterface $column)
     {
@@ -77,7 +77,7 @@ class ElementActionExtension extends ColumnAbstractTypeExtension
     }
 
     /**
-     * @param \FSi\Component\DataGrid\Column\ColumnTypeInterface $column
+     * @param \AdminPanel\Component\DataGrid\Column\ColumnTypeInterface $column
      * @param string $action
      * @param array $actionOptions
      */

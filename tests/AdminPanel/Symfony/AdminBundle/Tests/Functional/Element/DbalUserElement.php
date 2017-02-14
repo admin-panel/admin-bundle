@@ -6,7 +6,7 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
 use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
-use FSi\Component\DataGrid\DataGridFactoryInterface;
+use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 
 final class DbalUserElement extends ListElement
@@ -14,12 +14,12 @@ final class DbalUserElement extends ListElement
     /**
      * Initialize DataGrid.
      *
-     * @param \FSi\Component\DataGrid\DataGridFactoryInterface $factory
-     * @return \FSi\Component\DataGrid\DataGridInterface
+     * @param \AdminPanel\Component\DataGrid\DataGridFactoryInterface $factory
+     * @return \AdminPanel\Component\DataGrid\DataGridInterface
      */
     protected function initDataGrid(DataGridFactoryInterface $factory)
     {
-        /* @var $datagrid \FSi\Component\DataGrid\DataGrid */
+        /* @var $datagrid \AdminPanel\Component\DataGrid\DataGrid */
         $datagrid = $factory->createDataGrid(
             $this->getId() // this is the ID of the element's datagrid
         );
