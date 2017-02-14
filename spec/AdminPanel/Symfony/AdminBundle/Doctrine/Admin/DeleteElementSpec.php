@@ -47,7 +47,7 @@ class DeleteElementSpec extends ObjectBehavior
         $repository->getClassName()->willReturn('FSi/Bundle/DemoBundle/Entity/Entity');
 
         $this->setManagerRegistry($registry);
-        $this->getDataIndexer()->shouldReturnAnInstanceOf('FSi\Component\DataIndexer\DoctrineDataIndexer');
+        $this->getDataIndexer()->shouldReturnAnInstanceOf('AdminPanel\Component\DataIndexer\DoctrineDataIndexer');
     }
 
     public function it_deletes_object_from_object_manager(ObjectManager $om)

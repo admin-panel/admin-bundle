@@ -7,7 +7,7 @@ namespace AdminPanel\Component\DataSource\Driver\Doctrine\ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
-use FSi\Component\DataIndexer\DoctrineDataIndexer;
+use AdminPanel\Component\DataIndexer\DoctrineDataIndexer;
 
 class DoctrineResult extends ArrayCollection
 {

@@ -9,7 +9,7 @@ use AdminPanel\Symfony\AdminBundle\Event\BatchEvents;
 use AdminPanel\Symfony\AdminBundle\Event\FormEvent;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
 use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
-use FSi\Component\DataIndexer\DataIndexerInterface;
+use AdminPanel\Component\DataIndexer\DataIndexerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcher;

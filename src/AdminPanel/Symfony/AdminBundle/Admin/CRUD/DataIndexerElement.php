@@ -11,7 +11,7 @@ interface DataIndexerElement extends Element
     /**
      * This method should be used inside of admin objects to retrieve DataIndexerInterface.
      *
-     * @return \FSi\Component\DataIndexer\DataIndexerInterface
+     * @return \AdminPanel\Component\DataIndexer\DataIndexerInterface
      */
     public function getDataIndexer();
 }

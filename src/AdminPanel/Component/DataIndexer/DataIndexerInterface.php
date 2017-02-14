@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\DataIndexer;
+namespace AdminPanel\Component\DataIndexer;
 
 interface DataIndexerInterface
 {
