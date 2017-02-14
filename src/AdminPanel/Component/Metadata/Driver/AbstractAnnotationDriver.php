@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\Metadata\Driver;
+namespace AdminPanel\Component\Metadata\Driver;
 
 use Doctrine\Common\Annotations\Reader;
-use FSi\Component\Metadata\Driver\DriverInterface;
 
 abstract class AbstractAnnotationDriver implements DriverInterface
 {
@@ -20,7 +19,7 @@ abstract class AbstractAnnotationDriver implements DriverInterface
      * Sets annotation reader for this driver
      *
      * @param Reader $reader
-     * @return \FSi\Component\Metadata\Driver\AbstractAnnotationDriver
+     * @return AbstractAnnotationDriver
      */
     public function setAnnotationReader(Reader $reader)
     {

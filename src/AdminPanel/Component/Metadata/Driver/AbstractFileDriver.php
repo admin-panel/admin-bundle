@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\Metadata\Driver;
+namespace AdminPanel\Component\Metadata\Driver;
 
 use Doctrine\Common\Persistence\Mapping\Driver\FileLocator;
-use FSi\Component\Metadata\ClassMetadataInterface;
+use AdminPanel\Component\Metadata\ClassMetadataInterface;
 
 abstract class AbstractFileDriver implements DriverInterface
 {
@@ -20,7 +20,7 @@ abstract class AbstractFileDriver implements DriverInterface
      * Set file locator that will be used to locate class metadata file
      *
      * @param \Doctrine\Common\Persistence\Mapping\Driver\FileLocator $locator
-     * @return \FSi\Component\Metadata\Driver\DriverInterface
+     * @return \AdminPanel\Component\Metadata\Driver\DriverInterface
      */
     public function setFileLocator(FileLocator $locator)
     {
@@ -47,7 +47,7 @@ abstract class AbstractFileDriver implements DriverInterface
      *
      * This method shout be used in loadClassMetadata to reach metadata file.
      *
-     * @param \FSi\Component\Metadata\ClassMetadataInterface $metadata
+     * @param \AdminPanel\Component\Metadata\ClassMetadataInterface $metadata
      * @return \Doctrine\Common\Persistence\Mapping\Driver\FileLocator
      */
     protected function findMappingFile(ClassMetadataInterface $metadata)

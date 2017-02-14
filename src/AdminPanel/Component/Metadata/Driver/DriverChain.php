@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\Metadata\Driver;
+namespace AdminPanel\Component\Metadata\Driver;
 
-use FSi\Component\Metadata\Driver\DriverInterface;
-use FSi\Component\Metadata\ClassMetadataInterface;
+use AdminPanel\Component\Metadata\ClassMetadataInterface;
 
 class DriverChain implements DriverInterface
 {
@@ -19,7 +18,7 @@ class DriverChain implements DriverInterface
     /**
      * Accepts an array of DriverInterface instances indexed by class namespace
      *
-     * @param \FSi\Component\Metadata\Driver\DriverInterface[] $drivers
+     * @param \AdminPanel\Component\Metadata\Driver\DriverInterface[] $drivers
      */
     public function __construct(array $drivers = [])
     {
@@ -31,7 +30,7 @@ class DriverChain implements DriverInterface
     /**
      * Add new driver to the chain
      *
-     * @param \FSi\Component\Metadata\Driver\DriverInterface $driver
+     * @param \AdminPanel\Component\Metadata\Driver\DriverInterface $driver
      * @param string $namespace
      * @return \FSi\Component\Metadata\Driver\DriverChain
      */

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\Metadata\Driver;
+namespace AdminPanel\Component\Metadata\Driver;
 
-use FSi\Component\Metadata\ClassMetadataInterface;
+use AdminPanel\Component\Metadata\ClassMetadataInterface;
 
 interface DriverInterface
 {
