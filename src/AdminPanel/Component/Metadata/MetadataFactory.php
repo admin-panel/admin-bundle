@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\Metadata;
+namespace AdminPanel\Component\Metadata;
 
 use Doctrine\Common\Cache\Cache;
-use FSi\Component\Metadata\Driver\DriverInterface;
+use AdminPanel\Component\Metadata\Driver\DriverInterface;
 
 class MetadataFactory
 {
-    const METADATA_CLASS = 'FSi\Component\Metadata\ClassMetadata';
+    const METADATA_CLASS = ClassMetadata::class;
 
     /**
      * Driver used to read metadata.
      *
-     * @var \FSi\Component\Metadata\Driver\DriverInterface
+     * @var \AdminPanel\Component\Metadata\Driver\DriverInterface
      */
     protected $driver;
 
@@ -47,8 +47,8 @@ class MetadataFactory
     /**
      * Create metadataFactory. Sometimes it might be usefull to create own ClassMetadata.
      *
-     * @throws InvalidArgumentException
-     * @param DriverInterface $driver
+     * @throws \InvalidArgumentException
+     * @param \AdminPanel\Component\Metadata\Driver\DriverInterface $driver
      * @param Cache $cache
      * @param string $cachePrefix
      * @param string $metadataClassName
@@ -66,8 +66,8 @@ class MetadataFactory
         if (isset($metadataClassName)) {
             $metadataClassName = ltrim($metadataClassName, '\\');
             $metadataClassReflection = new \ReflectionClass($metadataClassName);
-            if (!$metadataClassReflection->implementsInterface('FSi\Component\Metadata\ClassMetadataInterface')) {
-                throw new \InvalidArgumentException('Metadata class must implement FSi\Component\Metadata\ClassMetadataInterface');
+            if (!$metadataClassReflection->implementsInterface('AdminPanel\Component\Metadata\ClassMetadataInterface')) {
+                throw new \InvalidArgumentException('Metadata class must implement AdminPanel\Component\Metadata\ClassMetadataInterface');
             }
             $this->metadataClassName = $metadataClassName;
         } else {
@@ -79,7 +79,7 @@ class MetadataFactory
      * Returns class metadata read by the driver. This method calls itself recursively for each ancestor class
      *
      * @param string $class
-     * @return \FSi\Component\Metadata\ClassMetadataInterface
+     * @return \AdminPanel\Component\Metadata\ClassMetadataInterface
      */
     public function getClassMetadata($class)
     {

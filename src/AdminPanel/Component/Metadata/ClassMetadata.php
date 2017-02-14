@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\Metadata;
+namespace AdminPanel\Component\Metadata;
 
 class ClassMetadata extends AbstractClassMetadata
 {
