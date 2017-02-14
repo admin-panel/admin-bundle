@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\Reflection;
+namespace AdminPanel\Component\Reflection;
 
 class ReflectionFunction extends \ReflectionFunction
 {

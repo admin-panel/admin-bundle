@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AdminPanel\Symfony\AdminBundleBundle\Tests\DataGrid\Extension\Symfony\ColumnType;
+namespace AdminPanel\Symfony\AdminBundle\Tests\DataGrid\Extension\Symfony\ColumnType;
 
 use AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnType\Action;
-use AdminPanel\Symfony\AdminBundleBundle\Tests\Fixtures\Request;
+use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\Request;
 use FSi\Component\DataGrid\Extension\Core\ColumnTypeExtension\DefaultColumnOptionsExtension;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;

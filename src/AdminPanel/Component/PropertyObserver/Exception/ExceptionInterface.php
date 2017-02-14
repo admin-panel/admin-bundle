@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\PropertyObserver\Exception;
+namespace AdminPanel\Component\PropertyObserver\Exception;
 
 interface ExceptionInterface
 {

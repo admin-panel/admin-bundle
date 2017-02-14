@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\PropertyObserver;
+namespace AdminPanel\Component\PropertyObserver;
 
 interface PropertyObserverInterface
 {

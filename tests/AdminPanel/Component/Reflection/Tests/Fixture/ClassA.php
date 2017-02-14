@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\Reflection\Tests\Fixture;
+namespace AdminPanel\Component\Reflection\Tests\Fixture;
 
 interface ClassAInterface
 {

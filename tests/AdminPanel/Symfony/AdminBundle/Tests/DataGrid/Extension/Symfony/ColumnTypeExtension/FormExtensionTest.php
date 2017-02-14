@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AdminPanel\Symfony\AdminBundleBundle\Tests\DataGrid\Extension\Symfony\ColumnTypeExtension;
+namespace AdminPanel\Symfony\AdminBundle\Tests\DataGrid\Extension\Symfony\ColumnTypeExtension;
 
 use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\FakeQuery;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnTypeExtension\FormExtension;
-use AdminPanel\Symfony\AdminBundleBundle\Tests\Fixtures\Entity;
-use AdminPanel\Symfony\AdminBundleBundle\Tests\Fixtures\EntityCategory;
+use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\Entity;
+use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\EntityCategory;
 use FSi\Component\DataGrid\DataGrid;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
