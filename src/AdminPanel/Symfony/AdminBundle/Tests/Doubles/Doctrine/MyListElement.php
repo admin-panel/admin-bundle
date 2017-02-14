@@ -6,7 +6,7 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Doubles\Doctrine;
 
 use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
-use FSi\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 
 class MyListElement extends ListElement
 {

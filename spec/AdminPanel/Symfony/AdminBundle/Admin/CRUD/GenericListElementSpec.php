@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Admin\CRUD;
 
+use AdminPanel\Component\DataSource\DataSourceFactory;
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
+use FSi\Component\DataGrid\DataGridFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -36,11 +38,7 @@ class GenericListElementSpec extends ObjectBehavior
         $this->getRoute()->shouldReturn('fsi_admin_list');
     }
 
-    /**
-     * @param \FSi\Component\DataGrid\DataGridFactory $factory
-     * @throws \FSi\Component\DataGrid\Exception\DataGridColumnException
-     */
-    public function it_throw_exception_when_init_datagrid_does_not_return_instance_of_datagrid($factory)
+    public function it_throw_exception_when_init_datagrid_does_not_return_instance_of_datagrid(DataGridFactory $factory)
     {
         $this->setDataGridFactory($factory);
         $factory->createDataGrid(Argument::cetera())->willReturn(null);
@@ -49,16 +47,12 @@ class GenericListElementSpec extends ObjectBehavior
             ->during('createDataGrid');
     }
 
-    /**
-     * @param \FSi\Component\DataSource\DataSourceFactory $factory
-     * @throws \FSi\Component\DataSource\Exception\DataSourceException
-     */
-    public function it_throw_exception_when_init_datasource_does_not_return_instance_of_datasource($factory)
+    public function it_throw_exception_when_init_datasource_does_not_return_instance_of_datasource(DataSourceFactory $factory)
     {
         $this->setDataSourceFactory($factory);
         $factory->createDataSource(Argument::cetera())->willReturn(null);
 
-        $this->shouldThrow(new RuntimeException("initDataSource should return instanceof FSi\\Component\\DataSource\\DataSourceInterface"))
+        $this->shouldThrow(new RuntimeException("initDataSource should return instanceof AdminPanel\\Component\\DataSource\\DataSourceInterface"))
             ->during('createDataSource');
     }
 

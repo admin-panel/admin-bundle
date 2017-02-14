@@ -4,24 +4,25 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\EventListener;
 
+use AdminPanel\Symfony\AdminBundle\Event\MenuEvent;
+use AdminPanel\Symfony\AdminBundle\Menu\Item\ElementItem;
+use AdminPanel\Symfony\AdminBundle\Menu\Item\Item;
+use AdminPanel\Symfony\AdminBundle\Menu\Item\RoutableItem;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class CleanUpMenuListenerSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\MenuEvent $event
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\Item $menu
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\ElementItem $childItem1
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\RoutableItem $childItem2
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\Item $childItem3
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\RoutableItem $childItem31
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\Item $childItem4
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\Item $childItem41
-     * @param \AdminPanel\Symfony\AdminBundle\Menu\Item\Item $childItem411
-     */
     public function it_remove_empty_menus(
-        $event, $menu, $childItem1, $childItem2, $childItem3, $childItem31, $childItem4, $childItem41, $childItem411
+        MenuEvent $event,
+        Item $menu,
+        ElementItem $childItem1,
+        RoutableItem $childItem2,
+        Item $childItem3,
+        RoutableItem $childItem31,
+        Item $childItem4,
+        Item $childItem41,
+        Item $childItem411
     ) {
         $event->getMenu()->willReturn($menu);
 

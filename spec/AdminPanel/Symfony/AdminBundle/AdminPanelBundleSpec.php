@@ -18,6 +18,7 @@ use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TwigGlobalsPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class AdminPanelBundleSpec extends ObjectBehavior
 {
@@ -26,10 +27,7 @@ class AdminPanelBundleSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf('Symfony\Component\HttpKernel\Bundle\Bundle');
     }
 
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $builder
-     */
-    public function it_add_compiler_pass($builder)
+    public function it_add_compiler_pass(ContainerBuilder $builder)
     {
         $builder->addCompilerPass(Argument::type(AdminAnnotatedElementPass::class))
             ->shouldBeCalled();

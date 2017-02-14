@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context;
 
+use AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface;
+use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\BatchElement;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class BatchElementContextSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Doctrine\Admin\BatchElement $element
-     * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
-     * @param \Symfony\Component\Form\Form $batchForm
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
-     */
-    public function let($element, $formBuilder, $batchForm, $handler)
-    {
+    public function let(
+        BatchElement $element,
+        FormBuilderInterface $formBuilder,
+        Form $batchForm,
+        HandlerInterface $handler
+    ) {
         $this->beConstructedWith([$handler], $formBuilder);
         $formBuilder->getForm()->willReturn($batchForm);
         $this->setElement($element);
@@ -42,13 +46,11 @@ class BatchElementContextSpec extends ObjectBehavior
         $this->getTemplateName()->shouldReturn(null);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $requestParameterBag
-     */
-    public function it_handle_request_with_request_handlers($handler, $request, $requestParameterBag)
-    {
+    public function it_handle_request_with_request_handlers(
+        HandlerInterface $handler,
+        Request $request,
+        ParameterBag $requestParameterBag
+    ) {
         $handler->handleRequest(Argument::type('AdminPanel\Symfony\AdminBundle\Event\FormEvent'), $request)
             ->shouldBeCalled();
 
@@ -58,13 +60,11 @@ class BatchElementContextSpec extends ObjectBehavior
         $this->handleRequest($request)->shouldReturn(null);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $requestParameterBag
-     */
-    public function it_return_response_from_handler($handler, $request, $requestParameterBag)
-    {
+    public function it_return_response_from_handler(
+        HandlerInterface $handler,
+        Request $request,
+        ParameterBag $requestParameterBag
+    ) {
         $handler->handleRequest(Argument::type('AdminPanel\Symfony\AdminBundle\Event\FormEvent'), $request)
             ->willReturn(new Response());
 

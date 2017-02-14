@@ -18,3 +18,4 @@ AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 $loader->add('FSi\\Component\\Reflection\\Tests', __DIR__);
 $loader->add('FSi\\Component\\Metadata\\Tests', __DIR__);
 $loader->add('AdminPanel\\Symfony\\AdminBundle\\Tests', __DIR__);
+$loader->add('AdminPanel\\Component\\', __DIR__);

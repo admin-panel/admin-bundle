@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\DataSource\Extension\Symfony\Form\Field;
 
-use FSi\Component\DataSource\Field\FieldTypeInterface;
-use FSi\Component\DataSource\Field\FieldAbstractExtension;
+use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
+use AdminPanel\Component\DataSource\Field\FieldAbstractExtension;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class FormFieldExtension extends FieldAbstractExtension
@@ -34,7 +34,7 @@ class FormFieldExtension extends FieldAbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function initOptions(FieldTypeInterface $field)
+    public function initOptions(\AdminPanel\Component\DataSource\Field\FieldTypeInterface $field)
     {
         if ($field->getComparison() == 'isNull') {
             $field->getOptionsResolver()

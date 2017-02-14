@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AdminPanel\Symfony\AdminBundleBundle\Tests\DataSource\Extension\Configuration\EventSubscriber;
 
 use AdminPanel\Symfony\AdminBundle\DataSource\Extension\Configuration\EventSubscriber\ConfigurationBuilder;
-use FSi\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs;
-use FSi\Component\DataSource\Event\DataSourceEvents;
+use AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs;
+use AdminPanel\Component\DataSource\Event\DataSourceEvents;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -50,7 +50,7 @@ class ConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
         $this->kernel->expects($this->once())
             ->method('getBundles')
             ->will($this->returnCallback(function () use ($self) {
-                $bundle = $self->getMock('Symfony\Component\HttpKernel\Bundle\Bundle', ['getPath']);
+                $bundle = $self->createMock('Symfony\Component\HttpKernel\Bundle\Bundle');
                 $bundle->expects($self->any())
                     ->method('getPath')
                     ->will($self->returnValue(__DIR__ . '/../../../../Fixtures/FooBundle'));
@@ -58,7 +58,7 @@ class ConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
                 return [$bundle];
             }));
 
-        $dataSource = $this->getMockBuilder('FSi\Component\DataSource\DataSource')
+        $dataSource = $this->getMockBuilder('AdminPanel\Component\DataSource\DataSource')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -81,12 +81,12 @@ class ConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
         $this->kernel->expects($this->once())
             ->method('getBundles')
             ->will($this->returnCallback(function () use ($self) {
-                $fooBundle = $self->getMock('Symfony\Component\HttpKernel\Bundle\Bundle', ['getPath']);
+                $fooBundle = $self->createMock('Symfony\Component\HttpKernel\Bundle\Bundle');
                 $fooBundle->expects($self->any())
                     ->method('getPath')
                     ->will($self->returnValue(__DIR__ . '/../../../../Fixtures/FooBundle'));
 
-                $barBundle = $self->getMock('Symfony\Component\HttpKernel\Bundle\Bundle', ['getPath']);
+                $barBundle = $self->createMock('Symfony\Component\HttpKernel\Bundle\Bundle');
                 $barBundle->expects($self->any())
                     ->method('getPath')
                     ->will($self->returnValue(__DIR__ . '/../../../../Fixtures/BarBundle'));
@@ -96,7 +96,7 @@ class ConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
                 ];
             }));
 
-        $dataSource = $this->getMockBuilder('FSi\Component\DataSource\DataSource')
+        $dataSource = $this->getMockBuilder('AdminPanel\Component\DataSource\DataSource')
             ->disableOriginalConstructor()
             ->getMock();
 

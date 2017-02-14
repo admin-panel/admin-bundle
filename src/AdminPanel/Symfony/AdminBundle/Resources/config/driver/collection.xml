@@ -5,7 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="datasource.driver.collection.factory.class">FSi\Component\DataSource\Driver\Collection\CollectionFactory</parameter>
+        <parameter key="datasource.driver.collection.factory.class">AdminPanel\Component\DataSource\Driver\Collection\CollectionFactory</parameter>
     </parameters>
 
     <services>
@@ -37,35 +37,35 @@
         </service>
 
         <!-- Collection/CoreExtension -->
-        <service id="datasource.driver.collection.field.date" class="FSi\Component\DataSource\Driver\Collection\Extension\Core\Field\Date">
+        <service id="datasource.driver.collection.field.date" class="AdminPanel\Component\DataSource\Driver\Collection\Extension\Core\Field\Date">
             <tag name="datasource.driver.collection.field" alias="date" />
         </service>
-        <service id="datasource.driver.collection.field.datetime" class="FSi\Component\DataSource\Driver\Collection\Extension\Core\Field\DateTime">
+        <service id="datasource.driver.collection.field.datetime" class="AdminPanel\Component\DataSource\Driver\Collection\Extension\Core\Field\DateTime">
             <tag name="datasource.driver.collection.field" alias="datetime" />
         </service>
-        <service id="datasource.driver.collection.field.number" class="FSi\Component\DataSource\Driver\Collection\Extension\Core\Field\Number">
+        <service id="datasource.driver.collection.field.number" class="AdminPanel\Component\DataSource\Driver\Collection\Extension\Core\Field\Number">
             <tag name="datasource.driver.collection.field" alias="number" />
         </service>
-        <service id="datasource.driver.collection.field.text" class="FSi\Component\DataSource\Driver\Collection\Extension\Core\Field\Text">
+        <service id="datasource.driver.collection.field.text" class="AdminPanel\Component\DataSource\Driver\Collection\Extension\Core\Field\Text">
             <tag name="datasource.driver.collection.field" alias="text" />
         </service>
-        <service id="datasource.driver.collection.field.time" class="FSi\Component\DataSource\Driver\Collection\Extension\Core\Field\Time">
+        <service id="datasource.driver.collection.field.time" class="AdminPanel\Component\DataSource\Driver\Collection\Extension\Core\Field\Time">
             <tag name="datasource.driver.collection.field" alias="time" />
         </service>
-        <service id="datasource.driver.collection.field.boolean" class="FSi\Component\DataSource\Driver\Collection\Extension\Core\Field\Boolean">
+        <service id="datasource.driver.collection.field.boolean" class="AdminPanel\Component\DataSource\Driver\Collection\Extension\Core\Field\Boolean">
             <tag name="datasource.driver.collection.field" alias="boolean" />
         </service>
 
         <!-- OrderingExtension -->
-        <service id="datasource.driver.collection.subscriber.ordering" class="FSi\Component\DataSource\Extension\Core\Ordering\Driver\CollectionExtension">
+        <service id="datasource.driver.collection.subscriber.ordering" class="AdminPanel\Component\DataSource\Extension\Core\Ordering\Driver\CollectionExtension">
             <tag name="datasource.driver.collection.subscriber" alias="ordering" />
         </service>
-        <service id="datasource.driver.collection.field.subscriber.ordering" class="FSi\Component\DataSource\Extension\Core\Ordering\Field\FieldExtension">
+        <service id="datasource.driver.collection.field.subscriber.ordering" class="AdminPanel\Component\DataSource\Extension\Core\Ordering\Field\FieldExtension">
             <tag name="datasource.driver.collection.field.subscriber" alias="ordering" />
         </service>
 
         <!-- Symfony/FormExtension -->
-        <service id="datasource.driver.collection.field.subscriber.symfonyform" class="FSi\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension">
+        <service id="datasource.driver.collection.field.subscriber.symfonyform" class="AdminPanel\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension">
             <tag name="datasource.driver.collection.field.subscriber" alias="symfonyform" />
             <argument type="service" id="form.factory" />
         </service>

@@ -4,28 +4,20 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Factory;
 
+use AdminPanel\Symfony\AdminBundle\Admin\Element;
+use AdminPanel\Symfony\AdminBundle\Factory\Worker;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class ProductionLineSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Factory\Worker $workerFoo
-     * @param \AdminPanel\Symfony\AdminBundle\Factory\Worker $workerBar
-     */
-    public function it_is_created_with_workers($workerFoo, $workerBar)
+    public function it_is_created_with_workers(Worker $workerFoo, Worker $workerBar)
     {
         $this->beConstructedWith([$workerFoo, $workerBar]);
         $this->count()->shouldReturn(2);
         $this->getWorkers()->shouldReturn([$workerFoo, $workerBar]);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Factory\Worker $workerFoo
-     * @param \AdminPanel\Symfony\AdminBundle\Factory\Worker $workerBar
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Element $element
-     */
-    public function it_work_on_element_with_workers($workerFoo, $workerBar, $element)
+    public function it_work_on_element_with_workers(Worker $workerFoo, Worker $workerBar, Element $element)
     {
         $this->beConstructedWith([$workerFoo, $workerBar]);
         $workerBar->mount($element)->shouldBeCalled();

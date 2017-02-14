@@ -10,7 +10,7 @@ namespace FSi\Bundle\DemoBundle\Admin;
 
 use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
-use FSi\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use AdminPanel\Symfony\AdminBundle\Annotation as Admin;
 
 /**
@@ -41,7 +41,7 @@ class SubscriberElement extends ListElement
      */
     protected function initDataSource(DataSourceFactoryInterface $factory)
     {
-        /* @var $datasource \FSi\Component\DataSource\DataSource */
+        /* @var $datasource \AdminPanel\Component\DataSource\DataSource */
         $datasource = $factory->createDataSource(
             'doctrine',
             array('entity' => $this->getClassName()),

@@ -11,7 +11,7 @@ class ChainMapperTest extends \PHPUnit_Framework_TestCase
 {
     public function testMappersInChainWithInvalidMappers()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         $chain = new ChainMapper([
             'foo',
             'bar'
@@ -20,7 +20,7 @@ class ChainMapperTest extends \PHPUnit_Framework_TestCase
 
     public function testMappersInChainWithEmptyMappersArray()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         $chain = new ChainMapper([
             'foo',
             'bar'
@@ -29,8 +29,8 @@ class ChainMapperTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDataFromTwoMappers()
     {
-        $mapper = $this->getMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
-        $mapper1 = $this->getMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
+        $mapper = $this->createMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
+        $mapper1 = $this->createMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
 
         $mapper->expects($this->once())
                ->method('getData')
@@ -50,8 +50,8 @@ class ChainMapperTest extends \PHPUnit_Framework_TestCase
 
     public function testSetDataWithTwoMappers()
     {
-        $mapper = $this->getMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
-        $mapper1 = $this->getMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
+        $mapper = $this->createMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
+        $mapper1 = $this->createMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
 
         $mapper->expects($this->once())
                ->method('setData')

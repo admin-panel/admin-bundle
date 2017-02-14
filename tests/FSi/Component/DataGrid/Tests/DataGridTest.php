@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace FSi\Component\DataGrid\Tests;
 
+use FSi\Component\DataGrid\Data\IndexingStrategyInterface;
 use FSi\Component\DataGrid\DataGrid;
+use FSi\Component\DataGrid\DataGridFactoryInterface;
+use FSi\Component\DataGrid\DataMapper\DataMapperInterface;
 use FSi\Component\DataGrid\Tests\Fixtures\FooExtension;
 use FSi\Component\DataGrid\Tests\Fixtures\ColumnType\FooType;
 use FSi\Component\DataGrid\Tests\Fixtures\Entity;
@@ -33,7 +36,7 @@ class DataGridTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->dataMapper = $this->getMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
+        $this->dataMapper = $this->createMock(DataMapperInterface::class);
         $this->dataMapper->expects($this->any())
             ->method('getData')
             ->will($this->returnCallback(function ($field, $object) {
@@ -54,7 +57,7 @@ class DataGridTest extends \PHPUnit_Framework_TestCase
                 }
             }));
 
-        $this->indexingStrategy = $this->getMock('FSi\Component\DataGrid\Data\IndexingStrategyInterface');
+        $this->indexingStrategy = $this->createMock(IndexingStrategyInterface::class);
         $this->indexingStrategy->expects($this->any())
             ->method('getIndex')
             ->will($this->returnCallback(function ($object, $dataMapper) {
@@ -64,7 +67,7 @@ class DataGridTest extends \PHPUnit_Framework_TestCase
                 return null;
             }));
 
-        $this->factory = $this->getMock('FSi\Component\DataGrid\DataGridFactoryInterface');
+        $this->factory = $this->createMock(DataGridFactoryInterface::class);
         $this->factory->expects($this->any())
             ->method('getExtensions')
             ->will($this->returnValue([

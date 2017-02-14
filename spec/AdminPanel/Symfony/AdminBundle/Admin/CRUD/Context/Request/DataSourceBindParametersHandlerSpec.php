@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\Request;
 
+use AdminPanel\Component\DataSource\DataSource;
+use AdminPanel\Symfony\AdminBundle\Event\AdminEvent;
+use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvents;
 use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DataSourceBindParametersHandlerSpec extends ObjectBehavior
 {
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     * @param \AdminPanel\Symfony\AdminBundle\Event\ListEvent $event
-     */
-    public function let($eventDispatcher, $event)
+    public function let(EventDispatcher $eventDispatcher, ListEvent $event)
     {
         $event->hasResponse()->willReturn(false);
         $this->beConstructedWith($eventDispatcher);
@@ -27,11 +27,7 @@ class DataSourceBindParametersHandlerSpec extends ObjectBehavior
         $this->shouldHaveType('AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface');
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\AdminEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function it_throw_exception_for_non_list_event($event, $request)
+    public function it_throw_exception_for_non_list_event(AdminEvent $event, Request $request)
     {
         $this->shouldThrow(
             new RequestHandlerException(
@@ -40,18 +36,11 @@ class DataSourceBindParametersHandlerSpec extends ObjectBehavior
         )->during('handleRequest', [$event, $request]);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\ListEvent $event
-     * @param \FSi\Component\DataSource\DataSource $dataSource
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     * @throws \FSi\Component\DataSource\Exception\DataSourceException
-     */
     public function it_bind_request_to_datasource_and_dispatch_events(
-        $event,
-        $dataSource,
-        $request,
-        $eventDispatcher
+        ListEvent $event,
+        DataSource $dataSource,
+        Request $request,
+        EventDispatcher $eventDispatcher
     ) {
         $eventDispatcher->dispatch(ListEvents::LIST_DATASOURCE_REQUEST_PRE_BIND, $event)->shouldBeCalled();
 
@@ -63,13 +52,11 @@ class DataSourceBindParametersHandlerSpec extends ObjectBehavior
         $this->handleRequest($event, $request)->shouldReturn(null);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\ListEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     */
-    public function it_return_response_from_pre_datasource_bind_parameters_event($event, $request, $eventDispatcher)
-    {
+    public function it_return_response_from_pre_datasource_bind_parameters_event(
+        ListEvent $event,
+        Request $request,
+        EventDispatcher $eventDispatcher
+    ) {
         $eventDispatcher->dispatch(ListEvents::LIST_DATASOURCE_REQUEST_PRE_BIND, $event)
             ->will(function () use ($event) {
                 $event->hasResponse()->willReturn(true);
@@ -80,18 +67,11 @@ class DataSourceBindParametersHandlerSpec extends ObjectBehavior
             ->shouldReturnAnInstanceOf('Symfony\Component\HttpFoundation\Response');
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Event\ListEvent $event
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     * @param \FSi\Component\DataSource\DataSource $dataSource
-     * @throws \FSi\Component\DataSource\Exception\DataSourceException
-     */
     public function it_return_response_from_post_datasource_bind_parameters_event(
-        $event,
-        $request,
-        $eventDispatcher,
-        $dataSource
+        ListEvent $event,
+        Request $request,
+        EventDispatcher $eventDispatcher,
+        DataSource $dataSource
     ) {
         $eventDispatcher->dispatch(ListEvents::LIST_DATASOURCE_REQUEST_PRE_BIND, $event)->shouldBeCalled();
 

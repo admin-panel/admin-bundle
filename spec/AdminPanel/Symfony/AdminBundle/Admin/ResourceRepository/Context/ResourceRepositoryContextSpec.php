@@ -4,21 +4,25 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Context;
 
+use AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface;
+use AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\ResourceFormBuilder;
+use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ResourceElement;
+use FSi\Bundle\ResourceRepositoryBundle\Repository\MapBuilder;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResourceRepositoryContextSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
-     * @param \AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ResourceElement $element
-     * @param \FSi\Bundle\ResourceRepositoryBundle\Repository\MapBuilder $builder
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\ResourceFormBuilder $resourceFormBuilder
-     * @param \Symfony\Component\Form\Form $form
-     */
-    public function let($handler, $element, $builder, $resourceFormBuilder, $form)
-    {
+    public function let(
+        HandlerInterface $handler,
+        ResourceElement $element,
+        MapBuilder $builder,
+        ResourceFormBuilder $resourceFormBuilder,
+        Form $form
+    ) {
         $builder->getMap()->willReturn([
             'resources' => []
         ]);
@@ -42,24 +46,20 @@ class ResourceRepositoryContextSpec extends ObjectBehavior
         $this->getData()->shouldHaveKeyInArray('element');
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function it_handle_request_with_request_handlers($handler, $request)
-    {
+    public function it_handle_request_with_request_handlers(
+        HandlerInterface $handler,
+        Request $request
+    ) {
         $handler->handleRequest(Argument::type('AdminPanel\Symfony\AdminBundle\Event\FormEvent'), $request)
             ->shouldBeCalled();
 
         $this->handleRequest($request)->shouldReturn(null);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function it_return_response_from_handler($handler, $request)
-    {
+    public function it_return_response_from_handler(
+        HandlerInterface $handler,
+        Request $request
+    ) {
         $handler->handleRequest(Argument::type('AdminPanel\Symfony\AdminBundle\Event\FormEvent'), $request)
             ->willReturn(new Response());
 

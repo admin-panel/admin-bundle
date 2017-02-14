@@ -6,7 +6,7 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Doubles;
 
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListElement;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
-use FSi\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 
 class MyList extends GenericListElement
 {

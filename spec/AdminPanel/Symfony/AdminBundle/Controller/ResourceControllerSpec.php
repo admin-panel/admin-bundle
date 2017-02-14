@@ -4,38 +4,34 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Controller;
 
+use AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\ListElementContext;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
+use AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Element;
+use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ResourceElement;
 use AdminPanel\Symfony\AdminBundle\Event\AdminEvents;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ResourceControllerSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\DelegatingEngine $templating
-     */
-    public function let($manager, $templating)
+    public function let(ContextManager $manager, EngineInterface $templating)
     {
         $this->beConstructedWith($templating, $manager, 'default_resource');
     }
 
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Element $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Context\ResourceRepositoryContext $context
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\DelegatingEngine $templating
-     */
     public function it_dispatch_event_if_displatcher_present(
-        $dispatcher,
-        $request,
-        $response,
-        $element,
-        $manager,
-        $context,
-        $templating
+        EventDispatcherInterface $dispatcher,
+        Request $request,
+        Response $response,
+        ResourceElement $element,
+        ContextManager $manager,
+        ListElementContext $context,
+        EngineInterface $templating
     ) {
         $this->setEventDispatcher($dispatcher);
 
@@ -54,15 +50,10 @@ class ResourceControllerSpec extends ObjectBehavior
         $this->resourceAction($element, $request)->shouldReturn($response);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Element $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
     public function it_throw_exception_when_cant_find_context_builder_that_supports_admin_element(
-        $element,
-        $manager,
-        $request
+        Element $element,
+        ContextManager $manager,
+        Request $request
     ) {
         $element->getId()->willReturn('my_awesome_resource');
         $manager->createContext(Argument::type('string'), $element)->willReturn(null);
@@ -71,21 +62,13 @@ class ResourceControllerSpec extends ObjectBehavior
             ->during('resourceAction', [$element, $request]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Element $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Context\ResourceRepositoryContext $context
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\DelegatingEngine $templating
-     */
     public function it_render_default_template_in_resource_action(
-        $request,
-        $response,
-        $element,
-        $manager,
-        $context,
-        $templating
+        Request $request,
+        Response $response,
+        ResourceElement $element,
+        ContextManager $manager,
+        ListElementContext $context,
+        EngineInterface $templating
     ) {
         $manager->createContext('fsi_admin_resource', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn(null);
@@ -96,21 +79,13 @@ class ResourceControllerSpec extends ObjectBehavior
         $this->resourceAction($element, $request)->shouldReturn($response);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Element $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Context\ResourceRepositoryContext $context
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\DelegatingEngine $templating
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     */
     public function it_render_template_from_element_in_resource_action(
-        $manager,
-        $element,
-        $context,
-        $request,
-        $templating,
-        $response
+        Request $request,
+        Response $response,
+        ResourceElement $element,
+        ContextManager $manager,
+        ListElementContext $context,
+        EngineInterface $templating
     ) {
         $manager->createContext('fsi_admin_resource', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn(null);
@@ -122,19 +97,12 @@ class ResourceControllerSpec extends ObjectBehavior
         $this->resourceAction($element, $request)->shouldReturn($response);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\ContextManager $manager
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Element $element
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\ResourceRepository\Context\ResourceRepositoryContext $context
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     */
     public function it_return_response_from_context_in_resource_action(
-        $manager,
-        $element,
-        $context,
-        $request,
-        $response
+        Request $request,
+        Response $response,
+        ResourceElement $element,
+        ContextManager $manager,
+        ListElementContext $context
     ) {
         $manager->createContext('fsi_admin_resource', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn($response);

@@ -7,7 +7,7 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
-use FSi\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CustomTemplateUserElement extends ListElement
@@ -37,12 +37,12 @@ final class CustomTemplateUserElement extends ListElement
     /**
      * Initialize DataSource.
      *
-     * @param \FSi\Component\DataSource\DataSourceFactoryInterface $factory
-     * @return \FSi\Component\DataSource\DataSourceInterface
+     * @param \AdminPanel\Component\DataSource\DataSourceFactoryInterface $factory
+     * @return \AdminPanel\Component\DataSource\DataSourceInterface
      */
     protected function initDataSource(DataSourceFactoryInterface $factory)
     {
-        /* @var $datasource \FSi\Component\DataSource\DataSource */
+        /* @var $datasource \AdminPanel\Component\DataSource\DataSource */
         $datasource = $factory->createDataSource(
             'doctrine',
             ['entity' => $this->getClassName()],

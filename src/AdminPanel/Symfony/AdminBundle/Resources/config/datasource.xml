@@ -5,11 +5,11 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="datasource.factory.class">FSi\Component\DataSource\DataSourceFactory</parameter>
-        <parameter key="datasource.extension.class">FSi\Component\DataSource\Extension\Symfony\DependencyInjection\DependencyInjectionExtension</parameter>
-        <parameter key="datasource.driver.factory.manager.class">FSi\Component\DataSource\Driver\DriverFactoryManager</parameter>
-        <parameter key="datasource.driver.extension.class">FSi\Component\DataSource\Extension\Symfony\DependencyInjection\Driver\DriverExtension</parameter>
-        <parameter key="datasource.extension.form.type.between.class">FSi\Component\DataSource\Extension\Symfony\Form\Type\BetweenType</parameter>
+        <parameter key="datasource.factory.class">AdminPanel\Component\DataSource\DataSourceFactory</parameter>
+        <parameter key="datasource.extension.class">AdminPanel\Component\DataSource\Extension\Symfony\DependencyInjection\DependencyInjectionExtension</parameter>
+        <parameter key="datasource.driver.factory.manager.class">AdminPanel\Component\DataSource\Driver\DriverFactoryManager</parameter>
+        <parameter key="datasource.driver.extension.class">AdminPanel\Component\DataSource\Extension\Symfony\DependencyInjection\Driver\DriverExtension</parameter>
+        <parameter key="datasource.extension.form.type.between.class">AdminPanel\Component\DataSource\Extension\Symfony\Form\Type\BetweenType</parameter>
     </parameters>
 
     <services>
@@ -47,22 +47,22 @@
         </service>
 
         <!-- PaginationExtension -->
-        <service id="datasource.subscriber.pagination" class="FSi\Component\DataSource\Extension\Core\Pagination\EventSubscriber\Events">
+        <service id="datasource.subscriber.pagination" class="AdminPanel\Component\DataSource\Extension\Core\Pagination\EventSubscriber\Events">
             <tag name="datasource.subscriber" alias="pagination" />
         </service>
 
         <!-- OrderingExtension -->
-        <service id="datasource.subscriber.ordering" class="FSi\Component\DataSource\Extension\Core\Ordering\EventSubscriber\Events">
+        <service id="datasource.subscriber.ordering" class="AdminPanel\Component\DataSource\Extension\Core\Ordering\EventSubscriber\Events">
             <tag name="datasource.subscriber" alias="ordering" />
         </service>
 
         <!-- Symfony/CoreExtension -->
-        <service id="datasource.subscriber.symfonyrequest" class="FSi\Component\DataSource\Extension\Symfony\Core\EventSubscriber\BindParameters">
+        <service id="datasource.subscriber.symfonyrequest" class="AdminPanel\Component\DataSource\Extension\Symfony\Core\EventSubscriber\BindParameters">
             <tag name="datasource.subscriber" alias="symfonyrequest" />
         </service>
 
         <!-- Symfony/FormExtension -->
-        <service id="datasource.subscriber.symfonyform" class="FSi\Component\DataSource\Extension\Symfony\Form\EventSubscriber\Events">
+        <service id="datasource.subscriber.symfonyform" class="AdminPanel\Component\DataSource\Extension\Symfony\Form\EventSubscriber\Events">
             <tag name="datasource.subscriber" alias="symfonyform" />
         </service>
     </services>

@@ -5,26 +5,22 @@ declare(strict_types=1);
 namespace spec\AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler;
 
 use PhpSpec\ObjectBehavior;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 
 class ContextPassSpec extends ObjectBehavior
 {
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param \Symfony\Component\DependencyInjection\Definition $def
-     */
-    public function let($container, $def)
+    public function let(ContainerBuilder $container, Definition $def)
     {
         $container->hasDefinition('admin.context.manager')->willReturn(true);
         $container->findDefinition('admin.context.manager')->willReturn($def);
     }
 
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param \Symfony\Component\DependencyInjection\Definition $def
-     * @param \Symfony\Component\DependencyInjection\Definition $fooDef
-     */
-    public function it_add_context_builders_into_context_manager($container, $def, $fooDef)
-    {
+    public function it_add_context_builders_into_context_manager(
+        ContainerBuilder $container,
+        Definition $def,
+        Definition $fooDef
+    ) {
         $container->findTaggedServiceIds('admin.context')->willReturn([
             'builder_foo' => [[]],
         ]);
@@ -35,15 +31,13 @@ class ContextPassSpec extends ObjectBehavior
         $this->process($container);
     }
 
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param \Symfony\Component\DependencyInjection\Definition $def
-     * @param \Symfony\Component\DependencyInjection\Definition $fooDef
-     * @param \Symfony\Component\DependencyInjection\Definition $barDef
-     * @param \Symfony\Component\DependencyInjection\Definition $bazDef
-     */
-    public function it_add_builders_in_priority_order($container, $def, $fooDef, $barDef, $bazDef)
-    {
+    public function it_add_builders_in_priority_order(
+        ContainerBuilder $container,
+        Definition $def,
+        Definition $fooDef,
+        Definition $barDef,
+        Definition $bazDef
+    ) {
         $container->findTaggedServiceIds('admin.context')->willReturn([
             'builder_baz' => [['priority' => -10]],
             'builder_bar' => [[]],

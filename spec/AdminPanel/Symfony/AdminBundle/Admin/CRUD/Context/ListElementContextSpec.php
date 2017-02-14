@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context;
 
+use AdminPanel\Component\DataSource\DataSource;
+use AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
+use FSi\Component\DataGrid\DataGrid;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ListElementContextSpec extends ObjectBehavior
 {
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement $element
-     * @param \FSi\Component\DataSource\DataSource $datasource
-     * @param \FSi\Component\DataGrid\DataGrid $datagrid
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
-     */
-    public function let($element, $datasource, $datagrid, $handler)
-    {
+    public function let(
+        ListElement $element,
+        DataSource $datasource,
+        DataGrid $datagrid,
+        HandlerInterface $handler
+    ) {
         $this->beConstructedWith([$handler]);
         $element->createDataGrid()->willReturn($datagrid);
         $element->createDataSource()->willReturn($datasource);
@@ -37,10 +40,7 @@ class ListElementContextSpec extends ObjectBehavior
         $this->getData()->shouldHaveKeyInArray('element');
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement $element
-     */
-    public function it_has_template($element)
+    public function it_has_template(ListElement $element)
     {
         $element->hasOption('template_list')->willReturn(true);
         $element->getOption('template_list')->willReturn('this_is_list_template.html.twig');
@@ -48,11 +48,7 @@ class ListElementContextSpec extends ObjectBehavior
         $this->getTemplateName()->shouldReturn('this_is_list_template.html.twig');
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function it_handle_request_with_request_handlers($handler, $request)
+    public function it_handle_request_with_request_handlers(HandlerInterface $handler, Request $request)
     {
         $handler->handleRequest(Argument::type('AdminPanel\Symfony\AdminBundle\Event\ListEvent'), $request)
             ->shouldBeCalled();
@@ -60,11 +56,7 @@ class ListElementContextSpec extends ObjectBehavior
         $this->handleRequest($request)->shouldReturn(null);
     }
 
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface $handler
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function it_return_response_from_handler($handler, $request)
+    public function it_return_response_from_handler(HandlerInterface $handler, Request $request)
     {
         $handler->handleRequest(Argument::type('AdminPanel\Symfony\AdminBundle\Event\ListEvent'), $request)
             ->willReturn(new Response());

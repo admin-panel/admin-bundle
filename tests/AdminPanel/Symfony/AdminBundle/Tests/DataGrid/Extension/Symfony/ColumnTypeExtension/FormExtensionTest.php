@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundleBundle\Tests\DataGrid\Extension\Symfony\ColumnTypeExtension;
 
+use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\FakeQuery;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
@@ -42,7 +43,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
             new EntityCategory(2, 'category name 2'),
         ];
 
-        $configuration = $this->getMock('Doctrine\ORM\Configuration');
+        $configuration = $this->createMock('Doctrine\ORM\Configuration');
 
         $objectManager = $this->getMockBuilder('Doctrine\ORM\EntityManager')->disableOriginalConstructor()->getMock();
         $objectManager->expects($this->any())
@@ -53,12 +54,22 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('getExpressionBuilder')
             ->will($this->returnValue(new Expr()));
 
-        $query = $this->getMock('Doctrine\ORM\AbstractQuery',
-            ['execute', '_doExecute', 'getSql', 'setFirstResult', 'setMaxResults'],
-            [$objectManager]);
+        $query = $this->createMock(FakeQuery::class);
         $query->expects($this->any())
             ->method('execute')
             ->will($this->returnValue($entities));
+
+        $query->expects($this->any())
+            ->method('getResult')
+            ->will($this->returnValue($entities));
+
+        $query->expects($this->any())
+            ->method('setParameters')
+            ->will($this->returnValue($query));
+
+        $query->expects($this->any())
+            ->method('setParameter')
+            ->will($this->returnValue($query));
 
         $query->expects($this->any())
             ->method('setFirstResult')
@@ -88,7 +99,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
             'id' => new \ReflectionProperty($entityClass, 'id'),
         ];
 
-        $repository = $this->getMock('Doctrine\ORM\EntityRepository', [], [$objectManager, $classMetadata]);
+        $repository = $this->createMock('Doctrine\ORM\EntityRepository');
         $repository->expects($this->any())
             ->method('createQueryBuilder')
             ->withAnyParameters()
@@ -108,7 +119,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('contains')
             ->will($this->returnValue(true));
 
-        $managerRegistry = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $managerRegistry = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry');
         $managerRegistry->expects($this->any())
             ->method('getManagerForClass')
             ->will($this->returnValue($objectManager));
@@ -135,7 +146,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
 
         $formFactory = new FormFactory($formRegistry, $resolvedTypeFactory);
 
-        $this->dataGrid = $this->getMock('FSi\Component\DataGrid\DataGridInterface');
+        $this->dataGrid = $this->createMock('FSi\Component\DataGrid\DataGridInterface');
         $this->dataGrid->expects($this->any())
             ->method('getName')
             ->will($this->returnValue('grid'));
@@ -237,7 +248,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function createColumnMock()
     {
-        $column = $this->getMock('FSi\Component\DataGrid\Column\ColumnTypeInterface');
+        $column = $this->createMock('FSi\Component\DataGrid\Column\ColumnTypeInterface');
 
         $column->expects($this->any())
             ->method('getDataMapper')
@@ -268,7 +279,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function getDataMapperReturnCallback()
     {
-        $dataMapper = $this->getMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
+        $dataMapper = $this->createMock('FSi\Component\DataGrid\DataMapper\DataMapperInterface');
         $dataMapper->expects($this->any())
             ->method('getData')
             ->will($this->returnCallback(function ($field, $object) {

@@ -158,7 +158,7 @@ namespace Acme\DemoBundle\Admin;
 
 use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\CRUDElement;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
-use FSi\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -256,7 +256,7 @@ use Acme\DemoBundle\Entity\User as UserEntity;
 use Acme\DemoBundle\Admin\UserInvoice;
 use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\CRUDElement;
 use FSi\Component\DataGrid\DataGridFactoryInterface;
-use FSi\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
 class User extends CRUDElement
@@ -299,7 +299,7 @@ class User extends CRUDElement
      */
     protected function initDataSource(DataSourceFactoryInterface $factory)
     {
-        /* @var $datasource \FSi\Component\DataSource\DataSource */
+        /* @var $datasource \AdminPanel\Component\DataSource\DataSource */
         $datasource = $factory->createDataSource('doctrine', array(
             'entity' => $this->getClassName()
         ), 'datasource');

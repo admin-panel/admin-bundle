@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundleBundle\Tests\DataSource\Extension\Symfony\Form\Field;
 
+use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use AdminPanel\Symfony\AdminBundle\DataSource\Extension\Symfony\Form\Field\FormFieldExtension;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testFormFieldExtensionForIsNullComparison()
     {
-        $optionResolver = $this->getMock('Symfony\Component\OptionsResolver\OptionsResolver');
+        $optionResolver = $this->createMock(OptionsResolver::class);
         $optionResolver->expects($this->once())
             ->method('setDefaults')
             ->with([
@@ -22,7 +25,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
                 ]
             ]);
 
-        $fieldType = $this->getMock('FSi\Component\DataSource\Field\FieldTypeInterface');
+        $fieldType = $this->createMock(FieldTypeInterface::class);
         $fieldType->expects($this->atLeastOnce())
             ->method('getOptionsResolver')
             ->will($this->returnValue($optionResolver));
@@ -30,7 +33,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('getComparison')
             ->will($this->returnValue('isNull'));
 
-        $translator = $this->getMock('Symfony\Component\Translation\TranslatorInterface');
+        $translator = $this->createMock(TranslatorInterface::class);
         $translator->expects($this->any())
             ->method('trans')
             ->will($this->returnCallback(function ($id, array $params, $translation_domain) {
@@ -59,7 +62,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testFormFieldExtensionForBooleanType()
     {
-        $optionResolver = $this->getMock('Symfony\Component\OptionsResolver\OptionsResolver');
+        $optionResolver = $this->createMock(OptionsResolver::class);
         $optionResolver->expects($this->once())
             ->method('setDefaults')
             ->with([
@@ -71,7 +74,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
                 ]
             ]);
 
-        $fieldType = $this->getMock('FSi\Component\DataSource\Field\FieldTypeInterface');
+        $fieldType = $this->createMock(FieldTypeInterface::class);
         $fieldType->expects($this->atLeastOnce())
             ->method('getOptionsResolver')
             ->will($this->returnValue($optionResolver));
@@ -79,7 +82,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('getType')
             ->will($this->returnValue('boolean'));
 
-        $translator = $this->getMock('Symfony\Component\Translation\TranslatorInterface');
+        $translator = $this->createMock(TranslatorInterface::class);
         $translator->expects($this->any())
             ->method('trans')
             ->will($this->returnCallback(function ($id, array $params, $translation_domain) {
