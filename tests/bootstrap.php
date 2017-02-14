@@ -15,8 +15,5 @@ $loader = require __DIR__.'/../vendor/autoload.php';
 
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 
-$loader->add('AdminPanel\\Component\\Reflection\\Tests', __DIR__);
-$loader->add('FSi\\Component\\Metadata\\Tests', __DIR__);
-$loader->add('FSi\\Component\\DataGrid\\Tests', __DIR__);
 $loader->add('AdminPanel\\Symfony\\AdminBundle\\Tests', __DIR__);
 $loader->add('AdminPanel\\Component\\', __DIR__);
