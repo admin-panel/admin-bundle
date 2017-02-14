@@ -6,7 +6,7 @@ namespace spec\AdminPanel\Symfony\AdminBundle\Admin\CRUD;
 
 use AdminPanel\Component\DataSource\DataSourceFactory;
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
-use FSi\Component\DataGrid\DataGridFactory;
+use AdminPanel\Component\DataGrid\DataGridFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -43,7 +43,7 @@ class GenericListElementSpec extends ObjectBehavior
         $this->setDataGridFactory($factory);
         $factory->createDataGrid(Argument::cetera())->willReturn(null);
 
-        $this->shouldThrow(new RuntimeException("initDataGrid should return instanceof FSi\\Component\\DataGrid\\DataGridInterface"))
+        $this->shouldThrow(new RuntimeException("initDataGrid should return instanceof AdminPanel\\Component\\DataGrid\\DataGridInterface"))
             ->during('createDataGrid');
     }
 

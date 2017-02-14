@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AdminPanel\Symfony\AdminBundle\Event;
 
 use AdminPanel\Symfony\AdminBundle\Admin\Element;
-use FSi\Component\DataGrid\DataGridInterface;
+use AdminPanel\Component\DataGrid\DataGridInterface;
 use AdminPanel\Component\DataSource\DataSourceInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,7 +17,7 @@ class ListEvent extends AdminEvent
     protected $dataSource;
 
     /**
-     * @var \FSi\Component\DataGrid\DataGridInterface
+     * @var \AdminPanel\Component\DataGrid\DataGridInterface
      */
     protected $dataGrid;
 
@@ -25,7 +25,7 @@ class ListEvent extends AdminEvent
      * @param \AdminPanel\Symfony\AdminBundle\Admin\Element $element
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \AdminPanel\Component\DataSource\DataSourceInterface $dataSource
-     * @param \FSi\Component\DataGrid\DataGridInterface $dataGrid
+     * @param \AdminPanel\Component\DataGrid\DataGridInterface $dataGrid
      */
     public function __construct(Element $element, Request $request, DataSourceInterface $dataSource, DataGridInterface $dataGrid)
     {
@@ -43,7 +43,7 @@ class ListEvent extends AdminEvent
     }
 
     /**
-     * @return \FSi\Component\DataGrid\DataGridInterface
+     * @return \AdminPanel\Component\DataGrid\DataGridInterface
      */
     public function getDataGrid()
     {

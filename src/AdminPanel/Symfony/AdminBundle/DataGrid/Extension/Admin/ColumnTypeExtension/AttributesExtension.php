@@ -6,10 +6,10 @@ namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Admin\ColumnTypeExte
 
 use AdminPanel\Symfony\AdminBundle\Admin\Manager;
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
-use FSi\Component\DataGrid\Column\CellViewInterface;
-use FSi\Component\DataGrid\Column\ColumnAbstractTypeExtension;
-use FSi\Component\DataGrid\Column\ColumnTypeInterface;
-use FSi\Component\DataGrid\Column\HeaderViewInterface;
+use AdminPanel\Component\DataGrid\Column\CellViewInterface;
+use AdminPanel\Component\DataGrid\Column\ColumnAbstractTypeExtension;
+use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
+use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
 use FSi\Component\DataGrid\Extension\Symfony\ColumnType\Action;
 
 class AttributesExtension extends ColumnAbstractTypeExtension

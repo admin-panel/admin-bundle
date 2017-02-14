@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony;
 
-use FSi\Component\DataGrid\DataGridAbstractExtension;
+use AdminPanel\Component\DataGrid\DataGridAbstractExtension;
 use AdminPanel\Symfony\AdminBundle\Datagrid\Extension\Symfony\EventSubscriber;
 use AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnType;
 use Symfony\Component\DependencyInjection\ContainerInterface;

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AdminPanel\Symfony\AdminBundleBundle\Tests\DataGrid\Extension\Configuration\EventSubscriber;
 
 use AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Configuration\EventSubscriber\ConfigurationBuilder;
-use FSi\Component\DataGrid\DataGridEvent;
-use FSi\Component\DataGrid\DataGridEvents;
+use AdminPanel\Component\DataGrid\DataGridEvent;
+use AdminPanel\Component\DataGrid\DataGridEvents;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -58,7 +58,7 @@ class ConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
                 return [$bundle];
             }));
 
-        $dataGrid = $this->getMockBuilder('FSi\Component\DataGrid\DataGrid')
+        $dataGrid = $this->getMockBuilder('AdminPanel\Component\DataGrid\DataGrid')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -96,7 +96,7 @@ class ConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
                 ];
             }));
 
-        $dataGrid = $this->getMockBuilder('FSi\Component\DataGrid\DataGrid')
+        $dataGrid = $this->getMockBuilder('AdminPanel\Component\DataGrid\DataGrid')
             ->disableOriginalConstructor()
             ->getMock();
 

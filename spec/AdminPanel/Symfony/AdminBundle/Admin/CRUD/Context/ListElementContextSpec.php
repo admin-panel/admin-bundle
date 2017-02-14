@@ -7,7 +7,7 @@ namespace spec\AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context;
 use AdminPanel\Component\DataSource\DataSource;
 use AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface;
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
-use FSi\Component\DataGrid\DataGrid;
+use AdminPanel\Component\DataGrid\DataGrid;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;

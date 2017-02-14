@@ -7,8 +7,8 @@ namespace spec\AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Admin\ColumnTyp
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\BatchElement;
 use AdminPanel\Symfony\AdminBundle\Admin\Manager;
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
-use FSi\Component\DataGrid\Column\ColumnTypeInterface;
-use FSi\Component\DataGrid\Column\HeaderViewInterface;
+use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
+use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\Form;
@@ -41,7 +41,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
 
     public function it_is_column_extension()
     {
-        $this->shouldBeAnInstanceOf('FSi\Component\DataGrid\Column\ColumnTypeExtensionInterface');
+        $this->shouldBeAnInstanceOf('AdminPanel\Component\DataGrid\Column\ColumnTypeExtensionInterface');
     }
 
     public function it_should_extend_batch_column()

@@ -23,7 +23,7 @@ class ElementActionExtensionSpec extends ObjectBehavior
 
     public function it_is_datagrid_column_extension()
     {
-        $this->shouldBeAnInstanceOf('FSi\Component\DataGrid\Column\ColumnTypeExtensionInterface');
+        $this->shouldBeAnInstanceOf('AdminPanel\Component\DataGrid\Column\ColumnTypeExtensionInterface');
     }
 
     public function it_extends_action_column_type()

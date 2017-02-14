@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace spec\AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Admin\ColumnTypeExtension;
 
-use FSi\Component\DataGrid\Column\CellViewInterface;
-use FSi\Component\DataGrid\Column\ColumnTypeInterface;
-use FSi\Component\DataGrid\Column\HeaderViewInterface;
+use AdminPanel\Component\DataGrid\Column\CellViewInterface;
+use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
+use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +15,7 @@ class AttributesExtensionSpec extends ObjectBehavior
 {
     public function it_is_column_extension()
     {
-        $this->shouldBeAnInstanceOf('FSi\Component\DataGrid\Column\ColumnTypeExtensionInterface');
+        $this->shouldBeAnInstanceOf('AdminPanel\Component\DataGrid\Column\ColumnTypeExtensionInterface');
     }
 
     public function it_adds_actions_options(ColumnTypeInterface $column, OptionsResolver $optionsResolver)

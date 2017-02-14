@@ -6,9 +6,9 @@ namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Admin\ColumnTypeExte
 
 use AdminPanel\Symfony\AdminBundle\Admin\Manager;
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
-use FSi\Component\DataGrid\Column\ColumnAbstractTypeExtension;
-use FSi\Component\DataGrid\Column\ColumnTypeInterface;
-use FSi\Component\DataGrid\Column\HeaderViewInterface;
+use AdminPanel\Component\DataGrid\Column\ColumnAbstractTypeExtension;
+use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
+use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
@@ -124,7 +124,7 @@ class BatchActionExtension extends ColumnAbstractTypeExtension
     }
 
     /**
-     * @param \FSi\Component\DataGrid\Column\ColumnTypeInterface $column
+     * @param \AdminPanel\Component\DataGrid\Column\ColumnTypeInterface $column
      * @return array
      */
     private function buildBatchActions(ColumnTypeInterface $column)

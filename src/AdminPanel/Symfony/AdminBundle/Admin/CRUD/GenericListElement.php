@@ -6,8 +6,8 @@ namespace AdminPanel\Symfony\AdminBundle\Admin\CRUD;
 
 use AdminPanel\Symfony\AdminBundle\Admin\AbstractElement;
 use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
-use FSi\Component\DataGrid\DataGridFactoryInterface;
-use FSi\Component\DataGrid\DataGridInterface;
+use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
+use AdminPanel\Component\DataGrid\DataGridInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +20,7 @@ abstract class GenericListElement extends AbstractElement implements ListElement
     protected $datasourceFactory;
 
     /**
-     * @var \FSi\Component\DataGrid\DataGridFactoryInterface
+     * @var \AdminPanel\Component\DataGrid\DataGridFactoryInterface
      */
     protected $datagridFactory;
 
@@ -72,7 +72,7 @@ abstract class GenericListElement extends AbstractElement implements ListElement
         $datagrid = $this->initDataGrid($this->datagridFactory);
 
         if (!is_object($datagrid) || !$datagrid instanceof DataGridInterface) {
-            throw new RuntimeException('initDataGrid should return instanceof FSi\\Component\\DataGrid\\DataGridInterface');
+            throw new RuntimeException('initDataGrid should return instanceof AdminPanel\\Component\\DataGrid\\DataGridInterface');
         }
 
         if ($this->options['allow_delete']) {
@@ -132,8 +132,8 @@ abstract class GenericListElement extends AbstractElement implements ListElement
     /**
      * Initialize DataGrid.
      *
-     * @param \FSi\Component\DataGrid\DataGridFactoryInterface $factory
-     * @return \FSi\Component\DataGrid\DataGridInterface
+     * @param \AdminPanel\Component\DataGrid\DataGridFactoryInterface $factory
+     * @return \AdminPanel\Component\DataGrid\DataGridInterface
      */
     abstract protected function initDataGrid(DataGridFactoryInterface $factory);
 

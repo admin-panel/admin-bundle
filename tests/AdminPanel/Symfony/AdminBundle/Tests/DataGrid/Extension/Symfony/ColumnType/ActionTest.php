@@ -6,7 +6,7 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\DataGrid\Extension\Symfony\Column
 
 use AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnType\Action;
 use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\Request;
-use FSi\Component\DataGrid\Extension\Core\ColumnTypeExtension\DefaultColumnOptionsExtension;
+use AdminPanel\Component\DataGrid\Extension\Core\ColumnTypeExtension\DefaultColumnOptionsExtension;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\HttpFundation;
 
-use FSi\Component\DataGrid\DataGridViewInterface;
+use AdminPanel\Component\DataGrid\DataGridViewInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 abstract class ExportAbstract extends Response
 {
     /**
-     * @var \FSi\Component\DataGrid\DataGridViewInterface
+     * @var \AdminPanel\Component\DataGrid\DataGridViewInterface
      */
     protected $datagrid;
 
@@ -27,7 +27,7 @@ abstract class ExportAbstract extends Response
     protected $translator;
 
     /**
-     * @param DataGridViewInterface $datagrid
+     * @param \AdminPanel\Component\DataGrid\DataGridViewInterface $datagrid
      * @param $filename
      * @param int $status
      * @param array $headers
@@ -49,7 +49,7 @@ abstract class ExportAbstract extends Response
     }
 
     /**
-     * @return \FSi\Component\DataGrid\DataGridViewInterface
+     * @return \AdminPanel\Component\DataGrid\DataGridViewInterface
      */
     public function getDataGrid()
     {

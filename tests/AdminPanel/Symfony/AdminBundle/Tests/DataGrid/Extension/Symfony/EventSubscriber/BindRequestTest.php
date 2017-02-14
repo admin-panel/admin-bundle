@@ -10,7 +10,7 @@ class BindRequestTest extends \PHPUnit_Framework_TestCase
 {
     public function testPreBindDataWithoutRequestObject()
     {
-        $event = $this->createMock('FSi\Component\DataGrid\DataGridEventInterface');
+        $event = $this->createMock('AdminPanel\Component\DataGrid\DataGridEventInterface');
         $event->expects($this->never())
             ->method('setData');
 
@@ -34,12 +34,12 @@ class BindRequestTest extends \PHPUnit_Framework_TestCase
 
         $request->request = $requestBag;
 
-        $grid = $this->createMock('FSi\Component\DataGrid\DataGridInterface');
+        $grid = $this->createMock('AdminPanel\Component\DataGrid\DataGridInterface');
         $grid->expects($this->once())
              ->method('getName')
              ->will($this->returnValue('grid'));
 
-        $event = $this->createMock('FSi\Component\DataGrid\DataGridEventInterface');
+        $event = $this->createMock('AdminPanel\Component\DataGrid\DataGridEventInterface');
         $event->expects($this->once())
             ->method('getData')
             ->will($this->returnValue($request));
@@ -76,12 +76,12 @@ class BindRequestTest extends \PHPUnit_Framework_TestCase
 
         $request->query = $queryBag;
 
-        $grid = $this->createMock('FSi\Component\DataGrid\DataGridInterface');
+        $grid = $this->createMock('AdminPanel\Component\DataGrid\DataGridInterface');
         $grid->expects($this->once())
              ->method('getName')
              ->will($this->returnValue('grid'));
 
-        $event = $this->createMock('FSi\Component\DataGrid\DataGridEventInterface');
+        $event = $this->createMock('AdminPanel\Component\DataGrid\DataGridEventInterface');
         $event->expects($this->once())
             ->method('getData')
             ->will($this->returnValue($request));

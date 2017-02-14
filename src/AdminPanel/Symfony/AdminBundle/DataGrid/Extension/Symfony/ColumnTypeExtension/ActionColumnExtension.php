@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnTypeExtension;
 
-use FSi\Component\DataGrid\Column\ColumnTypeInterface;
-use FSi\Component\DataGrid\Column\ColumnAbstractTypeExtension;
+use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
+use AdminPanel\Component\DataGrid\Column\ColumnAbstractTypeExtension;
 use Symfony\Component\Routing\RouterInterface;
 
 class ActionColumnExtension extends ColumnAbstractTypeExtension
@@ -119,7 +119,7 @@ class ActionColumnExtension extends ColumnAbstractTypeExtension
     }
 
     /**
-     * @param \FSi\Component\DataGrid\Column\ColumnTypeInterface $column
+     * @param \AdminPanel\Component\DataGrid\Column\ColumnTypeInterface $column
      * @throws \InvalidArgumentException
      */
     private function validateOptions(ColumnTypeInterface $column)

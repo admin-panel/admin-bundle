@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AdminPanel\Symfony\AdminBundle\Tests\Doubles;
 
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListElement;
-use FSi\Component\DataGrid\DataGridFactoryInterface;
+use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 

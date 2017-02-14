@@ -9,7 +9,7 @@ use AdminPanel\Symfony\AdminBundle\Admin\CRUD\DataSourceAwareInterface;
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
 use AdminPanel\Symfony\AdminBundle\Admin\Element;
 use AdminPanel\Symfony\AdminBundle\Factory\Worker;
-use FSi\Component\DataGrid\DataGridFactoryInterface;
+use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 
 class ListWorker implements Worker
@@ -20,7 +20,7 @@ class ListWorker implements Worker
     private $dataSourceFactory;
 
     /**
-     * @var \FSi\Component\DataGrid\DataGridFactoryInterface
+     * @var \AdminPanel\Component\DataGrid\DataGridFactoryInterface
      */
     private $dataGridFactory;
 

@@ -9,7 +9,7 @@ use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListElement;
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Doubles\Admin\DataGridAwareElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Doubles\Admin\DataSourceAwareElement;
-use FSi\Component\DataGrid\DataGridFactory;
+use AdminPanel\Component\DataGrid\DataGridFactory;
 use PhpSpec\ObjectBehavior;
 
 class ListWorkerSpec extends ObjectBehavior

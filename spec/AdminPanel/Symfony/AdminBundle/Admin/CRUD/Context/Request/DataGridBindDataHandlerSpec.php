@@ -10,7 +10,7 @@ use AdminPanel\Symfony\AdminBundle\Event\AdminEvent;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvents;
 use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
-use FSi\Component\DataGrid\DataGrid;
+use AdminPanel\Component\DataGrid\DataGrid;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;

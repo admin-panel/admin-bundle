@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Configuration\EventSubscriber;
 
-use FSi\Component\DataGrid\DataGridEventInterface;
-use FSi\Component\DataGrid\DataGridEvents;
-use FSi\Component\DataGrid\DataGridInterface;
+use AdminPanel\Component\DataGrid\DataGridEventInterface;
+use AdminPanel\Component\DataGrid\DataGridEvents;
+use AdminPanel\Component\DataGrid\DataGridInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Yaml\Parser;

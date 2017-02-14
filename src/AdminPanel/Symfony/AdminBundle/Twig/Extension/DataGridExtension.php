@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Twig\Extension;
 
-use FSi\Component\DataGrid\DataGridViewInterface;
-use FSi\Component\DataGrid\Column\HeaderViewInterface;
-use FSi\Component\DataGrid\Column\CellViewInterface;
+use AdminPanel\Component\DataGrid\DataGridViewInterface;
+use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
+use AdminPanel\Component\DataGrid\Column\CellViewInterface;
 use AdminPanel\Symfony\AdminBundle\Twig\TokenParser\DataGridThemeTokenParser;
 
 class DataGridExtension extends \Twig_Extension
@@ -128,7 +128,7 @@ class DataGridExtension extends \Twig_Extension
     }
 
     /**
-     * @param DataGridViewInterface $view
+     * @param \AdminPanel\Component\DataGrid\DataGridViewInterface $view
      * @return string
      */
     public function datagrid(DataGridViewInterface $view)
@@ -149,7 +149,7 @@ class DataGridExtension extends \Twig_Extension
     /**
      * Render header row in datagrid.
      *
-     * @param DataGridViewInterface $view
+     * @param \AdminPanel\Component\DataGrid\DataGridViewInterface $view
      * @param array $vars
      * @return string
      */
@@ -230,7 +230,7 @@ class DataGridExtension extends \Twig_Extension
     /**
      * Render column cell.
      *
-     * @param CellViewInterface $view
+     * @param \AdminPanel\Component\DataGrid\Column\CellViewInterface $view
      * @param array $vars
      * @return string
      */
@@ -263,7 +263,7 @@ class DataGridExtension extends \Twig_Extension
     /**
      * Render column form if exists.
      *
-     * @param CellViewInterface $view
+     * @param \AdminPanel\Component\DataGrid\Column\CellViewInterface $view
      * @param array $vars
      * @return string
      */
@@ -295,7 +295,7 @@ class DataGridExtension extends \Twig_Extension
     }
 
     /**
-     * @param CellViewInterface $view
+     * @param \AdminPanel\Component\DataGrid\Column\CellViewInterface $view
      * @param $action
      * @param $content
      * @param array $urlAttrs
@@ -352,7 +352,7 @@ class DataGridExtension extends \Twig_Extension
      * Return list of templates that might be useful to render DataGridView.
      * Always the last template will be default one.
      *
-     * @param DataGridViewInterface $dataGrid
+     * @param \AdminPanel\Component\DataGrid\DataGridViewInterface $dataGrid
      * @return array
      */
     private function getTemplates(DataGridViewInterface $dataGrid)
@@ -373,7 +373,7 @@ class DataGridExtension extends \Twig_Extension
     /**
      * Return vars passed to theme. Those vars will be added to block context.
      *
-     * @param DataGridViewInterface $dataGrid
+     * @param \AdminPanel\Component\DataGrid\DataGridViewInterface $dataGrid
      * @return array
      */
     private function getVars(DataGridViewInterface $dataGrid)
@@ -386,7 +386,7 @@ class DataGridExtension extends \Twig_Extension
     }
 
     /**
-     * @param DataGridViewInterface $datagridView
+     * @param \AdminPanel\Component\DataGrid\DataGridViewInterface $datagridView
      * @param array $contextVars
      * @param $availableBlocks
      * @return string
