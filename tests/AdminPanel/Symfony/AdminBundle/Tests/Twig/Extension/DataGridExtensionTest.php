@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AdminPanel\Symfony\AdminBundleBundle\Tests\Twig\Extension;
+namespace AdminPanel\Symfony\AdminBundle\Tests\Twig\Extension;
 
+use AdminPanel\Symfony\AdminBundle\Tests\Fixtures\TwigRuntimeLoader;
 use AdminPanel\Symfony\AdminBundle\Twig\Extension\DataGridExtension;
-use AdminPanel\Symfony\AdminBundleBundle\Tests\Fixtures\TwigRuntimeLoader;
 use FSi\Component\DataGrid\Column\CellViewInterface;
 use FSi\Component\DataGrid\Column\HeaderViewInterface;
 use FSi\Component\DataGrid\DataGridViewInterface;

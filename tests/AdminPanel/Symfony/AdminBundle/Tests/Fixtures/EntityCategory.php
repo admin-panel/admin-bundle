@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AdminPanel\Symfony\AdminBundleBundle\Tests\Fixtures;
+namespace AdminPanel\Symfony\AdminBundle\Tests\Fixtures;
 
 class EntityCategory
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\PropertyObserver;
+namespace AdminPanel\Component\PropertyObserver;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -70,7 +70,7 @@ class PropertyObserver implements PropertyObserverInterface
 
         $oid = spl_object_hash($object);
         if (!isset($this->savedValues[$oid]) || !array_key_exists($propertyPath, $this->savedValues[$oid])) {
-            throw new Exception\BadMethodCallException(sprintf('Value of property "%s" from specified object was not saved previously', $propertyPath));
+            throw new \AdminPanel\Component\PropertyObserver\Exception\BadMethodCallException(sprintf('Value of property "%s" from specified object was not saved previously', $propertyPath));
         }
 
         return $this->savedValues[$oid][$propertyPath];
@@ -133,12 +133,12 @@ class PropertyObserver implements PropertyObserverInterface
 
     /**
      * @param $object
-     * @throws Exception\InvalidArgumentException
+     * @throws \AdminPanel\Component\PropertyObserver\Exception\InvalidArgumentException
      */
     protected function validateObject($object)
     {
         if (!is_object($object)) {
-            throw new Exception\InvalidArgumentException('Only object\'s properties could be observed by PropertyObserver');
+            throw new \AdminPanel\Component\PropertyObserver\Exception\InvalidArgumentException('Only object\'s properties could be observed by PropertyObserver');
         }
     }
 }

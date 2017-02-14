@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FSi\Component\DataGrid\DataMapper;
 
-use FSi\Component\Reflection\ReflectionClass;
+use AdminPanel\Component\Reflection\ReflectionClass;
 use FSi\Component\DataGrid\Exception\DataMappingException;
 
 class ReflectionMapper implements DataMapperInterface
