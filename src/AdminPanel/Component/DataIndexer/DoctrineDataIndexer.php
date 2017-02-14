@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace FSi\Component\DataIndexer;
+namespace AdminPanel\Component\DataIndexer;
 
+use AdminPanel\Component\DataIndexer\DataIndexerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use FSi\Component\DataIndexer\Exception\InvalidArgumentException;
-use FSi\Component\DataIndexer\Exception\RuntimeException;
+use AdminPanel\Component\DataIndexer\Exception\InvalidArgumentException;
+use AdminPanel\Component\DataIndexer\Exception\RuntimeException;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 class DoctrineDataIndexer implements DataIndexerInterface
@@ -31,8 +32,8 @@ class DoctrineDataIndexer implements DataIndexerInterface
     /**
      * @param ManagerRegistry $registry
      * @param $class
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\RuntimeException
+     * @throws \AdminPanel\Component\DataIndexer\Exception\InvalidArgumentException
+     * @throws \AdminPanel\Component\DataIndexer\Exception\RuntimeException
      */
     public function __construct(ManagerRegistry $registry, $class)
     {
@@ -121,7 +122,7 @@ class DoctrineDataIndexer implements DataIndexerInterface
      * @param ManagerRegistry $registry
      * @param $class
      * @return ObjectManager
-     * @throws Exception\InvalidArgumentException
+     * @throws \AdminPanel\Component\DataIndexer\Exception\InvalidArgumentException
      */
     private function tryToGetObjectManager(ManagerRegistry $registry, $class)
     {
@@ -140,7 +141,7 @@ class DoctrineDataIndexer implements DataIndexerInterface
     /**
      * @param $class
      * @return string
-     * @throws Exception\RuntimeException
+     * @throws \AdminPanel\Component\DataIndexer\Exception\RuntimeException
      */
     private function tryToGetRootClass($class)
     {
@@ -189,7 +190,7 @@ class DoctrineDataIndexer implements DataIndexerInterface
      * @param $index
      * @param $identifiersCount
      * @return array
-     * @throws Exception\RuntimeException
+     * @throws \AdminPanel\Component\DataIndexer\Exception\RuntimeException
      */
     private function splitIndex($index, $identifiersCount)
     {
@@ -235,7 +236,7 @@ class DoctrineDataIndexer implements DataIndexerInterface
     /**
      * @param $searchCriteria
      * @return object
-     * @throws Exception\RuntimeException
+     * @throws \AdminPanel\Component\DataIndexer\Exception\RuntimeException
      */
     private function tryToFindEntity($searchCriteria)
     {
@@ -250,7 +251,7 @@ class DoctrineDataIndexer implements DataIndexerInterface
 
     /**
      * @param $indexes
-     * @throws Exception\InvalidArgumentException
+     * @throws \AdminPanel\Component\DataIndexer\Exception\InvalidArgumentException
      */
     private function validateIndexes($indexes)
     {
