@@ -17,12 +17,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ResultIndexer implements EventSubscriberInterface
 {
     /**
-     * @var \Symfony\Bridge\Doctrine\ManagerRegistry
+     * @var ManagerRegistry
      */
     protected $registry;
 
     /**
-     * @param \Symfony\Bridge\Doctrine\ManagerRegistry $registry
+     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -38,7 +38,7 @@ class ResultIndexer implements EventSubscriberInterface
     }
 
     /**
-     * @param \AdminPanel\Component\DataSource\Event\DriverEvent\ResultEventArgs $event
+     * @param ResultEventArgs $event
      */
     public function postGetResult(ResultEventArgs $event)
     {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core;
 
-use FSi\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field;
 use AdminPanel\Component\DataSource\Driver\DriverAbstractExtension;
 use Symfony\Component\Form\FormFactory;
 

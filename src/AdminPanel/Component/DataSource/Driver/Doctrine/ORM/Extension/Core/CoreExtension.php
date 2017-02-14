@@ -25,13 +25,13 @@ class CoreExtension extends DriverAbstractExtension
     protected function loadFieldTypes() : array
     {
         return [
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Text(),
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Number(),
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Date(),
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Time(),
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\DateTime(),
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Entity(),
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Boolean(),
+            new Field\Text(),
+            new Field\Number(),
+            new Field\Date(),
+            new Field\Time(),
+            new Field\DateTime(),
+            new Field\Entity(),
+            new Field\Boolean(),
         ];
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AdminPanel\Component\DataSource\Driver;
 
 use AdminPanel\Component\DataSource\DataSourceInterface;
+use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 
 /**
  * Driver is responsible for fetching data based on passed fields and data.
@@ -21,14 +22,14 @@ interface DriverInterface
     /**
      * Sets reference to DataSource.
      *
-     * @param \AdminPanel\Component\DataSource\DataSourceInterface $datasource
+     * @param DataSourceInterface $datasource
      */
     public function setDataSource(DataSourceInterface $datasource);
 
     /**
      * Return reference to assigned DataSource.
      *
-     * @return \AdminPanel\Component\DataSource\DataSourceInterface
+     * @return DataSourceInterface
      */
     public function getDataSource();
 
@@ -43,7 +44,7 @@ interface DriverInterface
     /**
      * Return field for given type.
      *
-     * @param \AdminPanel\Component\DataSource\Field\FieldTypeInterface $type
+     * @param FieldTypeInterface $type
      */
     public function getFieldType($type);
 

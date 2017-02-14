@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Driver\Collection;
 
-use AdminPanel\Component\DataSource\Driver\Collection\CollectionDriver;
-use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use AdminPanel\Component\DataSource\Driver\DriverFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

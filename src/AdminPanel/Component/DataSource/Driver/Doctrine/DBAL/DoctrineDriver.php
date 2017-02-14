@@ -96,7 +96,7 @@ final class DoctrineDriver extends DriverAbstract
 
     /**
      * @return QueryBuilder
-     * @throws \AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Exception\DoctrineDriverException
+     * @throws DoctrineDriverException
      */
     public function getQueryBuilder()
     {

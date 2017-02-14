@@ -6,7 +6,6 @@ namespace AdminPanel\Component\DataSource\Driver\Collection;
 
 use AdminPanel\Component\DataSource\Driver\Collection\Exception\CollectionDriverException;
 use Doctrine\Common\Collections\Criteria;
-use AdminPanel\Component\DataSource\Driver\Collection\CollectionFieldInterface;
 use AdminPanel\Component\DataSource\Field\FieldAbstractType;
 
 /**

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource;
 
-use AdminPanel\Component\DataSource\DataSourceInterface;
 use AdminPanel\Component\DataSource\Driver\DriverInterface;
+use AdminPanel\Component\DataSource\Event\DataSourceEvent\DataSourceEventArgs;
+use AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs;
+use AdminPanel\Component\DataSource\Event\DataSourceEvent\ResultEventArgs;
+use AdminPanel\Component\DataSource\Event\DataSourceEvent\ViewEventArgs;
 use AdminPanel\Component\DataSource\Exception\DataSourceException;
-use AdminPanel\Component\DataSource\DataSourceExtensionInterface;
-use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
-use AdminPanel\Component\DataSource\DataSourceView;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use AdminPanel\Component\DataSource\Event\DataSourceEvents;
-use FSi\Component\DataSource\Event\DataSourceEvent;
 
 /**
  * {@inheritdoc}
@@ -214,7 +213,7 @@ class DataSource implements DataSourceInterface
         $this->dirty = true;
 
         //PreBindParameters event.
-        $event = new \AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs($this, $parameters);
+        $event = new ParametersEventArgs($this, $parameters);
         $this->eventDispatcher->dispatch(DataSourceEvents::PRE_BIND_PARAMETERS, $event);
         $parameters = $event->getParameters();
 
@@ -227,7 +226,7 @@ class DataSource implements DataSourceInterface
         }
 
         //PostBindParameters event.
-        $event = new \AdminPanel\Component\DataSource\Event\DataSourceEvent\DataSourceEventArgs($this);
+        $event = new DataSourceEventArgs($this);
         $this->eventDispatcher->dispatch(DataSourceEvents::POST_BIND_PARAMETERS, $event);
     }
 
@@ -247,7 +246,7 @@ class DataSource implements DataSourceInterface
         }
 
         //PreGetResult event.
-        $event = new \AdminPanel\Component\DataSource\Event\DataSourceEvent\DataSourceEventArgs($this);
+        $event = new DataSourceEventArgs($this);
         $this->eventDispatcher->dispatch(DataSourceEvents::PRE_GET_RESULT, $event);
 
         $result = $this->driver->getResult($this->fields, $this->getFirstResult(), $this->getMaxResults());
@@ -265,7 +264,7 @@ class DataSource implements DataSourceInterface
         }
 
         //PostGetResult event.
-        $event = new \AdminPanel\Component\DataSource\Event\DataSourceEvent\ResultEventArgs($this, $result);
+        $event = new ResultEventArgs($this, $result);
         $this->eventDispatcher->dispatch(DataSourceEvents::POST_GET_RESULT, $event);
         $result = $event->getResult();
 
@@ -353,7 +352,7 @@ class DataSource implements DataSourceInterface
         $view = new DataSourceView($this);
 
         //PreBuildView event.
-        $event = new \AdminPanel\Component\DataSource\Event\DataSourceEvent\ViewEventArgs($this, $view);
+        $event = new ViewEventArgs($this, $view);
         $this->eventDispatcher->dispatch(DataSourceEvents::PRE_BUILD_VIEW, $event);
 
         foreach ($this->fields as $key => $field) {
@@ -363,7 +362,7 @@ class DataSource implements DataSourceInterface
         $this->view = $view;
 
         //PostBuildView event.
-        $event = new \AdminPanel\Component\DataSource\Event\DataSourceEvent\ViewEventArgs($this, $view);
+        $event = new ViewEventArgs($this, $view);
         $this->eventDispatcher->dispatch(DataSourceEvents::POST_BUILD_VIEW, $event);
 
         return $this->view;
@@ -382,7 +381,7 @@ class DataSource implements DataSourceInterface
         $parameters = [];
 
         //PreGetParameters event.
-        $event = new \AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs($this, $parameters);
+        $event = new ParametersEventArgs($this, $parameters);
         $this->eventDispatcher->dispatch(DataSourceEvents::PRE_GET_PARAMETERS, $event);
         $parameters = $event->getParameters();
 
@@ -391,7 +390,7 @@ class DataSource implements DataSourceInterface
         }
 
         //PostGetParameters event.
-        $event = new \AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs($this, $parameters);
+        $event = new ParametersEventArgs($this, $parameters);
         $this->eventDispatcher->dispatch(DataSourceEvents::POST_GET_PARAMETERS, $event);
         $parameters = $event->getParameters();
 

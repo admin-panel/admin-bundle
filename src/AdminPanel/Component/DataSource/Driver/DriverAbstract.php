@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Driver;
 
+use AdminPanel\Component\DataSource\Event\DriverEvent\DriverEventArgs;
+use AdminPanel\Component\DataSource\Event\DriverEvent\ResultEventArgs;
 use AdminPanel\Component\DataSource\Exception\DataSourceException;
 use AdminPanel\Component\DataSource\DataSourceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use AdminPanel\Component\DataSource\Event\DriverEvents;
-use FSi\Component\DataSource\Event\DriverEvent;
 
 /**
  * {@inheritdoc}
@@ -203,13 +204,13 @@ abstract class DriverAbstract implements DriverInterface
         $this->initResult();
 
         //preGetResult event.
-        $event = new \AdminPanel\Component\DataSource\Event\DriverEvent\DriverEventArgs($this, $fields);
+        $event = new DriverEventArgs($this, $fields);
         $this->getEventDispatcher()->dispatch(DriverEvents::PRE_GET_RESULT, $event);
 
         $result = $this->buildResult($fields, $first, $max);
 
         //postGetResult event.
-        $event = new \AdminPanel\Component\DataSource\Event\DriverEvent\ResultEventArgs($this, $fields, $result);
+        $event = new ResultEventArgs($this, $fields, $result);
         $this->getEventDispatcher()->dispatch(DriverEvents::POST_GET_RESULT, $event);
         $result = $event->getResult();
 

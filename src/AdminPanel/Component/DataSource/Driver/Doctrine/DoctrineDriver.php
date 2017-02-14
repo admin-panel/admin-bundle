@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Driver\Doctrine;
 
+use AdminPanel\Component\DataSource\Driver\Doctrine\Exception\DoctrineDriverException as LegacyDoctrineDriverException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Exception\DoctrineDriverException;
@@ -19,7 +20,7 @@ class DoctrineDriver extends BaseDriver
         try {
             parent::__construct($extensions, $em, $entity, $alias);
         } catch (DoctrineDriverException $e) {
-            throw new \AdminPanel\Component\DataSource\Driver\Doctrine\Exception\DoctrineDriverException(
+            throw new LegacyDoctrineDriverException(
                 $e->getMessage()
             );
         }
@@ -37,14 +38,14 @@ class DoctrineDriver extends BaseDriver
      * @param int $first
      * @param int $max
      * @return \Countable|Paginator
-     * @throws \AdminPanel\Component\DataSource\Driver\Doctrine\Exception\DoctrineDriverException
+     * @throws LegacyDoctrineDriverException
      */
     public function buildResult($fields, $first, $max)
     {
         try {
             return parent::buildResult($fields, $first, $max);
         } catch (DoctrineDriverException $e) {
-            throw new \AdminPanel\Component\DataSource\Driver\Doctrine\Exception\DoctrineDriverException(
+            throw new LegacyDoctrineDriverException(
                 $e->getMessage()
             );
         }
@@ -52,14 +53,14 @@ class DoctrineDriver extends BaseDriver
 
     /**
      * @return \Doctrine\ORM\QueryBuilder
-     * @throws \AdminPanel\Component\DataSource\Driver\Doctrine\Exception\DoctrineDriverException
+     * @throws LegacyDoctrineDriverException
      */
     public function getQueryBuilder()
     {
         try {
             return parent::getQueryBuilder();
         } catch (DoctrineDriverException $e) {
-            throw new \AdminPanel\Component\DataSource\Driver\Doctrine\Exception\DoctrineDriverException(
+            throw new LegacyDoctrineDriverException(
                 $e->getMessage()
             );
         }

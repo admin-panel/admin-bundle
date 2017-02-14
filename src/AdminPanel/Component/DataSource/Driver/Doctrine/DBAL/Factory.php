@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AdminPanel\Component\DataSource\Driver\Doctrine\DBAL;
 
 use AdminPanel\Component\DataSource\Driver\DriverFactoryInterface;
-use AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\DoctrineDriver;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class Factory implements DriverFactoryInterface

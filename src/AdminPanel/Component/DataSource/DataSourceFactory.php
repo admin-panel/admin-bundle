@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource;
 
-use AdminPanel\Component\DataSource\DataSource;
-use AdminPanel\Component\DataSource\DataSourceExtensionInterface;
-use AdminPanel\Component\DataSource\DataSourceInterface;
 use AdminPanel\Component\DataSource\Driver\DriverFactoryManagerInterface;
 use AdminPanel\Component\DataSource\Exception\DataSourceException;
-use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 
 /**
  * {@inheritdoc}
@@ -24,7 +20,7 @@ class DataSourceFactory implements DataSourceFactoryInterface
     protected $datasources;
 
     /**
-     * @var \AdminPanel\Component\DataSource\Driver\DriverFactoryManagerInterface
+     * @var DriverFactoryManagerInterface
      */
     protected $driverFactoryManager;
 
@@ -36,9 +32,9 @@ class DataSourceFactory implements DataSourceFactoryInterface
     protected $extensions = [];
 
     /**
-     * @param \AdminPanel\Component\DataSource\Driver\DriverFactoryManagerInterface $driverFactoryManager
+     * @param DriverFactoryManagerInterface $driverFactoryManager
      * @param array $extensions
-     * @throws \AdminPanel\Component\DataSource\Exception\DataSourceException
+     * @throws DataSourceException
      */
     public function __construct(DriverFactoryManagerInterface $driverFactoryManager, $extensions = [])
     {
@@ -147,9 +143,9 @@ class DataSourceFactory implements DataSourceFactoryInterface
     /**
      * Method to checking datasources name.
      *
-     * @throws \AdminPanel\Component\DataSource\Exception\DataSourceException
+     * @throws DataSourceException
      * @param string $name
-     * @param \AdminPanel\Component\DataSource\DataSourceInterface $datasource
+     * @param DataSourceInterface $datasource
      *
      */
     private function checkDataSourceName($name, DataSourceInterface $datasource = null)

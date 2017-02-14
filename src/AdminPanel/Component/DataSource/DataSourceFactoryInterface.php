@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource;
 
-use AdminPanel\Component\DataSource\DataSourceExtensionInterface;
-use AdminPanel\Component\DataSource\DataSourceInterface;
-
 /**
  * Factory maintains building new DataSources with preconfigured extensions.
  */

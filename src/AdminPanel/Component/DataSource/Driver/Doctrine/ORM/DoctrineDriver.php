@@ -8,7 +8,6 @@ use AdminPanel\Component\DataSource\Driver\DriverAbstract;
 use Doctrine\ORM\EntityManager;
 use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Exception\DoctrineDriverException;
 use Doctrine\ORM\QueryBuilder;
-use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Paginator;
 
 /**
  * Driver to fetch data from databases using Doctrine.

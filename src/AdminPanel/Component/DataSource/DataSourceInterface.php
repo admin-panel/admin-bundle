@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource;
 
-use AdminPanel\Component\DataSource\DataSourceExtensionInterface;
-use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
-
 /**
  * DataSource abstracts fetching data from various sources. For more information about usage please view README file.
  *

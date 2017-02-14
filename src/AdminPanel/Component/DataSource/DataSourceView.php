@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource;
 
-use AdminPanel\Component\DataSource\DataSource;
 use AdminPanel\Component\DataSource\Exception\DataSourceViewException;
+use AdminPanel\Component\DataSource\Field\FieldViewInterface;
 use AdminPanel\Component\DataSource\Util\AttributesContainer;
-use AdminPanel\Component\DataSource\DataSourceViewInterface;
 
 /**
  * {@inheritdoc}
@@ -49,7 +48,7 @@ class DataSourceView extends AttributesContainer implements DataSourceViewInterf
     private $result;
 
     /**
-     * @param \AdminPanel\Component\DataSource\DataSource $datasource
+     * @param DataSource $datasource
      */
     public function __construct(DataSource $datasource)
     {
@@ -143,7 +142,7 @@ class DataSourceView extends AttributesContainer implements DataSourceViewInterf
     /**
      * {@inheritdoc}
      */
-    public function addField(\AdminPanel\Component\DataSource\Field\FieldViewInterface $fieldView)
+    public function addField(FieldViewInterface $fieldView)
     {
         $name = $fieldView->getName();
         if ($this->hasField($name)) {
@@ -163,7 +162,7 @@ class DataSourceView extends AttributesContainer implements DataSourceViewInterf
         $this->fields = [];
 
         foreach ($fields as $field) {
-            if (!$field instanceof \AdminPanel\Component\DataSource\Field\FieldViewInterface) {
+            if (!$field instanceof FieldViewInterface) {
                 throw new \InvalidArgumentException('Field must implement AdminPanel\Component\DataSource\Field\FieldViewInterface');
             }
 

@@ -7,8 +7,6 @@ namespace AdminPanel\Component\DataSource\Driver\Collection;
 use Doctrine\Common\Collections\Criteria;
 use AdminPanel\Component\DataSource\Driver\DriverAbstract;
 use AdminPanel\Component\DataSource\Driver\Collection\Exception\CollectionDriverException;
-use AdminPanel\Component\DataSource\Driver\Collection\CollectionFieldInterface;
-use AdminPanel\Component\DataSource\Driver\Collection\CollectionResult;
 
 class CollectionDriver extends DriverAbstract
 {
