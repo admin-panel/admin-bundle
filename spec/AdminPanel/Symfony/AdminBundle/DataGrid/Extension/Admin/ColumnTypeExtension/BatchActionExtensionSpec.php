@@ -53,7 +53,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
     {
         $column->getOptionsResolver()->willReturn($optionsResolver);
 
-        $optionsResolver->setDefaults(['actions' => [], 'translation_domain' => 'FSiAdminBundle'])
+        $optionsResolver->setDefaults(['actions' => [], 'translation_domain' => 'AdminPanelBundle'])
             ->shouldBeCalled();
         $optionsResolver->setAllowedTypes('actions', ['array', 'null'])->shouldBeCalled();
         $optionsResolver->setAllowedTypes('translation_domain', ['string'])->shouldBeCalled();
@@ -128,7 +128,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
             ]
         ]);
 
-        $column->getOption('translation_domain')->willReturn('FSiAdminBundle');
+        $column->getOption('translation_domain')->willReturn('AdminPanelBundle');
 
         $manager->hasElement('some_batch_element_id')->willReturn(true);
         $manager->getElement('some_batch_element_id')->willReturn($batchElement);
@@ -152,12 +152,12 @@ class BatchActionExtensionSpec extends ObjectBehavior
                 0 => 'crud.list.batch.empty_choice',
                 'path_to_batch_action' => 'batch_action_label'
             ],
-            'translation_domain' => 'FSiAdminBundle'
+            'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
 
         $formBuilder->add('submit', 'submit', [
             'label' => 'crud.list.batch.confirm',
-            'translation_domain' => 'FSiAdminBundle'
+            'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
 
         $view->setAttribute('batch_form', $formView)->shouldBeCalled();
@@ -184,7 +184,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
             ]
         ]);
 
-        $column->getOption('translation_domain')->willReturn('FSiAdminBundle');
+        $column->getOption('translation_domain')->willReturn('AdminPanelBundle');
 
         $manager->hasElement('some_batch_element_id')->willReturn(true);
         $manager->getElement('some_batch_element_id')->willReturn($batchElement);
@@ -208,11 +208,11 @@ class BatchActionExtensionSpec extends ObjectBehavior
                 0 => 'crud.list.batch.empty_choice',
                 'path_to_batch_action' => 'batch_action_label'
             ],
-            'translation_domain' => 'FSiAdminBundle'
+            'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
         $formBuilder->add('submit', 'submit', [
             'label' => 'crud.list.batch.confirm',
-            'translation_domain' => 'FSiAdminBundle'
+            'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
 
         $view->setAttribute('batch_form', $formView)->shouldBeCalled();
@@ -238,7 +238,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
             ]
         ]);
 
-        $column->getOption('translation_domain')->willReturn('FSiAdminBundle');
+        $column->getOption('translation_domain')->willReturn('AdminPanelBundle');
 
         $manager->hasElement('some_batch_element_id')->willReturn(true);
         $manager->getElement('some_batch_element_id')->willReturn($batchElement);
@@ -259,11 +259,11 @@ class BatchActionExtensionSpec extends ObjectBehavior
                 0 => 'crud.list.batch.empty_choice',
                 'path_to_batch_action' => 'batch_action_label'
             ],
-            'translation_domain' => 'FSiAdminBundle'
+            'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
         $formBuilder->add('submit', 'submit', [
             'label' => 'crud.list.batch.confirm',
-            'translation_domain' => 'FSiAdminBundle'
+            'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
 
         $view->setAttribute('batch_form', $formView)->shouldBeCalled();
@@ -286,7 +286,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
             ]
         ]);
 
-        $column->getOption('translation_domain')->willReturn('FSiAdminBundle');
+        $column->getOption('translation_domain')->willReturn('AdminPanelBundle');
 
         $queryAttributes->has('redirect_uri')->willReturn(true);
         $queryAttributes->get('redirect_uri')->willReturn('some_redirect_uri');
@@ -305,11 +305,11 @@ class BatchActionExtensionSpec extends ObjectBehavior
                 0 => 'crud.list.batch.empty_choice',
                 'path_to_batch_action' => 'action_name'
             ],
-            'translation_domain' => 'FSiAdminBundle'
+            'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
         $formBuilder->add('submit', 'submit', [
             'label' => 'crud.list.batch.confirm',
-            'translation_domain' => 'FSiAdminBundle'
+            'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
 
         $view->setAttribute('batch_form', $formView)->shouldBeCalled();

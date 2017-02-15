@@ -40,8 +40,8 @@ class BooleanColumnExtension extends ColumnAbstractTypeExtension
     public function initOptions(ColumnTypeInterface $column)
     {
         $column->getOptionsResolver()->setDefaults([
-            'true_value' => $this->translator->trans('datagrid.boolean.yes', [], 'FSiAdminBundle'),
-            'false_value' => $this->translator->trans('datagrid.boolean.no', [], 'FSiAdminBundle')
+            'true_value' => $this->translator->trans('datagrid.boolean.yes', [], 'AdminPanelBundle'),
+            'false_value' => $this->translator->trans('datagrid.boolean.no', [], 'AdminPanelBundle')
         ]);
 
         $translator = $this->translator;
@@ -55,8 +55,8 @@ class BooleanColumnExtension extends ColumnAbstractTypeExtension
                         [
                             $field => [
                                 'choices' => [
-                                    0 => $translator->trans('datagrid.boolean.no', [], 'FSiAdminBundle'),
-                                    1 => $translator->trans('datagrid.boolean.yes', [], 'FSiAdminBundle')
+                                    0 => $translator->trans('datagrid.boolean.no', [], 'AdminPanelBundle'),
+                                    1 => $translator->trans('datagrid.boolean.yes', [], 'AdminPanelBundle')
                                 ]
                             ]
                         ],

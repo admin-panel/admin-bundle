@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-namespace AdminPanel\Symfony\AdminBundleBundle\Tests\DataSource\Extension\Symfony\Form\Field;
+namespace AdminPanel\Symfony\AdminBundle\Tests\DataSource\Extension\Symfony\Form\Field;
+
 
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use AdminPanel\Symfony\AdminBundle\DataSource\Extension\Symfony\Form\Field\FormFieldExtension;
@@ -37,7 +38,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
         $translator->expects($this->any())
             ->method('trans')
             ->will($this->returnCallback(function ($id, array $params, $translation_domain) {
-                if ($translation_domain != 'FSiAdminBundle') {
+                if ($translation_domain != 'AdminPanelBundle') {
                     throw new \RuntimeException(sprintf('Unknown translation domain %s', $translation_domain));
                 }
                 switch ($id) {
@@ -86,7 +87,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
         $translator->expects($this->any())
             ->method('trans')
             ->will($this->returnCallback(function ($id, array $params, $translation_domain) {
-                if ($translation_domain != 'FSiAdminBundle') {
+                if ($translation_domain != 'AdminPanelBundle') {
                     throw new \RuntimeException(sprintf('Unknown translation domain %s', $translation_domain));
                 }
                 switch ($id) {

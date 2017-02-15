@@ -76,7 +76,7 @@ class BatchActionExtension extends ColumnAbstractTypeExtension
     {
         $column->getOptionsResolver()->setDefaults([
             'actions' => [],
-            'translation_domain' => 'FSiAdminBundle'
+            'translation_domain' => 'AdminPanelBundle'
         ]);
         $column->getOptionsResolver()->setAllowedTypes('actions', ['array', 'null']);
         $column->getOptionsResolver()->setAllowedTypes('translation_domain', ['string']);
@@ -166,7 +166,7 @@ class BatchActionExtension extends ColumnAbstractTypeExtension
             ]);
             $this->formBuilder->add('submit', 'submit', [
                 'label' => 'crud.list.batch.confirm',
-                'translation_domain' => 'FSiAdminBundle'
+                'translation_domain' => 'AdminPanelBundle'
             ]);
         }
     }

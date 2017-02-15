@@ -46,7 +46,7 @@
             <argument type="string">batch_action</argument>
             <argument type="string">form</argument>
             <argument type="collection">
-                <argument key="translation_domain" type="string">FSiAdminBundle</argument>
+                <argument key="translation_domain" type="string">AdminPanelBundle</argument>
             </argument>
         </service>
 
