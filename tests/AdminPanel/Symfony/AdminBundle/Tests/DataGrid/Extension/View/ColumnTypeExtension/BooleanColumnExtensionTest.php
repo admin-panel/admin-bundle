@@ -29,12 +29,12 @@ class BooleanColumnExtensionTest extends \PHPUnit_Framework_TestCase
 
         $translator->expects($this->at(0))
             ->method('trans')
-            ->with('datagrid.boolean.yes', [], 'FSiAdminBundle')
+            ->with('datagrid.boolean.yes', [], 'AdminPanelBundle')
             ->will($this->returnValue('YES'));
 
         $translator->expects($this->at(1))
             ->method('trans')
-            ->with('datagrid.boolean.no', [], 'FSiAdminBundle')
+            ->with('datagrid.boolean.no', [], 'AdminPanelBundle')
             ->will($this->returnValue('NO'));
 
         return $translator;

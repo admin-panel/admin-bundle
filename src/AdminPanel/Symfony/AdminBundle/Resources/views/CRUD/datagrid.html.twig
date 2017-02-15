@@ -27,7 +27,7 @@
 {% block datagrid_column_cell_form_link %}
     {% if cell.hasAttribute('form') %}
         <a href="#" class="{{ block('datagrid_column_cell_form_link_class') }}"
-           title="{{ 'crud.list.datagrid.editable.title'|trans({}, 'FSiAdminBundle') }}"
+           title="{{ 'crud.list.datagrid.editable.title'|trans({}, 'AdminPanelBundle') }}"
            data-toggle="popover" data-html="true" data-placement="right"
            data-template="{{ block('datagrid_column_cell_form_popover')|escape }}"
            data-content="{{ datagrid_column_cell_form_widget(cell)|escape }}"></a>
@@ -55,7 +55,7 @@
         {{ form_widget(form) }}
         <div class="col-sm-12 form-group editable-buttons">
             <input type="submit" name="submit"
-                   value="{{ 'crud.list.datagrid.editable.save'|trans({}, 'FSiAdminBundle') }}"
+                   value="{{ 'crud.list.datagrid.editable.save'|trans({}, 'AdminPanelBundle') }}"
                    class="btn btn-sm btn-primary">
         </div>
         {{ form_end(form) }}
@@ -98,7 +98,7 @@
 {#  pattern: datagrid_column_type_action_cell_action_{action_name} #}
 {% block datagrid_column_type_action_cell_action_edit %}
     {% spaceless %}
-        <a href="{{ attr.href }}" title="{{ 'crud.list.datagrid.action.edit'|trans({}, 'FSiAdminBundle') }}"
+        <a href="{{ attr.href }}" title="{{ 'crud.list.datagrid.action.edit'|trans({}, 'AdminPanelBundle') }}"
            class="btn btn-warning btn-sm">
             <span class="glyphicon glyphicon-edit icon-white"></span>
         </a>

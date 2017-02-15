@@ -41,8 +41,8 @@ class FormFieldExtension extends FieldAbstractExtension
                 ->setDefaults([
                     'form_options' => [
                         'choices' => [
-                            'null' => $this->translator->trans('datasource.form.choices.is_null', [], 'FSiAdminBundle'),
-                            'no_null' => $this->translator->trans('datasource.form.choices.is_not_null', [], 'FSiAdminBundle')
+                            'null' => $this->translator->trans('datasource.form.choices.is_null', [], 'AdminPanelBundle'),
+                            'no_null' => $this->translator->trans('datasource.form.choices.is_not_null', [], 'AdminPanelBundle')
                         ]
                     ]
                 ]);
@@ -51,8 +51,8 @@ class FormFieldExtension extends FieldAbstractExtension
                 ->setDefaults([
                     'form_options' => [
                         'choices' => [
-                            '1' => $this->translator->trans('datasource.form.choices.yes', [], 'FSiAdminBundle'),
-                            '0' => $this->translator->trans('datasource.form.choices.no', [], 'FSiAdminBundle')
+                            '1' => $this->translator->trans('datasource.form.choices.yes', [], 'AdminPanelBundle'),
+                            '0' => $this->translator->trans('datasource.form.choices.no', [], 'AdminPanelBundle')
                         ]
                     ]
                 ]);

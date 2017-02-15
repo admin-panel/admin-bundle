@@ -51,7 +51,7 @@ class LocaleMenuListener
             $this->translator->trans(
                 'admin.language.current',
                 ['%locale%' => $this->getLanguageName()],
-                'FSiAdminBundle'
+                'AdminPanelBundle'
             )
         );
         $language->setOptions(['attr' => ['id' => 'language']]);

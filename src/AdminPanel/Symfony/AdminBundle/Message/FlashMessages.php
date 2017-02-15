@@ -36,22 +36,22 @@ class FlashMessages
         $this->session = $session;
     }
 
-    public function success($message, $domain = 'FSiAdminBundle', array $params = [])
+    public function success($message, $domain = 'AdminPanelBundle', array $params = [])
     {
         $this->add('success', $message, $domain, $params);
     }
 
-    public function error($message, $domain = 'FSiAdminBundle', array $params = [])
+    public function error($message, $domain = 'AdminPanelBundle', array $params = [])
     {
         $this->add('error', $message, $domain, $params);
     }
 
-    public function warning($message, $domain = 'FSiAdminBundle', array $params = [])
+    public function warning($message, $domain = 'AdminPanelBundle', array $params = [])
     {
         $this->add('warning', $message, $domain, $params);
     }
 
-    public function info($message, $domain = 'FSiAdminBundle', array $params = [])
+    public function info($message, $domain = 'AdminPanelBundle', array $params = [])
     {
         $this->add('info', $message, $domain, $params);
     }

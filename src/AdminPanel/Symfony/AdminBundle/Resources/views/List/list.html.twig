@@ -1,5 +1,5 @@
 {% extends admin_templates_base %}
-{% trans_default_domain 'FSiAdminBundle' %}
+{% trans_default_domain 'AdminPanelBundle' %}
 
 {% block themes %}
     {% datasource_route datasource_view element.getRoute() with element.getRouteParameters() %}
@@ -37,7 +37,7 @@
 
 {% block content %}
     <h3>
-        <span id="page-header">{% block header 'crud.list.title'|trans({}, 'FSiAdminBundle') %}</span>
+        <span id="page-header">{% block header 'crud.list.title'|trans({}, 'AdminPanelBundle') %}</span>
         <div class="pull-right">
             {% block top_buttons %}
             {% endblock top_buttons %}
