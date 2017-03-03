@@ -30,7 +30,7 @@ class ListPageTest extends FunctionalTestCase
         (new ListPage($this->client))
             ->open()
             ->clickCustomButtonForElementWithNumber(1)
-            ->shouldBeRedirectedTo('/custom-action?id={id}')
+            ->shouldBeRedirectedTo('/custom-action/{id}')
         ;
     }
 

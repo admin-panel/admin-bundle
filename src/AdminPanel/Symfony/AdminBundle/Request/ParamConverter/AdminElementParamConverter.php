@@ -55,6 +55,10 @@ class AdminElementParamConverter implements ParamConverterInterface
             return false;
         }
 
+        if (!$configuration->getClass()) {
+            return false;
+        }
+
         if (!class_exists($configuration->getClass()) && !interface_exists($configuration->getClass())) {
             return false;
         }
