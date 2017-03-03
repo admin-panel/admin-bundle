@@ -61,7 +61,7 @@ class AppKernel extends Kernel
     protected function configureRoutes(RouteCollectionBuilder $routes)
     {
         $routes->mount('/', $routes->import('@AdminPanelBundle/Resources/config/routing/admin.yml'));
-        $routes->add('/custom-action', 'kernel:customAction', 'custom_action');
+        $routes->add('/custom-action/{id}', 'kernel:customAction', 'custom_action');
     }
 
     /**
@@ -126,6 +126,11 @@ class AppKernel extends Kernel
                         'prefix' => 'AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity'
                     ]
                 ]
+            ]
+        ]);
+        $c->loadFromExtension('sensio_framework_extra', [
+            'request' => [
+                'converters' => true
             ]
         ]);
 

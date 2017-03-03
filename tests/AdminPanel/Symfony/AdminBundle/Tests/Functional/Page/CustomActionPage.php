@@ -11,6 +11,6 @@ class CustomActionPage extends BasePage
      */
     public function getUrl() : string
     {
-        return '/custom-action?id={id}';
+        return '/custom-action/{id}';
     }
 }
