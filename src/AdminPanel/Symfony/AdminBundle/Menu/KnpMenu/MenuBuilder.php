@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Menu\KnpMenu;
 
-use AdminPanel\Symfony\AdminBundle\Admin\Manager;
 use AdminPanel\Symfony\AdminBundle\Menu\Builder\Builder;
 use AdminPanel\Symfony\AdminBundle\Menu\Item\Item;
 use Knp\Menu\FactoryInterface;
@@ -67,6 +66,10 @@ class MenuBuilder
     {
         foreach ($children as $item) {
             $knpItem = $menu->addChild($item->getName(), []);
+
+            if ($item->isSafeLabel()) {
+                $knpItem->setExtra('safe_label', true);
+            }
 
             if ($item->hasChildren()) {
                 $this->populateMenu($knpItem, $item->getChildren());
