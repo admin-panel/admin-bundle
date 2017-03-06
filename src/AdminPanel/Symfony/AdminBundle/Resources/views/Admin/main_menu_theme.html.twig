@@ -1,6 +1,6 @@
 {% extends 'knp_menu.html.twig' %}
 
-{% block label %}{{ item.label|trans|humanize }}{% endblock %}
+{% block label %}{% if item.getExtra('safe_label', false) %}{{ item.label|trans|humanize|raw }}{% else %}{{ item.label|trans|humanize }}{% endif %}{% endblock %}
 
 {% block item %}
     {% import "knp_menu.html.twig" as macros %}
