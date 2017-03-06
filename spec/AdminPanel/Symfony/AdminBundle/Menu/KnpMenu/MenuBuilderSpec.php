@@ -34,10 +34,13 @@ class MenuBuilderSpec extends ObjectBehavior
         $builder->buildMenu()->willReturn($rootItem);
         $firstItem->getName()->willReturn('first item');
         $firstItem->hasChildren()->willReturn(false);
+        $firstItem->isSafeLabel()->willReturn(true);
         $secondItem->getName()->willReturn('second item');
         $secondItem->hasChildren()->willReturn(true);
+        $secondItem->isSafeLabel()->willReturn(false);
         $childOfSecondItem->getName()->willReturn('child of second item');
         $childOfSecondItem->hasChildren()->willReturn(false);
+        $childOfSecondItem->isSafeLabel()->willReturn(false);
         $rootItem->getChildren()->willReturn([$firstItem, $secondItem]);
         $secondItem->getChildren()->willReturn([$childOfSecondItem]);
         $rootItem->getOption('attr')->willReturn(['id' => null, 'class' => 'some class']);
@@ -49,6 +52,7 @@ class MenuBuilderSpec extends ObjectBehavior
 
         $knpRootItem->setChildrenAttribute('id', null)->shouldBeCalled();
         $knpRootItem->setChildrenAttribute('class', 'some class')->shouldBeCalled();
+        $knpFirstItem->setExtra('safe_label', true)->shouldBeCalled();
         $itemDecorator->decorate($knpFirstItem, $firstItem)->shouldBeCalled();
         $itemDecorator->decorate($knpSecondItem, $secondItem)->shouldBeCalled();
         $itemDecorator->decorate($knpChildOfSecondItem, $childOfSecondItem)->shouldBeCalled();
