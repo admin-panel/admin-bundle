@@ -31,12 +31,18 @@ class Item
     private $options;
 
     /**
+     * @var bool
+     */
+    private $safeLabel;
+
+    /**
      * @param string|null $name
      */
     public function __construct($name = null)
     {
         $this->children = [];
         $this->name = $name;
+        $this->safeLabel = false;
 
         $this->setOptions([]);
     }
@@ -63,6 +69,19 @@ class Item
     public function setLabel($label)
     {
         $this->label = $label;
+    }
+
+    public function setSafeLabel()
+    {
+        $this->safeLabel = true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSafeLabel()
+    {
+        return true === $this->safeLabel;
     }
 
     /**
