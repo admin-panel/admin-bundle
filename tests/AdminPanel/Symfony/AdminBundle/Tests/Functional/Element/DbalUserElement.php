@@ -96,9 +96,14 @@ final class DbalUserElement extends ListElement
         ]);
 
         $datasource->addField('credits', 'number', 'eq', [
-            'field' => 'u.credits',
+            'field' => 'u.has_newsletter',
             'form_filter' => true,
             'sortable' => true
+        ]);
+
+        $datasource->addField('hasNewsletter', 'boolean', 'isNull', [
+            'field' => 'u.credits',
+            'form_filter' => true
         ]);
 
         return $datasource;

@@ -10,7 +10,6 @@ use AdminPanel\Component\DataSource\DataSourceInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use AdminPanel\Component\DataSource\Event\FieldEvents;
-use FSi\Component\DataSource\Event\FieldEvent;
 
 final class FormFieldExtension extends FieldAbstractExtension
 {
@@ -56,7 +55,7 @@ final class FormFieldExtension extends FieldAbstractExtension
      */
     public function getExtendedFieldTypes()
     {
-        return ['text', 'number', 'boolean'];
+        return ['text', 'number', 'boolean', 'datetime'];
     }
 
     /**
