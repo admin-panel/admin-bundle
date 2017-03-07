@@ -12,7 +12,7 @@ class DataSourceAwareElement extends SimpleAdminElement implements DataSourceAwa
     private $dataSourceFactory;
 
     /**
-     * @param \FSi\Component\DataGrid\DataSourceFactoryInterface $factory
+     * @param DataSourceFactoryInterface $factory
      */
     public function setDataSourceFactory(DataSourceFactoryInterface $factory)
     {

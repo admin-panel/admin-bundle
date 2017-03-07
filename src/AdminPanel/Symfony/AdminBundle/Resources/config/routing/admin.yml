@@ -1,37 +1,25 @@
-fsi_admin:
+admin_panel_index:
     path: /
     defaults:
         _controller: admin.controller.admin:indexAction
 
-fsi_admin_locale:
+admin_panel_locale:
     path: /locale/{_locale}
     defaults:
         _controller: admin.controller.admin:localeAction
 
 
-fsi_admin_list:
+admin_panel_list:
     path: /list/{element}
     defaults:
         _controller: admin.controller.list:listAction
 
-fsi_admin_batch:
+admin_panel_batch:
     path: /batch/{element}
     defaults:
         _controller: admin.controller.batch:batchAction
 
-# Deprecated since version 1.1, to be removed in 1.2. Use fsi_admin_list instead.
-fsi_admin_crud_list:
-    path: /list/{element}
-    defaults:
-        _controller: admin.controller.list:listAction
-
-# Deprecated since version 1.1, to be removed in 1.2. Use fsi_admin_batch instead.
-fsi_admin_crud_delete:
-    path: /batch/{element}
-    defaults:
-        _controller: admin.controller.batch:batchAction
-
-fsi_admin_resource:
+admin_panel_resource:
     path: /resource/{element}
     defaults:
         _controller: admin.controller.resource:resourceAction

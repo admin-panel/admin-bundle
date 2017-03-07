@@ -12,12 +12,12 @@ class MenuBuilderSpec extends ObjectBehavior
 {
     public function let(EventDispatcherInterface $dispatcher)
     {
-        $this->beConstructedWith($dispatcher, 'fsi_admin.menu.tools');
+        $this->beConstructedWith($dispatcher, 'admin_panel.menu.tools');
     }
 
     public function it_should_emit_proper_event(EventDispatcherInterface $dispatcher)
     {
-        $dispatcher->dispatch('fsi_admin.menu.tools', Argument::allOf(
+        $dispatcher->dispatch('admin_panel.menu.tools', Argument::allOf(
             Argument::type('AdminPanel\Symfony\AdminBundle\Event\MenuEvent')
         ))->shouldBeCalled();
 

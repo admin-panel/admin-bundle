@@ -40,7 +40,7 @@ class BatchControllerSpec extends ObjectBehavior
             Argument::type('AdminPanel\Symfony\AdminBundle\Event\AdminEvent')
         )->shouldBeCalled();
 
-        $manager->createContext('fsi_admin_batch', $element)->willReturn($context);
+        $manager->createContext('admin_panel_batch', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn($response);
 
         $this->batchAction($element, $request)->shouldReturn($response);
@@ -64,7 +64,7 @@ class BatchControllerSpec extends ObjectBehavior
         BatchElementContext $context,
         Request $request
     ) {
-        $manager->createContext('fsi_admin_batch', $element)->willReturn($context);
+        $manager->createContext('admin_panel_batch', $element)->willReturn($context);
         $context->hasTemplateName()->willReturn(false);
         $context->handleRequest($request)->willReturn(null);
 
@@ -79,7 +79,7 @@ class BatchControllerSpec extends ObjectBehavior
         Request $request,
         Response $response
     ) {
-        $manager->createContext('fsi_admin_batch', $element)->willReturn($context);
+        $manager->createContext('admin_panel_batch', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn($response);
 
         $this->batchAction($element, $request)->shouldReturn($response);

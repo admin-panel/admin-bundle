@@ -56,13 +56,13 @@ class LocaleMenuListenerTest extends \PHPUnit_Framework_TestCase
         $enItem->setSafeLabel();
 
         $this->assertEquals($enItem->getLabel(), 'Englisch');
-        $this->assertEquals($enItem->getRoute(), 'fsi_admin_locale');
+        $this->assertEquals($enItem->getRoute(), 'admin_panel_locale');
         $this->assertEquals($enItem->getRouteParameters(), ['_locale' => 'en', 'redirect_uri' => 'uri_to_redirect_to']);
         $this->assertEquals($enItem->getOptions(), ['attr' => ['id' => null, 'class' => null]]);
         $this->assertTrue($enItem->isSafeLabel());
 
         $this->assertEquals($deItem->getLabel(), 'Deutsch');
-        $this->assertEquals($deItem->getRoute(), 'fsi_admin_locale');
+        $this->assertEquals($deItem->getRoute(), 'admin_panel_locale');
         $this->assertEquals($deItem->getRouteParameters(), ['_locale' => 'de', 'redirect_uri' => 'uri_to_redirect_to']);
         $this->assertEquals($deItem->getOptions(), ['attr' => ['id' => null, 'class' => 'active']]);
         $this->assertFalse($deItem->isSafeLabel());

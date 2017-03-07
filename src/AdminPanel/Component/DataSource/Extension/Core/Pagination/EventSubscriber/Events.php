@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Extension\Core\Pagination\EventSubscriber;
 
+use AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs;
+use AdminPanel\Component\DataSource\Event\DataSourceEvent\ViewEventArgs;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AdminPanel\Component\DataSource\Event\DataSourceEvents;
-use FSi\Component\DataSource\Event\DataSourceEvent;
 use AdminPanel\Component\DataSource\Extension\Core\Pagination\PaginationExtension;
 
 /**
@@ -31,9 +32,9 @@ class Events implements EventSubscriberInterface
      *
      * Sets proper page.
      *
-     * @param \AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs $event
+     * @param ParametersEventArgs $event
      */
-    public function preBindParameters(\AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs $event)
+    public function preBindParameters(ParametersEventArgs $event)
     {
         $datasource = $event->getDataSource();
         $parameters = $event->getParameters();
@@ -52,9 +53,9 @@ class Events implements EventSubscriberInterface
     }
 
     /**
-     * @param \AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs $event
+     * @param ParametersEventArgs $event
      */
-    public function postGetParameters(\AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs $event)
+    public function postGetParameters(ParametersEventArgs $event)
     {
         $datasource = $event->getDataSource();
         $datasourceName = $datasource->getName();
@@ -84,9 +85,9 @@ class Events implements EventSubscriberInterface
     /**
      * Method called at PostBuildView event.
      *
-     * @param \AdminPanel\Component\DataSource\Event\DataSourceEvent\ViewEventArgs $event
+     * @param ViewEventArgs $event
      */
-    public function postBuildView(\AdminPanel\Component\DataSource\Event\DataSourceEvent\ViewEventArgs $event)
+    public function postBuildView(ViewEventArgs $event)
     {
         $datasource = $event->getDataSource();
         $datasourceName = $datasource->getName();

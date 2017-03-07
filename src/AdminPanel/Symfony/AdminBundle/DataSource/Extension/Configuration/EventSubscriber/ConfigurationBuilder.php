@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AdminPanel\Symfony\AdminBundle\DataSource\Extension\Configuration\EventSubscriber;
 
 use AdminPanel\Component\DataSource\DataSourceInterface;
-use FSi\Component\DataSource\Event\DataSourceEvent;
+use AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs;
 use AdminPanel\Component\DataSource\Event\DataSourceEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Yaml\Parser;
 class ConfigurationBuilder implements EventSubscriberInterface
 {
     /**
-     * @var \Symfony\Component\HttpKernel\KernelInterface
+     * @var KernelInterface
      */
     protected $kernel;
 
@@ -37,9 +37,9 @@ class ConfigurationBuilder implements EventSubscriberInterface
     /**
      * Method called at PreBindParameters event.
      *
-     * @param \AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs $event
+     * @param ParametersEventArgs $event
      */
-    public function readConfiguration(\AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs $event)
+    public function readConfiguration(ParametersEventArgs $event)
     {
         $dataSource = $event->getDataSource();
         $dataSourceConfiguration = [];

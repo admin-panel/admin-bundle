@@ -6,11 +6,16 @@ namespace AdminPanel\Component\DataSource\Tests\Driver\Doctrine\ORM;
 
 use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\DoctrineAbstractField;
 use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\DoctrineFieldInterface;
+use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Date;
+use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\DateTime;
+use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Entity;
+use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Number;
+use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Text;
+use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Time;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use Doctrine\ORM\EntityManager;
 use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\DoctrineDriver;
 use Doctrine\ORM\QueryBuilder;
-use FSi\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field;
 use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\CoreExtension;
 use AdminPanel\Component\DataSource\Tests\Fixtures\DoctrineDriverExtension;
 use AdminPanel\Component\DataSource\Tests\Fixtures\FieldExtension;
@@ -135,7 +140,7 @@ class DoctrineDriverBasicTest extends \PHPUnit_Framework_TestCase
         $em = $this->getEntityManagerMock();
         $qb = $this->getQueryBuilderMock($em);
         new DoctrineDriver([], $em, 'entity');
-        new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\DoctrineDriver([], $em, $qb);
+        new DoctrineDriver([], $em, $qb);
     }
 
     /**
@@ -157,7 +162,7 @@ class DoctrineDriverBasicTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Exception\DoctrineDriverException');
         $em = $this->getEntityManagerMock();
         $qb = $this->getQueryBuilderMock($em);
-        new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\DoctrineDriver([], $em, null);
+        new DoctrineDriver([], $em, null);
     }
 
     /**
@@ -314,7 +319,7 @@ class DoctrineDriverBasicTest extends \PHPUnit_Framework_TestCase
         $extension = new FieldExtension();
         $parameter = [];
 
-        foreach ([new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Text(), new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Number(), new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Date(), new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Time(), new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\DateTime(), new \AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\Field\Entity()] as $field) {
+        foreach ([new Text(), new Number(), new Date(), new Time(), new DateTime(), new Entity()] as $field) {
             $field->addExtension($extension);
 
             $field->bindParameter([]);

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource;
 
+use AdminPanel\Component\DataSource\Exception\DataSourceException;
+
 /**
  * DataSource abstracts fetching data from various sources. For more information about usage please view README file.
  *
@@ -42,8 +44,8 @@ interface DataSourceInterface
      * @param string $type
      * @param string $comparison
      * @param array $options
-     * @return \FSi\Component\DataSource\DataSourceInterface
-     * @throws \AdminPanel\Component\DataSource\Exception\DataSourceException
+     * @return DataSourceInterface
+     * @throws DataSourceException
      */
     public function addField($name, $type = null, $comparison = null, $options = []);
 
@@ -68,14 +70,14 @@ interface DataSourceInterface
      * Returns array of all fields.
      *
      * @return array
-     * @throws \AdminPanel\Component\DataSource\Exception\DataSourceException
+     * @throws DataSourceException
      */
     public function getFields();
 
     /**
      * Removes all fields from datasource.
      *
-     * @return \FSi\Component\DataSource\DataSourceInterface
+     * @return DataSourceInterface
      */
     public function clearFields();
 
@@ -129,14 +131,14 @@ interface DataSourceInterface
      * It should just proxy request to driver.
      *
      * @return \Countable, \IteratorAggregate
-     * @throws \AdminPanel\Component\DataSource\Exception\DataSourceException
+     * @throws DataSourceException
      */
     public function getResult();
 
     /**
      * Adds extension.
      *
-     * @param \AdminPanel\Component\DataSource\DataSourceExtensionInterface $extension
+     * @param DataSourceExtensionInterface $extension
      */
     public function addExtension(DataSourceExtensionInterface $extension);
 
@@ -150,7 +152,7 @@ interface DataSourceInterface
     /**
      * Return ready view.
      *
-     * @return \AdminPanel\Component\DataSource\DataSourceViewInterface
+     * @return DataSourceViewInterface
      */
     public function createView();
 
@@ -188,14 +190,14 @@ interface DataSourceInterface
      *
      * DataSource needs that reference for example during getAllParameters method.
      *
-     * @param \AdminPanel\Component\DataSource\DataSourceFactoryInterface $factory
+     * @param DataSourceFactoryInterface $factory
      */
     public function setFactory(DataSourceFactoryInterface $factory);
 
     /**
      * Return assigned factory.
      *
-     * @return \AdminPanel\Component\DataSource\DataSourceFactoryInterface|null
+     * @return DataSourceFactoryInterface|null
      */
     public function getFactory();
 }

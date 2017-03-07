@@ -77,12 +77,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('fsi_admin') }}">{{ 'admin.title'|trans({}, 'AdminPanelBundle') }}</a>
+            <a class="navbar-brand" href="{{ path('admin_panel_index') }}">{{ 'admin.title'|trans({}, 'AdminPanelBundle') }}</a>
         </div>
         <div class="collapse navbar-collapse admin-navbar-collapse">
             {% block navigation %}
-                {{ knp_menu_render('fsi_admin.menu.main', {template: '@AdminPanel/Admin/main_menu_theme.html.twig', currentClass: 'active', ancestorClass: 'active'}) }}
-                {{ knp_menu_render('fsi_admin.menu.tools', {template: '@AdminPanel/Admin/tools_menu_theme.html.twig', currentClass: 'active', ancestorClass: ''}) }}
+                {{ knp_menu_render('admin_panel.menu.main', {template: '@AdminPanel/Admin/main_menu_theme.html.twig', currentClass: 'active', ancestorClass: 'active'}) }}
+                {{ knp_menu_render('admin_panel.menu.tools', {template: '@AdminPanel/Admin/tools_menu_theme.html.twig', currentClass: 'active', ancestorClass: ''}) }}
             {% endblock %}
         </div>
     </div>

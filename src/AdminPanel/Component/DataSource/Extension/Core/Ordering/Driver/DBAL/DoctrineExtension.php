@@ -6,8 +6,8 @@ namespace AdminPanel\Component\DataSource\Extension\Core\Ordering\Driver\DBAL;
 
 use AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\DoctrineField;
 use AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\AbstractField;
+use AdminPanel\Component\DataSource\Event\DriverEvent\DriverEventArgs;
 use AdminPanel\Component\DataSource\Event\DriverEvents;
-use FSi\Component\DataSource\Event\DriverEvent;
 use AdminPanel\Component\DataSource\Extension\Core\Ordering\Driver\DriverExtension;
 use AdminPanel\Component\DataSource\Extension\Core\Ordering\Field\DBAL\FieldExtension;
 
@@ -46,7 +46,7 @@ class DoctrineExtension extends DriverExtension
     /**
      * {@inheritdoc}
      */
-    public function preGetResult(\AdminPanel\Component\DataSource\Event\DriverEvent\DriverEventArgs $event)
+    public function preGetResult(DriverEventArgs $event)
     {
         $fields = $event->getFields();
         $sortedFields = $this->sortFields($fields);
@@ -67,7 +67,7 @@ class DoctrineExtension extends DriverExtension
     }
 
     /**
-     * @param \AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\AbstractField $field
+     * @param AbstractField $field
      * @throws \InvalidArgumentException
      * @return string
      */

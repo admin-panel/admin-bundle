@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AdminPanel\Component\DataSource\Extension\Symfony\Form\Driver;
 
 use AdminPanel\Component\DataSource\Driver\DriverAbstractExtension;
-use FSi\Component\DataSource\Extension\Symfony\Form\Field;
+use AdminPanel\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension;
 use Symfony\Component\Form\FormFactory;
 
 /**
@@ -43,7 +43,7 @@ class DriverExtension extends DriverAbstractExtension
     protected function loadFieldTypesExtensions()
     {
         return [
-            new \AdminPanel\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension($this->formFactory),
+            new FormFieldExtension($this->formFactory),
         ];
     }
 }

@@ -14,7 +14,7 @@ abstract class GenericBatchElement extends AbstractElement implements BatchEleme
      */
     public function getRoute()
     {
-        return 'fsi_admin_batch';
+        return 'admin_panel_batch';
     }
 
     /**
@@ -29,7 +29,7 @@ abstract class GenericBatchElement extends AbstractElement implements BatchEleme
      */
     public function getSuccessRoute()
     {
-        return 'fsi_admin';
+        return 'admin_panel_index';
     }
 
     /**

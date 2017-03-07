@@ -30,9 +30,9 @@ class DriverChain implements DriverInterface
     /**
      * Add new driver to the chain
      *
-     * @param \AdminPanel\Component\Metadata\Driver\DriverInterface $driver
+     * @param DriverInterface $driver
      * @param string $namespace
-     * @return \FSi\Component\Metadata\Driver\DriverChain
+     * @return DriverChain
      */
     public function addDriver(DriverInterface $driver, $namespace)
     {

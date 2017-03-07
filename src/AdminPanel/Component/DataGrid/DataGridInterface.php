@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataGrid;
 
+use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 interface DataGridInterface
@@ -34,10 +35,10 @@ interface DataGridInterface
      * Add new column to DataGrid. Remember that column type must be registered in
      * DataGridFactory that was used to create current DataGrid.
      *
-     * @param string|\AdminPanel\Component\DataGrid\Column\ColumnTypeInterface $name
+     * @param string|ColumnTypeInterface $name
      * @param string $type
      * @param array $options
-     * @return \FSi\Component\DataGrid\DataGridInterface
+     * @return DataGridInterface
      */
     public function addColumn($name, $type = 'text', $options = []);
 

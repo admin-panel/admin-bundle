@@ -4,33 +4,36 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Doctrine\Admin;
 
+use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 interface Element extends DoctrineAwareInterface
 {
     /**
      * Class name that represent entity. It might be returned in Symfony2 style:
-     * FSiDemoBundle:News
+     * AdminPanelDemoBundle:News
      * or as a full class name
-     * \FSi\Bundle\DemoBundle\Entity\News
+     * \AdminPanel\Bundle\DemoBundle\Entity\News
      *
      * @return string
      */
     public function getClassName();
 
     /**
-     * @return \Doctrine\Common\Persistence\ObjectManager
-     * @throws \AdminPanel\Symfony\AdminBundle\Exception\RuntimeException
+     * @return ObjectManager
+     * @throws RuntimeException
      */
     public function getObjectManager();
 
     /**
-     * @return \Doctrine\Common\Persistence\ObjectRepository
+     * @return ObjectRepository
      */
     public function getRepository();
 
     /**
-     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry
+     * @param ManagerRegistry $registry
      * @return null
      */
     public function setManagerRegistry(ManagerRegistry $registry);

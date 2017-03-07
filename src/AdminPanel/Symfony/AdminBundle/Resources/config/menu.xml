@@ -25,18 +25,18 @@
         <service id="admin.menu.listener.main" class="%admin.menu.listener.main.class%">
             <argument type="service" id="admin.manager"/>
             <argument>%admin.menu_config_path%</argument>
-            <tag name="kernel.event_listener" event="fsi_admin.menu.main" method="createMainMenu"/>
+            <tag name="kernel.event_listener" event="admin_panel.menu.main" method="createMainMenu"/>
         </service>
 
         <service id="admin.menu.listener.locale" class="%admin.menu.listener.locale.class%">
             <argument type="service" id="translator"/>
             <argument type="service" id="request_stack"/>
             <argument type="string">%admin.locales%</argument>
-            <tag name="kernel.event_listener" event="fsi_admin.menu.tools" method="createLocaleMenu"/>
+            <tag name="kernel.event_listener" event="admin_panel.menu.tools" method="createLocaleMenu"/>
         </service>
 
         <service id="admin.menu.listener.cleanup" class="%admin.menu.listener.cleanup.class%">
-            <tag name="kernel.event_listener" event="fsi_admin.menu.main" method="cleanUpMenu" priority="-100"/>
+            <tag name="kernel.event_listener" event="admin_panel.menu.main" method="cleanUpMenu" priority="-100"/>
         </service>
     </services>
 </container>

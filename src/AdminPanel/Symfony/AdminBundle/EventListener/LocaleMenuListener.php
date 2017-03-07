@@ -59,7 +59,7 @@ class LocaleMenuListener
         foreach ($this->locales as $locale) {
             $localeItem = new RoutableItem(
                 sprintf('admin-locale.%s', $locale),
-                'fsi_admin_locale',
+                'admin_panel_locale',
                 [
                     '_locale' => $locale,
                     'redirect_uri' => $this->requestStack->getMasterRequest()->getUri()

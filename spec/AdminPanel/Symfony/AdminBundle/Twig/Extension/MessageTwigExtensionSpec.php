@@ -16,7 +16,7 @@ class MessageTwigExtensionSpec extends ObjectBehavior
 
     public function it_has_name()
     {
-        $this->getName()->shouldReturn('fsi_admin_messages');
+        $this->getName()->shouldReturn('admin_panel_messages');
     }
 
     public function it_return_all_messages(FlashMessages $flashMessages)

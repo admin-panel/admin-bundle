@@ -18,6 +18,6 @@ class BatchController extends ControllerAbstract
      */
     public function batchAction(BatchElement $element, Request $request)
     {
-        return $this->handleRequest($element, $request, 'fsi_admin_batch');
+        return $this->handleRequest($element, $request, 'admin_panel_batch');
     }
 }

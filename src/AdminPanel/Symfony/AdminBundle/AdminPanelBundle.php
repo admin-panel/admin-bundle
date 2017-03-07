@@ -16,7 +16,7 @@ use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ManagerVisitorPa
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceRepositoryPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\SetEventDispatcherPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TwigGlobalsPass;
-use AdminPanel\Symfony\AdminBundle\DependencyInjection\FSIAdminExtension;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\AdminExtension;
 use AdminPanel\Symfony\AdminBundle\Finder\AdminClassFinder;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -48,12 +48,12 @@ class AdminPanelBundle extends Bundle
     }
 
     /**
-     * @return \AdminPanel\Symfony\AdminBundle\DependencyInjection\FSIAdminExtension
+     * @return \AdminPanel\Symfony\AdminBundle\DependencyInjection\AdminExtension
      */
     public function getContainerExtension()
     {
         if (null === $this->extension) {
-            $this->extension = new FSIAdminExtension();
+            $this->extension = new AdminExtension();
         }
 
         return $this->extension;

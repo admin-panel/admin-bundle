@@ -10,9 +10,9 @@ use AdminPanel\Component\DataSource\Event\FieldEvent\ViewEventArgs;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use AdminPanel\Component\DataSource\Field\FieldViewInterface;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use AdminPanel\Component\DataSource\DataSourceInterface;
-use FSi\Component\DataSource\Event\FieldEvent;
 use AdminPanel\Component\DataSource\Extension\Symfony\Form\Driver\DriverExtension;
 use AdminPanel\Component\DataSource\Field\FieldAbstractExtension;
 use AdminPanel\Component\DataSource\Tests\Fixtures\TestManagerRegistry;
@@ -54,7 +54,7 @@ class FormExtensionEntityTest extends \PHPUnit_Framework_TestCase
 
         $config = Setup::createAnnotationMetadataConfiguration([__DIR__ . '/../../Fixtures'], true, null, null, false);
         $em = EntityManager::create($dbParams, $config);
-        $tool = new \Doctrine\ORM\Tools\SchemaTool($em);
+        $tool = new SchemaTool($em);
         $classes = [
             $em->getClassMetadata('AdminPanel\Component\DataSource\Tests\Fixtures\News'),
         ];

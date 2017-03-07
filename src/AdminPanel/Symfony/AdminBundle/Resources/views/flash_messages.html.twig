@@ -1,6 +1,6 @@
 <div id="messages">
     {%- set typeClass = {success: 'success', warning: 'warning', error: 'danger', info: 'info'} -%}
-    {% for type, typeMessages in fsi_admin_messages() %}
+    {% for type, typeMessages in admin_panel_messages() %}
         {% for message in typeMessages %}
             <div class="alert alert-{{ typeClass[type] }}">
                 {{ (message.text)|trans(message.params, message.domain) }}

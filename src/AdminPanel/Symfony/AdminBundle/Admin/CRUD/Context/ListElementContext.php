@@ -80,7 +80,7 @@ class ListElementContext extends ContextAbstract
      */
     protected function getSupportedRoute()
     {
-        return 'fsi_admin_list';
+        return 'admin_panel_list';
     }
 
     /**

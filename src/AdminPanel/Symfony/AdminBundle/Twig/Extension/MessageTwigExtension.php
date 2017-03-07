@@ -26,7 +26,7 @@ class MessageTwigExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('fsi_admin_messages', [$this, 'getMessages']),
+            new Twig_SimpleFunction('admin_panel_messages', [$this, 'getMessages']),
         ];
     }
 
@@ -37,6 +37,6 @@ class MessageTwigExtension extends Twig_Extension
 
     public function getName()
     {
-        return 'fsi_admin_messages';
+        return 'admin_panel_messages';
     }
 }

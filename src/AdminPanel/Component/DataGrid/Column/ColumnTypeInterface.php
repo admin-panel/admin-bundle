@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataGrid\Column;
 
+use AdminPanel\Component\DataGrid\Exception\UnexpectedTypeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AdminPanel\Component\DataGrid\DataGridInterface;
 use AdminPanel\Component\DataGrid\Column\CellViewInterface;
@@ -28,26 +29,26 @@ interface ColumnTypeInterface
     public function getName();
 
     /**
-     * @param \AdminPanel\Component\DataGrid\DataGridInterface $dataGrid
-     * @return \FSi\Component\DataGrid\Column\ColumnTypeInterface
+     * @param DataGridInterface $dataGrid
+     * @return ColumnTypeInterface
      */
     public function setDataGrid(DataGridInterface $dataGrid);
 
     /**
-     * @return \AdminPanel\Component\DataGrid\DataGridInterface $dataGrid
+     * @return DataGridInterface $dataGrid
      */
     public function getDataGrid();
 
     /**
-     * @param \AdminPanel\Component\DataGrid\DataMapper\DataMapperInterface $dataMapper
-     * @return \FSi\Component\DataGrid\Column\ColumnTypeInterface
+     * @param DataMapperInterface $dataMapper
+     * @return ColumnTypeInterface
      */
     public function setDataMapper(DataMapperInterface $dataMapper);
 
     /**
      * Return DataMapper.
      *
-     * @return \AdminPanel\Component\DataGrid\DataMapper\DataMapperInterface
+     * @return DataMapperInterface
      */
     public function getDataMapper();
 
@@ -70,25 +71,25 @@ interface ColumnTypeInterface
      *
      * @param mixed  $object
      * @param string $index
-     * @return \AdminPanel\Component\DataGrid\Column\CellViewInterface
-     * @throws \AdminPanel\Component\DataGrid\Exception\UnexpectedTypeException
+     * @return CellViewInterface
+     * @throws UnexpectedTypeException
      */
     public function createCellView($object, $index);
 
     /**
-     * @param \AdminPanel\Component\DataGrid\Column\CellViewInterface $view
+     * @param CellViewInterface $view
      */
-    public function buildCellView(\AdminPanel\Component\DataGrid\Column\CellViewInterface $view);
+    public function buildCellView(CellViewInterface $view);
 
     /**
      * Create HeaderView object for column.
      *
-     * @return \AdminPanel\Component\DataGrid\Column\HeaderViewInterface
+     * @return HeaderViewInterface
      */
     public function createHeaderView();
 
     /**
-     * @param \AdminPanel\Component\DataGrid\Column\HeaderViewInterface $view
+     * @param HeaderViewInterface $view
      */
     public function buildHeaderView(HeaderViewInterface $view);
 
@@ -112,13 +113,13 @@ interface ColumnTypeInterface
     /**
      * @param string $name
      * @param mixed $value
-     * @return \FSi\Component\DataGrid\Column\ColumnTypeInterface
+     * @return ColumnTypeInterface
      */
     public function setOption($name, $value);
 
     /**
      * @param array $options
-     * @return \FSi\Component\DataGrid\Column\ColumnTypeInterface
+     * @return ColumnTypeInterface
      */
     public function setOptions($options);
 
@@ -141,8 +142,8 @@ interface ColumnTypeInterface
     public function setExtensions(array $extensions);
 
     /**
-     * @param \AdminPanel\Component\DataGrid\Column\ColumnTypeExtensionInterface $extension
-     * @return \AdminPanel\Component\DataGrid\Column\ColumnTypeExtensionInterface
+     * @param ColumnTypeExtensionInterface $extension
+     * @return ColumnTypeExtensionInterface
      */
     public function addExtension(ColumnTypeExtensionInterface $extension);
 
@@ -154,7 +155,7 @@ interface ColumnTypeInterface
     /**
      * Returns the configured options resolver used for this type.
      *
-     * @return \Symfony\Component\OptionsResolver\OptionsResolver The options resolver.
+     * @return OptionsResolver The options resolver.
      */
     public function getOptionsResolver();
 }

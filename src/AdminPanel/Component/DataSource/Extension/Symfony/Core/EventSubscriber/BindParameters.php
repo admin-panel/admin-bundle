@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Extension\Symfony\Core\EventSubscriber;
 
+use AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AdminPanel\Component\DataSource\Event\DataSourceEvents;
-use FSi\Component\DataSource\Event\DataSourceEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -25,9 +25,9 @@ class BindParameters implements EventSubscriberInterface
     /**
      * Method called at PreBindParameters event.
      *
-     * @param \AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs $event
+     * @param ParametersEventArgs $event
      */
-    public function preBindParameters(\AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs $event)
+    public function preBindParameters(ParametersEventArgs $event)
     {
         $parameters = $event->getParameters();
         if ($parameters instanceof Request) {

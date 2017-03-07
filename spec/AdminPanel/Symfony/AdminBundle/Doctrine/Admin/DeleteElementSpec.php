@@ -17,7 +17,7 @@ class DeleteElementSpec extends ObjectBehavior
         $this->beAnInstanceOf('AdminPanel\Symfony\AdminBundle\Tests\Doubles\Doctrine\MyDeleteElement');
         $this->beConstructedWith([]);
 
-        $registry->getManagerForClass('FSiDemoBundle:Entity')->willReturn($om);
+        $registry->getManagerForClass('AdminPanelDemoBundle:Entity')->willReturn($om);
         $this->setManagerRegistry($registry);
     }
 
@@ -28,7 +28,7 @@ class DeleteElementSpec extends ObjectBehavior
 
     public function it_should_return_object_repository(ObjectManager $om, ObjectRepository $repository)
     {
-        $om->getRepository('FSiDemoBundle:Entity')->willReturn($repository);
+        $om->getRepository('AdminPanelDemoBundle:Entity')->willReturn($repository);
         $this->getRepository()->shouldReturn($repository);
     }
 
@@ -38,13 +38,13 @@ class DeleteElementSpec extends ObjectBehavior
         ObjectRepository $repository,
         ClassMetadata $metadata
     ) {
-        $registry->getManagerForClass('FSi/Bundle/DemoBundle/Entity/Entity')->willReturn($om);
-        $om->getRepository('FSiDemoBundle:Entity')->willReturn($repository);
+        $registry->getManagerForClass('AdminPanel/Bundle/DemoBundle/Entity/Entity')->willReturn($om);
+        $om->getRepository('AdminPanelDemoBundle:Entity')->willReturn($repository);
         $metadata->isMappedSuperclass = false;
-        $metadata->rootEntityName = 'FSi/Bundle/DemoBundle/Entity/Entity';
-        $om->getClassMetadata('FSi/Bundle/DemoBundle/Entity/Entity')->willReturn($metadata);
+        $metadata->rootEntityName = 'AdminPanel/Bundle/DemoBundle/Entity/Entity';
+        $om->getClassMetadata('AdminPanel/Bundle/DemoBundle/Entity/Entity')->willReturn($metadata);
 
-        $repository->getClassName()->willReturn('FSi/Bundle/DemoBundle/Entity/Entity');
+        $repository->getClassName()->willReturn('AdminPanel/Bundle/DemoBundle/Entity/Entity');
 
         $this->setManagerRegistry($registry);
         $this->getDataIndexer()->shouldReturnAnInstanceOf('AdminPanel\Component\DataIndexer\DoctrineDataIndexer');

@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Admin\ColumnTypeExtension;
 
-use AdminPanel\Symfony\AdminBundle\Admin\Manager;
-use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
 use AdminPanel\Component\DataGrid\Column\CellViewInterface;
 use AdminPanel\Component\DataGrid\Column\ColumnAbstractTypeExtension;
 use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
 use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
-use FSi\Component\DataGrid\Extension\Symfony\ColumnType\Action;
 
 class AttributesExtension extends ColumnAbstractTypeExtension
 {
@@ -28,8 +25,8 @@ class AttributesExtension extends ColumnAbstractTypeExtension
             'entity',
             'collection',
             'action',
-            'fsi_file',
-            'fsi_image'
+            'admin_panel_file',
+            'admin_panel_image'
         ];
     }
 

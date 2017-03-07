@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fsi_admin');
+        $rootNode = $treeBuilder->root('admin_panel');
 
         $rootNode
             ->validate()
@@ -83,7 +83,7 @@ class Configuration implements ConfigurationInterface
                                     return isset($v['template']);
                                 })
                                 ->then(function ($v) {
-                                    trigger_error('The fsi_admin.data_grid.twig.template configuration key is deprecated since version 1.1 and will be removed in 1.2. Use the fsi_data_grid.twig.themes configuration key instead.', E_USER_DEPRECATED);
+                                    trigger_error('The admin_panel.data_grid.twig.template configuration key is deprecated since version 1.1 and will be removed in 1.2. Use the admin_panel_data_grid.twig.themes configuration key instead.', E_USER_DEPRECATED);
                                     return $v;
                                 })
                             ->end()

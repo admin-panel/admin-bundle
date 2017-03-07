@@ -29,7 +29,7 @@ abstract class GenericListElement extends AbstractElement implements ListElement
      */
     public function getRoute()
     {
-        return 'fsi_admin_list';
+        return 'admin_panel_list';
     }
 
     /**
@@ -80,7 +80,7 @@ abstract class GenericListElement extends AbstractElement implements ListElement
                 $datagrid->addColumn('batch', 'batch', [
                     'actions' => [
                         'delete' => [
-                            'route_name' => 'fsi_admin_batch',
+                            'route_name' => 'admin_panel_batch',
                             'additional_parameters' => ['element' => $this->getId()],
                             'label' => 'crud.list.batch.delete'
                         ]

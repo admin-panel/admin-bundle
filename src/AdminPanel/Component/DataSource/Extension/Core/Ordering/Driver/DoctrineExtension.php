@@ -6,13 +6,10 @@ namespace AdminPanel\Component\DataSource\Extension\Core\Ordering\Driver;
 
 use AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineFieldInterface;
 use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\DoctrineFieldInterface as DoctrineORMFieldInterface;
-use AdminPanel\Component\DataSource\Extension\Core\Ordering\Driver\DriverExtension;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AdminPanel\Component\DataSource\Event\DriverEvent\DriverEventArgs;
-use AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineAbstractField;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AdminPanel\Component\DataSource\Extension\Core\Ordering\Field\FieldExtension;
 use AdminPanel\Component\DataSource\Event\DriverEvents;
-use FSi\Component\DataSource\Event\DriverEvent;
 
 /**
  * Driver extension for ordering that loads fields extension.
@@ -79,7 +76,7 @@ class DoctrineExtension extends DriverExtension implements EventSubscriberInterf
     /**
      * {@inheritdoc}
      */
-    public function preGetResult(\AdminPanel\Component\DataSource\Event\DriverEvent\DriverEventArgs $event)
+    public function preGetResult(DriverEventArgs $event)
     {
         $fields = $event->getFields();
         $sortedFields = $this->sortFields($fields);

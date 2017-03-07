@@ -57,7 +57,7 @@ class AdminController
         return new RedirectResponse(
             $request->query->has('redirect_uri') ?
                 $request->query->get('redirect_uri') :
-                $this->router->generate('fsi_admin')
+                $this->router->generate('admin_panel_index')
         );
     }
 }

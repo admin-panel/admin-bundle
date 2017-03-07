@@ -14,13 +14,7 @@ use AdminPanel\Component\DataSource\Tests\Fixtures\Category;
 use AdminPanel\Component\DataSource\Tests\Fixtures\Group;
 use AdminPanel\Component\DataSource\Tests\Fixtures\TestManagerRegistry;
 use AdminPanel\Component\DataSource\Driver\Doctrine\Extension\Core\CoreExtension;
-use AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineFactory;
-use AdminPanel\Component\DataSource\Extension\Symfony\Form\FormExtension;
-use FSi\Component\DataSource\Extension\Symfony;
-use FSi\Component\DataSource\Extension\Core;
 use AdminPanel\Component\DataSource\Extension\Core\Ordering\OrderingExtension;
-use Symfony\Component\Form;
-use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
 use AdminPanel\Component\DataSource\Extension\Core\Pagination\PaginationExtension;
 use AdminPanel\Component\DataSource\Tests\Fixtures\DoctrineDriverExtension;
 

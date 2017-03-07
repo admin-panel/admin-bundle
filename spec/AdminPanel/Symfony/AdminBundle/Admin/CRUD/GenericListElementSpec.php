@@ -35,7 +35,7 @@ class GenericListElementSpec extends ObjectBehavior
 
     public function it_have_default_route()
     {
-        $this->getRoute()->shouldReturn('fsi_admin_list');
+        $this->getRoute()->shouldReturn('admin_panel_list');
     }
 
     public function it_throw_exception_when_init_datagrid_does_not_return_instance_of_datagrid(DataGridFactory $factory)
