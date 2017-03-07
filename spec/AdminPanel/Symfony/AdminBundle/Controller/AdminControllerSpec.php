@@ -27,7 +27,7 @@ class AdminControllerSpec extends ObjectBehavior
     ) {
         $request->getSession()->willReturn($session);
         $request->query = $requestQuery;
-        $router->generate('fsi_admin')->willReturn('admin_url');
+        $router->generate('admin_panel_index')->willReturn('admin_url');
 
         $session->set('admin_locale', 'qw')->shouldBeCalled();
 

@@ -13,7 +13,7 @@ class MyBatchElement extends BatchElement
      */
     public function getClassName()
     {
-        return 'FSiDemoBundle:Entity';
+        return 'AdminPanelDemoBundle:Entity';
     }
 
     /**

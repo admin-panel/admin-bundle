@@ -62,7 +62,7 @@ class MyCRUD extends GenericListElement
 
     protected function initDataSource(DataSourceFactoryInterface $factory)
     {
-        $datasource = $factory->createDataSource('doctrine', ['entity' => 'FSiDemoBundle:MyEntity'], 'my_datasource');
+        $datasource = $factory->createDataSource('doctrine', ['entity' => 'AdminPanelDemoBundle:MyEntity'], 'my_datasource');
 
         return $datasource;
     }

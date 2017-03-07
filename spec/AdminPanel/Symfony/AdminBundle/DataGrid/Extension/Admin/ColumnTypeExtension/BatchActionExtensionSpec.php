@@ -133,13 +133,13 @@ class BatchActionExtensionSpec extends ObjectBehavior
         $manager->hasElement('some_batch_element_id')->willReturn(true);
         $manager->getElement('some_batch_element_id')->willReturn($batchElement);
         $batchElement->getId()->willReturn('some_batch_element_id');
-        $batchElement->getRoute()->willReturn('fsi_admin_batch');
+        $batchElement->getRoute()->willReturn('admin_panel_batch');
         $batchElement->getRouteParameters()->willReturn(['element' => 'some_batch_element_id']);
         $queryAttributes->has('redirect_uri')->willReturn(true);
         $queryAttributes->get('redirect_uri')->willReturn('some_redirect_uri');
 
         $router->generate(
-            'fsi_admin_batch',
+            'admin_panel_batch',
             [
                 'element' => 'some_batch_element_id',
                 'some_additional_parameter' => 'some_value',
@@ -189,13 +189,13 @@ class BatchActionExtensionSpec extends ObjectBehavior
         $manager->hasElement('some_batch_element_id')->willReturn(true);
         $manager->getElement('some_batch_element_id')->willReturn($batchElement);
         $batchElement->getId()->willReturn('some_batch_element_id');
-        $batchElement->getRoute()->willReturn('fsi_admin_batch');
+        $batchElement->getRoute()->willReturn('admin_panel_batch');
         $batchElement->getRouteParameters()->willReturn(['element' => 'some_batch_element_id']);
         $queryAttributes->has('redirect_uri')->willReturn(false);
         $request->getRequestUri()->willReturn('current_request_uri');
 
         $router->generate(
-            'fsi_admin_batch',
+            'admin_panel_batch',
             [
                 'element' => 'some_batch_element_id',
                 'some_additional_parameter' => 'some_value',
@@ -243,11 +243,11 @@ class BatchActionExtensionSpec extends ObjectBehavior
         $manager->hasElement('some_batch_element_id')->willReturn(true);
         $manager->getElement('some_batch_element_id')->willReturn($batchElement);
         $batchElement->getId()->willReturn('some_batch_element_id');
-        $batchElement->getRoute()->willReturn('fsi_admin_batch');
+        $batchElement->getRoute()->willReturn('admin_panel_batch');
         $batchElement->getRouteParameters()->willReturn(['element' => 'some_batch_element_id']);
 
         $router->generate(
-            'fsi_admin_batch',
+            'admin_panel_batch',
             [
                 'element' => 'some_batch_element_id',
                 'some_additional_parameter' => 'some_value'
@@ -281,7 +281,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
     ) {
         $column->getOption('actions')->willReturn([
             'action_name' => [
-                'route_name' => 'fsi_admin_custom_batch',
+                'route_name' => 'admin_panel_custom_batch',
                 'additional_parameters' => ['element' => 'some_batch_element_id', 'param' => 'value']
             ]
         ]);
@@ -292,7 +292,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
         $queryAttributes->get('redirect_uri')->willReturn('some_redirect_uri');
 
         $router->generate(
-            'fsi_admin_custom_batch',
+            'admin_panel_custom_batch',
             [
                 'element' => 'some_batch_element_id',
                 'param' => 'value',

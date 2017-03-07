@@ -59,15 +59,15 @@ class SampleTest extends \PHPUnit_Framework_TestCase
 
     protected function _testClassGetProperties($filter = null)
     {
-        $fsiClassReflection = ReflectionClass::factory(ClassA::class);
+        $adminPanelClassReflection = ReflectionClass::factory(ClassA::class);
         $classReflection    = new \ReflectionClass(ClassA::class);
 
-        $fsiReflectionProperties  = isset($filter) ? $fsiClassReflection->getProperties($filter) : $fsiClassReflection->getProperties();
+        $adminPanelReflectionProperties  = isset($filter) ? $adminPanelClassReflection->getProperties($filter) : $adminPanelClassReflection->getProperties();
         $reflectionProperties     = isset($filter) ? $classReflection->getProperties($filter) : $classReflection->getProperties();
 
-        $this->assertSame(count($fsiReflectionProperties), count($reflectionProperties));
+        $this->assertSame(count($adminPanelReflectionProperties), count($reflectionProperties));
 
-        foreach ($fsiReflectionProperties as $index => $reflectionProperty) {
+        foreach ($adminPanelReflectionProperties as $index => $reflectionProperty) {
             $reflectionPropertyNew = ReflectionProperty::factory($reflectionProperty->class, $reflectionProperty->name);
             $this->assertSame($reflectionPropertyNew, $reflectionProperty);
 
@@ -106,15 +106,15 @@ class SampleTest extends \PHPUnit_Framework_TestCase
 
     protected function _testClassGetMethods($filter = null)
     {
-        $fsiClassReflection = ReflectionClass::factory(ClassA::class);
+        $adminPanelClassReflection = ReflectionClass::factory(ClassA::class);
         $classReflection    = new \ReflectionClass(ClassA::class);
 
-        $fsiReflectionMethods  = isset($filter) ? $fsiClassReflection->getMethods($filter) : $fsiClassReflection->getMethods();
+        $adminPanelReflectionMethods  = isset($filter) ? $adminPanelClassReflection->getMethods($filter) : $adminPanelClassReflection->getMethods();
         $reflectionMethods     = isset($filter) ? $classReflection->getMethods($filter) : $classReflection->getMethods();
 
-        $this->assertSame(count($fsiReflectionMethods), count($reflectionMethods));
+        $this->assertSame(count($adminPanelReflectionMethods), count($reflectionMethods));
 
-        foreach ($fsiReflectionMethods as $index => $reflectionMethod) {
+        foreach ($adminPanelReflectionMethods as $index => $reflectionMethod) {
             $reflectionMethodNew = ReflectionMethod::factory($reflectionMethod->class, $reflectionMethod->name);
             $this->assertSame($reflectionMethodNew, $reflectionMethod);
 
@@ -210,15 +210,15 @@ class SampleTest extends \PHPUnit_Framework_TestCase
 
     public function testClassInterfaces()
     {
-        $classFsiReflection = ReflectionClass::factory(ClassA::class);
+        $adminPanelClassReflection = ReflectionClass::factory(ClassA::class);
         $classReflection    = new \ReflectionClass(ClassA::class);
 
-        $fsiClassInterfaces = $classFsiReflection->getInterfaces();
+        $adminPanelClassInterfaces = $adminPanelClassReflection->getInterfaces();
         $classInterfaces    = $classReflection->getInterfaces();
 
-        $this->assertSame(count($fsiClassInterfaces), count($classInterfaces));
+        $this->assertSame(count($adminPanelClassInterfaces), count($classInterfaces));
 
-        foreach ($fsiClassInterfaces as $name => $interfaceReflection) {
+        foreach ($adminPanelClassInterfaces as $name => $interfaceReflection) {
             $orgInterface = $classInterfaces[$name];
             $this->assertEquals($orgInterface->name, $interfaceReflection->name);
         }
@@ -281,22 +281,22 @@ class SampleTest extends \PHPUnit_Framework_TestCase
 
     public function testGetParentClass()
     {
-        $classFsiReflection = ReflectionClass::factory(ClassAParentParent::class);
-        $parentClassFsiReflection = $classFsiReflection->getParentClass();
+        $adminPanelClassReflection = ReflectionClass::factory(ClassAParentParent::class);
+        $adminPanelParentClassReflection = $adminPanelClassReflection->getParentClass();
 
         $classReflection = new \ReflectionClass(ClassAParentParent::class);
         $parentClassReflection = $classReflection->getParentClass();
 
-        $this->assertSame($parentClassFsiReflection, $parentClassReflection);
+        $this->assertSame($adminPanelParentClassReflection, $parentClassReflection);
 
 
-        $classFsiReflection1 = ReflectionClass::factory(ClassA::class);
-        $parentClassFsiReflection1 = $classFsiReflection1->getParentClass();
+        $adminPanelClassReflection1 = ReflectionClass::factory(ClassA::class);
+        $adminPanelParentClassReflection1 = $adminPanelClassReflection1->getParentClass();
 
         $classReflection1 = new \ReflectionClass(ClassA::class);
         $parentClassReflection1 = $classReflection1->getParentClass();
 
-        $this->assertSame($parentClassFsiReflection1->name, $parentClassReflection1->name);
+        $this->assertSame($adminPanelParentClassReflection1->name, $parentClassReflection1->name);
     }
 
     protected function pc_array_power_set($array)

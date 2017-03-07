@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AdminPanel\Component\DataSource\Tests\Fixtures;
 
 use Doctrine\ORM\QueryBuilder;
-use FSi\Component\DataSource\Tests\Fixtures\Doctrine;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AdminPanel\Component\DataSource\Driver\DriverAbstractExtension;
 use AdminPanel\Component\DataSource\Event\DriverEvents;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Tests\Driver\Doctrine\ORM;
 
+use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use AdminPanel\Component\DataSource\DataSourceFactory;
@@ -14,11 +15,7 @@ use AdminPanel\Component\DataSource\Tests\Fixtures\Category;
 use AdminPanel\Component\DataSource\Tests\Fixtures\Group;
 use AdminPanel\Component\DataSource\Tests\Fixtures\TestManagerRegistry;
 use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\Extension\Core\CoreExtension;
-use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\DoctrineFactory;
-use FSi\Component\DataSource\Extension\Symfony;
-use FSi\Component\DataSource\Extension\Core;
 use AdminPanel\Component\DataSource\Extension\Core\Ordering\OrderingExtension;
-use Symfony\Component\Form;
 use AdminPanel\Component\DataSource\Extension\Core\Pagination\PaginationExtension;
 use AdminPanel\Component\DataSource\Tests\Fixtures\DoctrineDriverExtension;
 
@@ -49,7 +46,7 @@ class DoctrineDriverTest extends \PHPUnit_Framework_TestCase
 
         $config = Setup::createAnnotationMetadataConfiguration([__DIR__ . '/../../../Fixtures'], true, null, null, false);
         $em = EntityManager::create($dbParams, $config);
-        $tool = new \Doctrine\ORM\Tools\SchemaTool($em);
+        $tool = new SchemaTool($em);
         $classes = [
             $em->getClassMetadata('AdminPanel\Component\DataSource\Tests\Fixtures\News'),
             $em->getClassMetadata('AdminPanel\Component\DataSource\Tests\Fixtures\Category'),

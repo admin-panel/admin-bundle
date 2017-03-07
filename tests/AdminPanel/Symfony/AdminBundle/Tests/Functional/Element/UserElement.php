@@ -116,11 +116,6 @@ final class UserElement extends ListElement
     }
 
     /**
-     * Class name that represent entity. It might be returned in Symfony2 style:
-     * FSiDemoBundle:News
-     * or as a full class name
-     * \FSi\Bundle\DemoBundle\Entity\News
-     *
      * @return string
      */
     public function getClassName()

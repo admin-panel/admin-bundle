@@ -42,7 +42,7 @@ class ListControllerSpec extends ObjectBehavior
             Argument::type('AdminPanel\Symfony\AdminBundle\Event\AdminEvent')
         )->shouldBeCalled();
 
-        $manager->createContext('fsi_admin_list', $element)->willReturn($context);
+        $manager->createContext('admin_panel_list', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn(null);
         $context->hasTemplateName()->willReturn(false);
         $context->getData()->willReturn([]);
@@ -71,7 +71,7 @@ class ListControllerSpec extends ObjectBehavior
         ListElementContext $context,
         EngineInterface $templating
     ) {
-        $manager->createContext('fsi_admin_list', $element)->willReturn($context);
+        $manager->createContext('admin_panel_list', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn(null);
         $context->hasTemplateName()->willReturn(false);
         $context->getData()->willReturn([]);
@@ -88,7 +88,7 @@ class ListControllerSpec extends ObjectBehavior
         ListElementContext $context,
         EngineInterface $templating
     ) {
-        $manager->createContext('fsi_admin_list', $element)->willReturn($context);
+        $manager->createContext('admin_panel_list', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn(null);
         $context->hasTemplateName()->willReturn(true);
         $context->getTemplateName()->willReturn('custom_template');
@@ -105,7 +105,7 @@ class ListControllerSpec extends ObjectBehavior
         ContextManager $manager,
         ListElementContext $context
     ) {
-        $manager->createContext('fsi_admin_list', $element)->willReturn($context);
+        $manager->createContext('admin_panel_list', $element)->willReturn($context);
         $context->handleRequest($request)->willReturn($response);
 
         $this->listAction($element, $request)->shouldReturn($response);

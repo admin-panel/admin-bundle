@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Tests\Driver\Doctrine;
 
+use AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineFieldInterface;
 use AdminPanel\Component\DataSource\Driver\Doctrine\ORM\DoctrineAbstractField;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use Doctrine\ORM\EntityManager;
 use AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineDriver;
 use Doctrine\ORM\QueryBuilder;
-use FSi\Component\DataSource\Driver\Doctrine\Extension\Core\Field;
 use AdminPanel\Component\DataSource\Driver\Doctrine\Extension\Core\CoreExtension;
 use AdminPanel\Component\DataSource\Tests\Fixtures\DoctrineDriverExtension;
 use AdminPanel\Component\DataSource\Tests\Fixtures\FieldExtension;
@@ -133,8 +133,8 @@ class DoctrineDriverBasicTest extends \PHPUnit_Framework_TestCase
     {
         $em = $this->getEntityManagerMock();
         $qb = $this->getQueryBuilderMock($em);
-        new \AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineDriver([], $em, 'entity');
-        new \AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineDriver([], $em, $qb);
+        new DoctrineDriver([], $em, 'entity');
+        new DoctrineDriver([], $em, $qb);
     }
 
     /**
@@ -156,7 +156,7 @@ class DoctrineDriverBasicTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('AdminPanel\Component\DataSource\Driver\Doctrine\Exception\DoctrineDriverException');
         $em = $this->getEntityManagerMock();
         $qb = $this->getQueryBuilderMock($em);
-        new \AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineDriver([], $em, null);
+        new DoctrineDriver([], $em, null);
     }
 
     /**
@@ -220,7 +220,7 @@ class DoctrineDriverBasicTest extends \PHPUnit_Framework_TestCase
         $em = $this->getEntityManagerMock();
         $qb = $this->getQueryBuilderMock($em);
 
-        $driver = new \AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineDriver([], $em, 'entity');
+        $driver = new DoctrineDriver([], $em, 'entity');
         $this->setExpectedException('AdminPanel\Component\DataSource\Driver\Doctrine\Exception\DoctrineDriverException');
         $driver->getQueryBuilder();
     }
@@ -263,8 +263,8 @@ class DoctrineDriverBasicTest extends \PHPUnit_Framework_TestCase
         $driver = new DoctrineDriver([new CoreExtension()], $em, 'entity');
         $this->assertTrue($driver->hasFieldType($type));
         $field = $driver->getFieldType($type);
-        $this->assertTrue($field instanceof \AdminPanel\Component\DataSource\Field\FieldTypeInterface);
-        $this->assertTrue($field instanceof \AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineFieldInterface);
+        $this->assertTrue($field instanceof FieldTypeInterface);
+        $this->assertTrue($field instanceof DoctrineFieldInterface);
 
         $this->assertTrue($field->getOptionsResolver()->isDefined('field'));
 
@@ -295,7 +295,7 @@ class DoctrineDriverBasicTest extends \PHPUnit_Framework_TestCase
         $this->extendWithRootEntities($em, $qb);
 
         $extension = new DoctrineDriverExtension();
-        $driver = new \AdminPanel\Component\DataSource\Driver\Doctrine\DoctrineDriver([], $em, 'entity');
+        $driver = new DoctrineDriver([], $em, 'entity');
         $driver->addExtension($extension);
 
         $driver->getResult([], 0, 20);

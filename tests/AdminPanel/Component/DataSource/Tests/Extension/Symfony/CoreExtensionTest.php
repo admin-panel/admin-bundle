@@ -8,7 +8,6 @@ use AdminPanel\Component\DataSource\DataSource;
 use AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs;
 use AdminPanel\Component\DataSource\Extension\Symfony\Core\CoreExtension;
 use Symfony\Component\HttpFoundation\Request;
-use FSi\Component\DataSource\Event\DataSourceEvent;
 
 /**
  * Tests for Symfony Core Extension.

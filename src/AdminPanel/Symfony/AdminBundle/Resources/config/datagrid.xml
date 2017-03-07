@@ -117,13 +117,6 @@
         </service>
         <!-- DoctrineExtension -->
 
-        <!-- GedmoExtension -->
-        <service id="datagrid.column.gedmo_tree" class="FSi\Component\DataGrid\Extension\Gedmo\ColumnType\Tree">
-            <tag name="datagrid.column" alias="gedmo_tree" />
-            <argument type="service" id="doctrine"/>
-        </service>
-        <!-- GedmoExtension -->
-
         <!-- RouterExtension -->
         <service id="datagrid.column.symfony.action" class="AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnType\Action">
             <tag name="datagrid.column" alias="action" />

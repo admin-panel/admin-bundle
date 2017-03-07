@@ -17,7 +17,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $processor = new Processor();
         $config = $processor->processConfiguration(
             new Configuration(), [
-                'fsi_admin' => [
+                'admin_panel' => [
                     'data_grid' => []
                 ]
         ]);
@@ -36,7 +36,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = $processor->processConfiguration(
             new Configuration(),
             [
-                'fsi_admin' => [
+                'admin_panel' => [
                     'data_grid' => [
                         'twig' => [
                             'template' => 'custom_datagrid.html.twig'
@@ -59,7 +59,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = @$processor->processConfiguration(
             new Configuration(),
             [
-                'fsi_admin' => [
+                'admin_panel' => [
                     'data_grid' => [
                         'twig' => [
                             'template' => 'custom_datagrid.html.twig'
@@ -87,7 +87,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = @$processor->processConfiguration(
             new Configuration(),
             [
-                'fsi_admin' => [
+                'admin_panel' => [
                     'data_grid' => [
                         'twig' => [
                             'themes' => ['custom_datagrid.html.twig']

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AdminPanel\Component\DataGrid;
 
 use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
-use FSi\Component\DataGrid\Exception;
 use AdminPanel\Component\DataGrid\Exception\UnexpectedTypeException;
 
 class DataGridRowView implements DataGridRowViewInterface
@@ -34,7 +33,7 @@ class DataGridRowView implements DataGridRowViewInterface
      * @param array $columns
      * @param mixed $source
      * @param int $index
-     * @throws \AdminPanel\Component\DataGrid\Exception\UnexpectedTypeException
+     * @throws UnexpectedTypeException
      */
     public function __construct(DataGridViewInterface $dataGridView, array $columns, $source, $index)
     {
@@ -42,7 +41,9 @@ class DataGridRowView implements DataGridRowViewInterface
         $this->index = $index;
         foreach ($columns as $name => $column) {
             if (!$column instanceof ColumnTypeInterface) {
-                throw new UnexpectedTypeException('Column object must implement AdminPanel\Component\DataGrid\Column\ColumnTypeInterface');
+                throw new UnexpectedTypeException(
+                    sprintf('Column object must implement %s', ColumnTypeInterface::class)
+                );
             }
 
             $cellView = $column->createCellView($this->source, $index);

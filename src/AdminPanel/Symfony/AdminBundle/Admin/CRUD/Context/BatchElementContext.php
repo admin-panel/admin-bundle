@@ -81,7 +81,7 @@ class BatchElementContext extends ContextAbstract
      */
     protected function getSupportedRoute()
     {
-        return 'fsi_admin_batch';
+        return 'admin_panel_batch';
     }
 
     /**

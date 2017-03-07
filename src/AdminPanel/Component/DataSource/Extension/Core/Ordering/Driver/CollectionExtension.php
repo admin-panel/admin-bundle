@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Extension\Core\Ordering\Driver;
 
-use AdminPanel\Component\DataSource\Extension\Core\Ordering\Driver\DriverExtension;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AdminPanel\Component\DataSource\Event\DriverEvent\DriverEventArgs;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AdminPanel\Component\DataSource\Extension\Core\Ordering\Field\FieldExtension;
 use AdminPanel\Component\DataSource\Event\DriverEvents;
-use FSi\Component\DataSource\Event\DriverEvent;
 
 /**
  * Driver extension for ordering that loads fields extension.
@@ -47,7 +45,7 @@ class CollectionExtension extends DriverExtension implements EventSubscriberInte
     /**
      * {@inheritdoc}
      */
-    public function preGetResult(\AdminPanel\Component\DataSource\Event\DriverEvent\DriverEventArgs $event)
+    public function preGetResult(DriverEventArgs $event)
     {
         $fields = $event->getFields();
         $sortedFields = $this->sortFields($fields);

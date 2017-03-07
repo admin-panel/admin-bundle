@@ -13,7 +13,7 @@ class MyDeleteElement extends DeleteElement
      */
     public function getClassName()
     {
-        return 'FSiDemoBundle:Entity';
+        return 'AdminPanelDemoBundle:Entity';
     }
 
     /**

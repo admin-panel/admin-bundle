@@ -104,7 +104,7 @@
 
         <service id="admin.messages.flash" class="AdminPanel\Symfony\AdminBundle\Message\FlashMessages" lazy="true">
             <argument type="service" id="session"/>
-            <argument type="string">fsi_admin</argument>
+            <argument type="string">admin_panel</argument>
         </service>
 
         <service id="admin.listener.messages" class="AdminPanel\Symfony\AdminBundle\EventListener\MessagesListener">

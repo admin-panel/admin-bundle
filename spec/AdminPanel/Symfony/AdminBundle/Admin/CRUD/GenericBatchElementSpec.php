@@ -32,6 +32,6 @@ class GenericBatchElementSpec extends ObjectBehavior
 
     public function it_have_default_route()
     {
-        $this->getRoute()->shouldReturn('fsi_admin_batch');
+        $this->getRoute()->shouldReturn('admin_panel_batch');
     }
 }

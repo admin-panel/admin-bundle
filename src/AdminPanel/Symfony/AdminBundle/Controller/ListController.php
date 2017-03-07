@@ -18,6 +18,6 @@ class ListController extends ControllerAbstract
      */
     public function listAction(ListElement $element, Request $request)
     {
-        return $this->handleRequest($element, $request, 'fsi_admin_list');
+        return $this->handleRequest($element, $request, 'admin_panel_list');
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AdminPanel\Component\DataSource\Extension\Core\Pagination;
 
 use AdminPanel\Component\DataSource\DataSourceAbstractExtension;
-use FSi\Component\DataSource\Extension\Core\Pagination\EventSubscriber;
+use AdminPanel\Component\DataSource\Extension\Core\Pagination\EventSubscriber\Events;
 
 /**
  * Pagination extension adds to view some options helpfull during view rendering.
@@ -28,7 +28,7 @@ class PaginationExtension extends DataSourceAbstractExtension
     public function loadSubscribers()
     {
         return [
-            new \AdminPanel\Component\DataSource\Extension\Core\Pagination\EventSubscriber\Events(),
+            new Events(),
         ];
     }
 }

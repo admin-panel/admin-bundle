@@ -15,7 +15,7 @@ class MyListElement extends ListElement
      */
     public function getClassName()
     {
-        return 'FSiDemoBundle:Entity';
+        return 'AdminPanelDemoBundle:Entity';
     }
 
     /**

@@ -17,7 +17,7 @@ class AdminElementParamConverterSpec extends ObjectBehavior
 
     public function it_handle_only_fully_qualified_class_names(ParamConverter $configuration)
     {
-        $configuration->getClass()->willReturn('FSiDemoBundle:News');
+        $configuration->getClass()->willReturn('AdminPanelDemoBundle:News');
         $this->supports($configuration)->shouldReturn(false);
     }
 
@@ -30,6 +30,12 @@ class AdminElementParamConverterSpec extends ObjectBehavior
         $this->supports($configuration)->shouldReturn(true);
 
         $configuration->getClass()->willReturn('AdminPanel\Symfony\AdminBundle\Admin\Manager');
+        $this->supports($configuration)->shouldReturn(false);
+    }
+
+    public function it_supports_objects_only(ParamConverter $configuration)
+    {
+        $configuration->getClass()->willReturn('');
         $this->supports($configuration)->shouldReturn(false);
     }
 }
