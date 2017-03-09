@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Admin\CRUD;
 
@@ -12,7 +12,7 @@ use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class GenericListElement extends AbstractElement implements ListElement
+abstract class GenericListBatchDeleteElement extends AbstractElement implements ListElement, DeleteElement
 {
     /**
      * @var \AdminPanel\Component\DataSource\DataSourceFactoryInterface
@@ -30,6 +30,22 @@ abstract class GenericListElement extends AbstractElement implements ListElement
     public function getRoute()
     {
         return 'admin_panel_list';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSuccessRouteParameters()
+    {
+        return $this->getRouteParameters();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSuccessRoute()
+    {
+        return $this->getRoute();
     }
 
     /**
@@ -59,6 +75,19 @@ abstract class GenericListElement extends AbstractElement implements ListElement
             throw new RuntimeException('initDataGrid should return instanceof AdminPanel\\Component\\DataGrid\\DataGridInterface');
         }
 
+        if (!$datagrid->hasColumnType('batch')) {
+            $datagrid->addColumn('batch', 'batch', [
+                'actions' => [
+                    'delete' => [
+                        'route_name' => 'admin_panel_batch',
+                        'additional_parameters' => ['element' => $this->getId()],
+                        'label' => 'crud.list.batch.delete'
+                    ]
+                ],
+                'display_order' => -1000
+            ]);
+        }
+
         return $datagrid;
     }
 
@@ -82,11 +111,11 @@ abstract class GenericListElement extends AbstractElement implements ListElement
     public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'allow_delete' => false,
+            'allow_delete' => true,
             'template_list' => null,
         ]);
 
-        $resolver->setAllowedValues('allow_delete', false);
+        $resolver->setAllowedValues('allow_delete', true);
         $resolver->setAllowedTypes('template_list', ['null', 'string']);
     }
 

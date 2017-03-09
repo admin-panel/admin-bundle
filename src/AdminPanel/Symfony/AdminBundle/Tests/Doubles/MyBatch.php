@@ -19,4 +19,8 @@ class MyBatch extends GenericBatchElement
     public function apply($object)
     {
     }
+
+    public function getObject($index)
+    {
+    }
 }

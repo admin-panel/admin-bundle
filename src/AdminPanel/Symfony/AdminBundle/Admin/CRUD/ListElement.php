@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Admin\CRUD;
 
-interface ListElement extends DataIndexerElement, DataSourceAwareInterface, DataGridAwareInterface
+use AdminPanel\Symfony\AdminBundle\Admin\Element;
+
+interface ListElement extends DataSourceAwareInterface, DataGridAwareInterface, Element
 {
     /**
      * @return \AdminPanel\Component\DataGrid\DataGrid|null
@@ -17,12 +19,4 @@ interface ListElement extends DataIndexerElement, DataSourceAwareInterface, Data
      * @throws \AdminPanel\Symfony\AdminBundle\Exception\RuntimeException
      */
     public function createDataSource();
-
-    /**
-     * Method called after DataGrid update at listAction in CRUDController.
-     * Mostly it should only call flush at ObjectManager.
-     *
-     * @return mixed
-     */
-    public function saveDataGrid();
 }

@@ -6,8 +6,8 @@ namespace spec\AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context;
 
 use AdminPanel\Component\DataSource\DataSource;
 use AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface;
-use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
 use AdminPanel\Component\DataGrid\DataGrid;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListElement;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ListElementContextSpec extends ObjectBehavior
 {
     public function let(
-        ListElement $element,
+        GenericListElement $element,
         DataSource $datasource,
         DataGrid $datagrid,
         HandlerInterface $handler
@@ -40,7 +40,7 @@ class ListElementContextSpec extends ObjectBehavior
         $this->getData()->shouldHaveKeyInArray('element');
     }
 
-    public function it_has_template(ListElement $element)
+    public function it_has_template(GenericListElement $element)
     {
         $element->hasOption('template_list')->willReturn(true);
         $element->getOption('template_list')->willReturn('this_is_list_template.html.twig');

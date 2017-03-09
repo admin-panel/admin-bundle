@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Controller;
 
-use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
+use AdminPanel\Symfony\AdminBundle\Admin\Element;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ListController extends ControllerAbstract
 {
     /**
-     * @ParamConverter("element", class="\AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement")
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement $element
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @ParamConverter("element", class="AdminPanel\Symfony\AdminBundle\Admin\Element")
+     * @param Element $element
+     * @param Request $request
+     * @return Response
      */
-    public function listAction(ListElement $element, Request $request)
+    public function listAction(Element $element, Request $request) : Response
     {
         return $this->handleRequest($element, $request, 'admin_panel_list');
     }

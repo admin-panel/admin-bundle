@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Doubles;
 
-use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListElement;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
-class MyCRUD extends GenericListElement
+class MyCRUD extends GenericListBatchDeleteElement
 {
     /**
      * {@inheritdoc}
@@ -22,27 +22,6 @@ class MyCRUD extends GenericListElement
      * {@inheritdoc}
      */
     public function getName()
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDataIndexer()
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function save($object)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function saveDataGrid()
     {
     }
 
@@ -65,12 +44,5 @@ class MyCRUD extends GenericListElement
         $datasource = $factory->createDataSource('doctrine', ['entity' => 'AdminPanelDemoBundle:MyEntity'], 'my_datasource');
 
         return $datasource;
-    }
-
-    protected function initForm(FormFactoryInterface $factory, $data = null)
-    {
-        $form = $factory->create('form');
-
-        return $form;
     }
 }

@@ -45,7 +45,7 @@ class BatchFormValidRequestHandler extends AbstractFormValidRequestHandler
         }
 
         foreach ($indexes as $index) {
-            $object = $element->getDataIndexer()->getData($index);
+            $object = $element->getObject($index);
 
             if (!isset($object)) {
                 throw new RequestHandlerException(sprintf("Can't find object with id %s", $index));

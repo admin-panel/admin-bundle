@@ -9,7 +9,6 @@ use AdminPanel\Symfony\AdminBundle\Event\BatchEvents;
 use AdminPanel\Symfony\AdminBundle\Event\FormEvent;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
 use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
-use AdminPanel\Component\DataIndexer\DataIndexerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -60,7 +59,6 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
         EventDispatcher $eventDispatcher,
         Form $form,
         BatchElement $element,
-        DataIndexerInterface $dataIndexer,
         RouterInterface $router
     ) {
         $request->isMethod('POST')->willReturn(true);
@@ -83,9 +81,8 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
         $element->getSuccessRoute()->willReturn('admin_panel_list');
         $element->getSuccessRouteParameters()->willReturn(['element' => 'element_list_id']);
         $element->getId()->willReturn('element_form_id');
-        $element->getDataIndexer()->willReturn($dataIndexer);
+        $element->getObject('index')->willREturn(new \stdClass());
 
-        $dataIndexer->getData('index')->willReturn(new \stdClass());
 
         $queryParameterbag->has('redirect_uri')->willReturn(false);
         $router->generate('admin_panel_list', ['element' => 'element_list_id'])->willReturn('/list/page');
@@ -101,8 +98,7 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
         ParameterBag $queryParameterbag,
         EventDispatcher $eventDispatcher,
         Form $form,
-        BatchElement $element,
-        DataIndexerInterface $dataIndexer
+        BatchElement $element
     ) {
         $request->isMethod('POST')->willReturn(true);
         $request->request = $requestParameterbag;
@@ -124,9 +120,7 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
         $element->getSuccessRoute()->willReturn('admin_panel_list');
         $element->getSuccessRouteParameters()->willReturn(['element' => 'element_list_id']);
         $element->getId()->willReturn('element_form_id');
-        $element->getDataIndexer()->willReturn($dataIndexer);
-
-        $dataIndexer->getData('index')->willReturn(new \stdClass());
+        $element->getObject('index')->willReturn(new \stdClass());
 
         $queryParameterbag->has('redirect_uri')->willReturn(true);
         $queryParameterbag->get('redirect_uri')->willReturn('some_redirect_uri');
@@ -163,8 +157,7 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
         ParameterBag $requestParameterbag,
         EventDispatcher $eventDispatcher,
         Form $form,
-        BatchElement $element,
-        DataIndexerInterface $dataIndexer
+        BatchElement $element
     ) {
         $request->isMethod('POST')->willReturn(true);
         $request->request = $requestParameterbag;
@@ -177,8 +170,7 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
 
         $form->getData()->willReturn(new \stdClass());
         $event->getElement()->willReturn($element);
-        $element->getDataIndexer()->willReturn($dataIndexer);
-        $dataIndexer->getData('index')->willReturn(new \stdClass());
+        $element->getObject('index')->willReturn(new \stdClass());
 
         $element->apply(Argument::type('stdClass'))->shouldBeCalled();
 

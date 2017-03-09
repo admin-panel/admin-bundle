@@ -8,7 +8,6 @@
         <parameter key="admin.context.list.class">AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\ListElementContext</parameter>
         <parameter key="admin.context.list.request_handler.datasource_bind_parameters.class">AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\Request\DataSourceBindParametersHandler</parameter>
         <parameter key="admin.context.list.request_handler.datagrid_set_data.class">AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\Request\DataGridSetDataHandler</parameter>
-        <parameter key="admin.context.list.request_handler.datagrid_bind_data.class">AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\Request\DataGridBindDataHandler</parameter>
     </parameters>
 
     <services>
@@ -16,7 +15,6 @@
             <argument type="collection">
                 <argument type="service" id="admin.context.list.request_handler.datasource_bind_params"/>
                 <argument type="service" id="admin.context.list.request_handler.datagrid_set_data"/>
-                <argument type="service" id="admin.context.list.request_handler.datagrid_bind_data"/>
             </argument>
             <tag name="admin.context"/>
         </service>
@@ -29,10 +27,5 @@
                  class="%admin.context.list.request_handler.datagrid_set_data.class%">
             <argument type="service" id="event_dispatcher"/>
         </service>
-        <service id="admin.context.list.request_handler.datagrid_bind_data"
-                 class="%admin.context.list.request_handler.datagrid_bind_data.class%">
-            <argument type="service" id="event_dispatcher"/>
-        </service>
-
     </services>
 </container>

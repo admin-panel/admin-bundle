@@ -21,16 +21,4 @@ class MyList extends GenericListElement
     protected function initDataSource(DataSourceFactoryInterface $factory)
     {
     }
-
-    public function getDataIndexer()
-    {
-    }
-
-    public function saveDataGrid()
-    {
-    }
-
-    public function delete($object)
-    {
-    }
 }

@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Kernel;
@@ -134,7 +135,7 @@ class AppKernel extends Kernel
             ]
         ]);
 
-        $definition = new Definition(UserElement::class);
+        $definition = new Definition(UserElement::class, [new Reference('doctrine.orm.default_entity_manager')]);
         $definition->addTag('admin.element');
         $c->setDefinition('user_admin_element', $definition);
 
@@ -142,7 +143,7 @@ class AppKernel extends Kernel
         $definition->addTag('admin.element');
         $c->setDefinition('custom_template_user_admin_element', $definition);
 
-        $definition = new Definition(DbalUserElement::class);
+        $definition = new Definition(DbalUserElement::class, [new Reference('doctrine.dbal.default_connection')]);
         $definition->addTag('admin.element');
         $c->setDefinition('dbal_user_admin_element', $definition);
     }

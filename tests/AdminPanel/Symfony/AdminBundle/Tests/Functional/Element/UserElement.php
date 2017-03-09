@@ -4,13 +4,29 @@ declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
-use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
-final class UserElement extends ListElement
+final class UserElement extends GenericListBatchDeleteElement
 {
+    /**
+     * @var ObjectManager
+     */
+    private $objectManager;
+
+    /**
+     * @param ObjectManager $objectManager
+     */
+    public function __construct(ObjectManager $objectManager)
+    {
+        parent::__construct();
+
+        $this->objectManager = $objectManager;
+    }
+
     /**
      * Initialize DataGrid.
      *
@@ -121,5 +137,24 @@ final class UserElement extends ListElement
     public function getClassName()
     {
         return User::class;
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function delete($object)
+    {
+        $this->objectManager->remove($object);
+        $this->objectManager->flush();
+    }
+
+    /**
+     * This method is called from BatchFormValidRequestHandler to get object
+     * @param $index
+     * @return mixed
+     */
+    public function getObject($index)
+    {
+        return $this->objectManager->getRepository($this->getClassName())->find($index);
     }
 }
