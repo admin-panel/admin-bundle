@@ -81,7 +81,7 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
         $element->getSuccessRoute()->willReturn('admin_panel_list');
         $element->getSuccessRouteParameters()->willReturn(['element' => 'element_list_id']);
         $element->getId()->willReturn('element_form_id');
-        $element->getObject('index')->willREturn(new \stdClass());
+        $element->getObject('index')->willReturn(new \stdClass());
 
 
         $queryParameterbag->has('redirect_uri')->willReturn(false);
