@@ -4,13 +4,30 @@ declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
-use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
+use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
-final class UserElement extends ListElement
+final class UserElement extends GenericListBatchDeleteElement
 {
+    /**
+     * @var ObjectManager
+     */
+    private $objectManager;
+
+    /**
+     * @param ObjectManager $objectManager
+     */
+    public function __construct(ObjectManager $objectManager)
+    {
+        parent::__construct();
+
+        $this->objectManager = $objectManager;
+    }
+
     /**
      * Initialize DataGrid.
      *
@@ -121,5 +138,19 @@ final class UserElement extends ListElement
     public function getClassName()
     {
         return User::class;
+    }
+
+    /**
+     * @param mixed $index
+     */
+    public function delete($index)
+    {
+        $user = $this->objectManager->getRepository(User::class)->find($index);
+        if (!$user) {
+            throw new RequestHandlerException('User not found');
+        }
+
+        $this->objectManager->remove($user);
+        $this->objectManager->flush();
     }
 }

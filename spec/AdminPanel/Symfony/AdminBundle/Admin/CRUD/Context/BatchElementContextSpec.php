@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context;
 
 use AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface;
-use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\BatchElement;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\BatchElement;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\Form;

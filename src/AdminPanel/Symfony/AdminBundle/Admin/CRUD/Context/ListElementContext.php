@@ -9,7 +9,6 @@ use AdminPanel\Symfony\AdminBundle\Admin\CRUD\ListElement;
 use AdminPanel\Symfony\AdminBundle\Admin\Element;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
 use AdminPanel\Component\DataGrid\DataGrid;
-use AdminPanel\Component\DataSource\DataSource;
 use Symfony\Component\HttpFoundation\Request;
 
 class ListElementContext extends ContextAbstract

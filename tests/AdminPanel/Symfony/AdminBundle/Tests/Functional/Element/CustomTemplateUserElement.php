@@ -4,13 +4,13 @@ declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
-use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class CustomTemplateUserElement extends ListElement
+final class CustomTemplateUserElement extends GenericListElement
 {
     /**
      * Initialize DataGrid.

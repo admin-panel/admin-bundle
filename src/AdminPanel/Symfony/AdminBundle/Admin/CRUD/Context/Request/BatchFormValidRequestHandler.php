@@ -22,39 +22,10 @@ class BatchFormValidRequestHandler extends AbstractFormValidRequestHandler
     {
         /** @var \AdminPanel\Symfony\AdminBundle\Admin\CRUD\BatchElement $element */
         $element = $event->getElement();
-        $objects = $this->getObjects($element, $request);
 
-        foreach ($objects as $object) {
-            $element->apply($object);
+        foreach ($request->request->get('indexes', []) as $index) {
+            $element->apply($index);
         }
-    }
-
-    /**
-     * @param \AdminPanel\Symfony\AdminBundle\Admin\CRUD\BatchElement $element
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return array
-     * @throws \AdminPanel\Symfony\AdminBundle\Exception\ContextBuilderException
-     */
-    private function getObjects(BatchElement $element, Request $request)
-    {
-        $objects = [];
-        $indexes = $request->request->get('indexes', []);
-
-        if (!count($indexes)) {
-            throw new RequestHandlerException('There must be at least one object to execute batch action');
-        }
-
-        foreach ($indexes as $index) {
-            $object = $element->getDataIndexer()->getData($index);
-
-            if (!isset($object)) {
-                throw new RequestHandlerException(sprintf("Can't find object with id %s", $index));
-            }
-
-            $objects[] = $object;
-        }
-
-        return $objects;
     }
 
     /**

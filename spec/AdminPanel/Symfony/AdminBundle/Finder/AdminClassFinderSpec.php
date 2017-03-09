@@ -15,9 +15,8 @@ class AdminClassFinderSpec extends ObjectBehavior
     {
         $paths = [__DIR__ . self::DOUBLES_BUNDLE_PATH . '/Admin'];
         /* We can't just check if result is an array with following values because it might be in other order */
-        $this->findClasses($paths)->shouldHaveCount(6);
+        $this->findClasses($paths)->shouldHaveCount(5);
         $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\CRUDElement");
-        $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\DoctrineElement");
         $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\SimpleAdminElement");
         $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\DataGridAwareElement");
         $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\DataSourceAwareElement");
@@ -31,9 +30,8 @@ class AdminClassFinderSpec extends ObjectBehavior
             __DIR__ . self::DOUBLES_BUNDLE_PATH . '/CustomAdmin'
         ];
 
-        $this->findClasses($paths)->shouldHaveCount(7);
+        $this->findClasses($paths)->shouldHaveCount(6);
         $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\CRUDElement");
-        $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\DoctrineElement");
         $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\SimpleAdminElement");
         $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\DataGridAwareElement");
         $this->findClasses($paths)->shouldContain("AdminPanel\\Symfony\\AdminBundle\\Tests\\Doubles\\Admin\\DataSourceAwareElement");

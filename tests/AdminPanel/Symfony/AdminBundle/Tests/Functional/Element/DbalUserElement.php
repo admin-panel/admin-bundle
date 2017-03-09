@@ -4,13 +4,25 @@ declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
-use AdminPanel\Symfony\AdminBundle\Doctrine\Admin\ListElement;
+use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
+use Doctrine\DBAL\Connection;
 
-final class DbalUserElement extends ListElement
+final class DbalUserElement extends GenericListBatchDeleteElement
 {
+    /**
+     * @var Connection
+     */
+    private $connection;
+
+    public function __construct(Connection $connection)
+    {
+        parent::__construct();
+        $this->connection = $connection;
+    }
+
     /**
      * Initialize DataGrid.
      *
@@ -70,7 +82,7 @@ final class DbalUserElement extends ListElement
     protected function initDataSource(DataSourceFactoryInterface $factory)
     {
         /* @var \Doctrine\DBAL\Query\QueryBuilder $queryBuilder */
-        $queryBuilder = $this->getObjectManager()->getConnection()->createQueryBuilder();
+        $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->select('u.id, u.username, u.hasNewsletter, u.credits, u.createdAt')
             ->from('admin_panel_users', 'u')
@@ -128,5 +140,13 @@ final class DbalUserElement extends ListElement
     public function getClassName()
     {
         return User::class;
+    }
+
+    /**
+     * @param mixed $index
+     */
+    public function delete($index)
+    {
+        $this->connection->delete('admin_panel_users', ['id' => $index]);
     }
 }

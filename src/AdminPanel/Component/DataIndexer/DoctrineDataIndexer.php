@@ -54,26 +54,7 @@ class DoctrineDataIndexer implements DataIndexerInterface
     /**
      * {@inheritdoc}
      */
-    public function getData($index)
-    {
-        return $this->tryToFindEntity($this->buildSearchCriteria($index));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDataSlice($indexes)
-    {
-        $this->validateIndexes($indexes);
-
-        return $this->getRepository()
-            ->findBy($this->buildMultipleSearchCriteria($indexes));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateData($data)
+    protected function validateData($data)
     {
         if (!is_object($data)) {
             throw new InvalidArgumentException("DoctrineDataIndexer can index only objects.");
@@ -91,19 +72,9 @@ class DoctrineDataIndexer implements DataIndexerInterface
     /**
      * {@inheritdoc}
      */
-    public function getSeparator()
+    protected function getSeparator()
     {
         return $this->separator;
-    }
-
-    /**
-     * Get class idexer is constructed for.
-     *
-     * @return string
-     */
-    public function getClass()
-    {
-        return $this->class;
     }
 
     /**
@@ -184,87 +155,5 @@ class DoctrineDataIndexer implements DataIndexerInterface
     private function joinIndexParts($indexes)
     {
         return implode($this->separator, $indexes);
-    }
-
-    /**
-     * @param $index
-     * @param $identifiersCount
-     * @return array
-     * @throws \AdminPanel\Component\DataIndexer\Exception\RuntimeException
-     */
-    private function splitIndex($index, $identifiersCount)
-    {
-        $indexParts = explode($this->getSeparator(), $index);
-        if (count($indexParts) != $identifiersCount) {
-            throw new RuntimeException("Can't split index into parts. Maybe you should consider using different separator?");
-        }
-
-        return $indexParts;
-    }
-
-    /**
-     * @param $indexes
-     * @return array
-     */
-    private function buildMultipleSearchCriteria($indexes)
-    {
-        $multipleSearchCriteria = [];
-        foreach ($indexes as $index) {
-            foreach ($this->buildSearchCriteria($index) as $identifier => $indexPart) {
-                if (!array_key_exists($identifier, $multipleSearchCriteria)) {
-                    $multipleSearchCriteria[$identifier] = [];
-                }
-
-                $multipleSearchCriteria[$identifier][] = $indexPart;
-            }
-        }
-        return $multipleSearchCriteria;
-    }
-
-    /**
-     * @param $index
-     * @return array
-     */
-    private function buildSearchCriteria($index)
-    {
-        $identifiers = $this->getIdentifierFieldNames();
-        $indexParts = $this->splitIndex($index, count($identifiers));
-
-        return array_combine($identifiers, $indexParts);
-    }
-
-    /**
-     * @param $searchCriteria
-     * @return object
-     * @throws \AdminPanel\Component\DataIndexer\Exception\RuntimeException
-     */
-    private function tryToFindEntity($searchCriteria)
-    {
-        $entity = $this->getRepository()->findOneBy($searchCriteria);
-
-        if (!isset($entity)) {
-            throw new RuntimeException('Can\'t find any entity using the following search criteria: "' . implode(", ", $searchCriteria) . '"');
-        }
-
-        return $entity;
-    }
-
-    /**
-     * @param $indexes
-     * @throws \AdminPanel\Component\DataIndexer\Exception\InvalidArgumentException
-     */
-    private function validateIndexes($indexes)
-    {
-        if (!is_array($indexes) && (!$indexes instanceof \Traversable && !$indexes instanceof \Countable)) {
-            throw new InvalidArgumentException('Indexes are not traversable.');
-        }
-    }
-
-    /**
-     * @return \Doctrine\Common\Persistence\ObjectRepository
-     */
-    private function getRepository()
-    {
-        return $this->manager->getRepository($this->class);
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Request\ParamConverter;
 
+use AdminPanel\Symfony\AdminBundle\Admin\Element;
 use AdminPanel\Symfony\AdminBundle\Admin\Manager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,7 +65,11 @@ class AdminElementParamConverter implements ParamConverterInterface
 
         $implements = class_implements($configuration->getClass());
 
-        if (in_array('AdminPanel\\Symfony\\AdminBundle\\Admin\\Element', $implements)) {
+        if (Element::class === $configuration->getClass()) {
+            return true;
+        }
+
+        if (in_array(Element::class, $implements)) {
             return true;
         }
 
