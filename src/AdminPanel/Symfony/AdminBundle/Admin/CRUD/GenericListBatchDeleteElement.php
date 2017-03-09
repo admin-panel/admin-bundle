@@ -122,9 +122,9 @@ abstract class GenericListBatchDeleteElement extends AbstractElement implements 
     /**
      * {@inheritdoc}
      */
-    public function apply($object)
+    public function apply($index)
     {
-        $this->delete($object);
+        $this->delete($index);
     }
 
     /**

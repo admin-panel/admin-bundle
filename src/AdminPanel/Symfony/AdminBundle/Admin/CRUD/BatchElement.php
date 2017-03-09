@@ -5,20 +5,15 @@ declare(strict_types=1);
 namespace AdminPanel\Symfony\AdminBundle\Admin\CRUD;
 
 use AdminPanel\Symfony\AdminBundle\Admin\RedirectableElement;
+use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
 
 interface BatchElement extends RedirectableElement
 {
     /**
      * This method is called from BatchController after action is confirmed.
      *
-     * @param mixed $object
+     * @throws RequestHandlerException - when cannot apply batch operation to given index ex. element is not found
+     * @param mixed $index
      */
-    public function apply($object);
-
-    /**
-     * This method is called from BatchFormValidRequestHandler to get object
-     * @param $index
-     * @return mixed
-     */
-    public function getObject($index);
+    public function apply($index);
 }

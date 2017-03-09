@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
+use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
@@ -140,21 +141,16 @@ final class UserElement extends GenericListBatchDeleteElement
     }
 
     /**
-     * @param mixed $object
+     * @param mixed $index
      */
-    public function delete($object)
+    public function delete($index)
     {
-        $this->objectManager->remove($object);
-        $this->objectManager->flush();
-    }
+        $user = $this->objectManager->getRepository(User::class)->find($index);
+        if (!$user) {
+            throw new RequestHandlerException('User not found');
+        }
 
-    /**
-     * This method is called from BatchFormValidRequestHandler to get object
-     * @param $index
-     * @return mixed
-     */
-    public function getObject($index)
-    {
-        return $this->objectManager->getRepository($this->getClassName())->find($index);
+        $this->objectManager->remove($user);
+        $this->objectManager->flush();
     }
 }

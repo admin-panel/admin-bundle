@@ -149,14 +149,4 @@ final class DbalUserElement extends GenericListBatchDeleteElement
     {
         $this->connection->delete('admin_panel_users', ['id' => $index]);
     }
-
-    /**
-     * This method is called from BatchFormValidRequestHandler to get object
-     * @param $index
-     * @return mixed
-     */
-    public function getObject($index)
-    {
-        return $index;
-    }
 }

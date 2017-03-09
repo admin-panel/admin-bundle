@@ -73,7 +73,7 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
 
         $form->getData()->willReturn(new \stdClass());
         $event->getElement()->willReturn($element);
-        $element->apply(Argument::type('stdClass'))->shouldBeCalled();
+        $element->apply('index')->shouldBeCalled();
 
         $eventDispatcher->dispatch(BatchEvents::BATCH_OBJECTS_POST_APPLY, $event)
             ->shouldBeCalled();
@@ -81,7 +81,6 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
         $element->getSuccessRoute()->willReturn('admin_panel_list');
         $element->getSuccessRouteParameters()->willReturn(['element' => 'element_list_id']);
         $element->getId()->willReturn('element_form_id');
-        $element->getObject('index')->willReturn(new \stdClass());
 
 
         $queryParameterbag->has('redirect_uri')->willReturn(false);
@@ -112,7 +111,7 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
 
         $form->getData()->willReturn(new \stdClass());
         $event->getElement()->willReturn($element);
-        $element->apply(Argument::type('stdClass'))->shouldBeCalled();
+        $element->apply('index')->shouldBeCalled();
 
         $eventDispatcher->dispatch(BatchEvents::BATCH_OBJECTS_POST_APPLY, $event)
             ->shouldBeCalled();
@@ -120,7 +119,6 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
         $element->getSuccessRoute()->willReturn('admin_panel_list');
         $element->getSuccessRouteParameters()->willReturn(['element' => 'element_list_id']);
         $element->getId()->willReturn('element_form_id');
-        $element->getObject('index')->willReturn(new \stdClass());
 
         $queryParameterbag->has('redirect_uri')->willReturn(true);
         $queryParameterbag->get('redirect_uri')->willReturn('some_redirect_uri');
@@ -170,9 +168,8 @@ class BatchFormValidRequestHandlerSpec extends ObjectBehavior
 
         $form->getData()->willReturn(new \stdClass());
         $event->getElement()->willReturn($element);
-        $element->getObject('index')->willReturn(new \stdClass());
 
-        $element->apply(Argument::type('stdClass'))->shouldBeCalled();
+        $element->apply('index')->shouldBeCalled();
 
         $eventDispatcher->dispatch(BatchEvents::BATCH_OBJECTS_POST_APPLY, $event)
             ->will(function () use ($event) {
