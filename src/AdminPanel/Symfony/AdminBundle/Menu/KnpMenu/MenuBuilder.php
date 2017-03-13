@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Menu\KnpMenu;
 
-use AdminPanel\Symfony\AdminBundle\Menu\Builder\Builder;
 use AdminPanel\Symfony\AdminBundle\Menu\Item\Item;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface as KnpItemInterface;
@@ -32,12 +31,12 @@ class MenuBuilder
     }
 
     /**
-     * @param Builder $builder
+     * @param \AdminPanel\Symfony\AdminBundle\Menu\MenuBuilder $builder
      * @return \Knp\Menu\ItemInterface
      */
-    public function createMenu(Builder $builder)
+    public function createMenu(\AdminPanel\Symfony\AdminBundle\Menu\MenuBuilder $builder)
     {
-        $rootMenuItem = $builder->buildMenu();
+        $rootMenuItem = $builder->build();
         $knpMenuItem = $this->createMenuRoot($rootMenuItem);
 
         $this->populateMenu($knpMenuItem, $rootMenuItem->getChildren());

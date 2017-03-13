@@ -20,8 +20,8 @@ class AdminPanelExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('admin.locales', $config['locales']);
+        $container->setParameter('admin.menu', $config['menu']);
         $container->setParameter('admin.default_locale', $config['default_locale']);
-        $container->setParameter('admin.menu_config_path', $config['menu_config_path']);
         $container->setParameter('admin.elements.dirs', $config['annotations']['dirs']);
 
         $this->setTemplateParameters($container, $config['templates']);

@@ -134,6 +134,15 @@ class AppKernel extends Kernel
                 'converters' => true
             ]
         ]);
+        $c->loadFromExtension('admin_panel',
+            [
+                'menu' => [
+                    ["id" => "admin_users", "name" => "Users"],
+                    ["id" => "admin_custom_template_users", "name" => "Users (custom template)"],
+                    ["id" => "admin_users_dbal", "name" => "Users (dbal)"]
+                ]
+            ]
+        );
 
         $definition = new Definition(UserElement::class, [new Reference('doctrine.orm.default_entity_manager')]);
         $definition->addTag('admin.element');
