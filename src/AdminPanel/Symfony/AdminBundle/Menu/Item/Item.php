@@ -60,7 +60,7 @@ class Item
      */
     public function getLabel()
     {
-        return $this->label;
+        return $this->label ?? $this->name;
     }
 
     /**

@@ -48,17 +48,7 @@ class MenuBuilder
         $items = [];
 
         foreach ($this->menuItems as $menuItem) {
-            if (isset($menuItem['id']) && $this->manager->hasElement($menuItem['id'])) {
-                $items[] = new ElementItem($menuItem['name'], $this->manager->getElement($menuItem['id']));
-            } elseif (isset($menuItem['route'])) {
-                $items[] = new RoutableItem(
-                    $menuItem['name'],
-                    $menuItem['route'],
-                    $menuItem['parameters'] ?? []
-                );
-            } else {
-                $items[] = new Item($menuItem['name']);
-            }
+            $items[] = $this->buildItem($menuItem);
         }
 
         $root = new Item();
@@ -81,5 +71,30 @@ class MenuBuilder
                 throw new \InvalidArgumentException('"name" key have to be in each menu item element');
             }
         }
+    }
+
+    /**
+     * @param array $menuItem
+     * @return Item
+     */
+    private function buildItem($menuItem) : Item
+    {
+        $item = new Item($menuItem['name']);
+
+        if (isset($menuItem['id']) && $this->manager->hasElement($menuItem['id'])) {
+            $item = new ElementItem($menuItem['name'], $this->manager->getElement($menuItem['id']));
+        } elseif (isset($menuItem['route'])) {
+            $item = new RoutableItem(
+                $menuItem['name'],
+                $menuItem['route'],
+                $menuItem['parameters'] ?? []
+            );
+        }
+
+        foreach ($menuItem['children'] ?? [] as $childrenItem) {
+            $item->addChild($this->buildItem($childrenItem));
+        }
+
+        return $item;
     }
 }

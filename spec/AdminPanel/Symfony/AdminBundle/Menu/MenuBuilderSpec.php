@@ -9,6 +9,7 @@ use AdminPanel\Symfony\AdminBundle\Menu\Item\Item;
 use AdminPanel\Symfony\AdminBundle\Menu\Item\RoutableItem;
 use AdminPanel\Symfony\AdminBundle\Menu\MenuBuilder;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 class MenuBuilderSpec extends ObjectBehavior
 {
@@ -83,7 +84,7 @@ class MenuBuilderSpec extends ObjectBehavior
         );
 
         $menuExtension
-            ->extendMenu([new RoutableItem("Users (dbal)", "test_route")])
+            ->extendMenu(Argument::any())
             ->willReturn([new RoutableItem("Users (dbal)", "test_route"), new Item('test123')]);
 
         $menuItems = $this->build()->getChildren();
@@ -93,6 +94,37 @@ class MenuBuilderSpec extends ObjectBehavior
         $menuItems['Users (dbal)']->getRoute()->shouldBe('test_route');
         $menuItems['test123']->shouldHaveType(Item::class);
         $menuItems['test123']->getName()->shouldBe('test123');
+    }
+
+    function it_allow_to_creates_sub_menus(
+        Manager $manager
+    ) {
+        $this->beConstructedWith(
+            [
+                ["route" => "test_route", "name" => "Users (dbal)"],
+                [
+                    "name" => 'Other menu',
+                    "children" => [
+                        ["route" => "test_route", "name" => "Test"],
+                        ["route" => "test_route", "name" => "Users (dbal)"]
+                    ]
+                ]
+            ],
+            $manager,
+            new MenuBuilder\DefaultMenuExtension()
+        );
+
+        $menuItems = $this->build()->getChildren();
+
+        $menuItems->shouldHaveCount(2);
+        $menuItems['Users (dbal)']->shouldHaveType(RoutableItem::class);
+        $menuItems['Users (dbal)']->getRoute()->shouldBe('test_route');
+        $menuItems['Other menu']->shouldHaveType(Item::class);
+
+        $otherMenuChildren = $menuItems['Other menu']->getChildren();
+        $otherMenuChildren->shouldHaveCount(2);
+        $otherMenuChildren['Test']->shouldHaveType(RoutableItem::class);
+        $otherMenuChildren['Users (dbal)']->shouldHaveType(RoutableItem::class);
     }
 
     function its_menu_items_in_the_constructor_need_to_have_expected_format(

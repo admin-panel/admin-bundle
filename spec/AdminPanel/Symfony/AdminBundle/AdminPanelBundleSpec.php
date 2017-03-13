@@ -9,7 +9,6 @@ use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\AdminElementPass
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ContextPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\DataGridPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\DataSourcePass;
-use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\KnpMenuBuilderPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ManagerVisitorPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceRepositoryPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\SetEventDispatcherPass;
@@ -35,8 +34,6 @@ class AdminPanelBundleSpec extends ObjectBehavior
             Argument::type(AdminElementPass::class),
             PassConfig::TYPE_BEFORE_REMOVING
         )->shouldBeCalled();
-        $builder->addCompilerPass(Argument::type(KnpMenuBuilderPass::class))
-            ->shouldBeCalled();
         $builder->addCompilerPass(Argument::type(ResourceRepositoryPass::class))
             ->shouldBeCalled();
         $builder->addCompilerPass(Argument::type(ManagerVisitorPass::class))

@@ -31,7 +31,6 @@ class AdminPanelExtension extends Extension
         $loader->load('datagrid.xml');
         $loader->load('datasource.xml');
         $loader->load('menu.xml');
-        $loader->load('knp-menu.xml');
         $loader->load('locale_listener.xml');
         $loader->load('context/list.xml');
         $loader->load('context/batch.xml');

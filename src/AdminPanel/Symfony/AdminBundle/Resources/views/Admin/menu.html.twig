@@ -1,0 +1,18 @@
+{% if root.children | length > 0 %}
+<ul>
+    {% for item in root.children %}
+        <li class="{% if loop.first %}first {% endif %}{% if loop.last %}last {% endif %}{% if menuHelper.isActive(app.request.baseUrl ~app.request.pathInfo, item) %}active{% endif %}">
+                {% if item.route|default(false) %}
+                <a href="{{ path(item.route, item.routeParameters) }}">
+                        {{ item.label }}
+                </a>
+                {% else %}
+                        {{ item.label }}
+                {% endif %}
+                {% if item.children %}
+                        {% include 'Admin/menu.html.twig' with {'root': item, 'menuHelper': menuHelper} %}
+                {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}

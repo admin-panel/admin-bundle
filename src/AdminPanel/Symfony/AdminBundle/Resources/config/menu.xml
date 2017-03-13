@@ -30,5 +30,16 @@
             <argument type="service" id="admin.manager" />
             <argument type="service" id="admin.menu.locale_extension" />
         </service>
+
+        <service id="admin.menu.twig.extension" class="AdminPanel\Symfony\AdminBundle\Twig\Extension\MenuExtension" public="false">
+            <tag name="twig.extension" />
+            <argument type="service" id="admin.menu.builder.main" />
+            <argument type="service" id="admin.menu.builder.tools" />
+            <argument type="service" id="admin.menu.helper" />
+        </service>
+
+        <service id="admin.menu.helper" class="AdminPanel\Symfony\AdminBundle\Menu\MenuHelper">
+            <argument type="service" id="router" />
+        </service>
     </services>
 </container>
