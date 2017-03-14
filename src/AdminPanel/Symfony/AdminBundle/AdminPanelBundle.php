@@ -6,6 +6,7 @@ namespace AdminPanel\Symfony\AdminBundle;
 
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\DataGridPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\DataSourcePass;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\MenuExtensionPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TemplatePathPass;
 use Doctrine\Common\Annotations\AnnotationReader;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\AdminAnnotatedElementPass;
@@ -36,7 +37,6 @@ class AdminPanelBundle extends Bundle
             new AdminClassFinder()
         ));
         $container->addCompilerPass(new AdminElementPass(), PassConfig::TYPE_BEFORE_REMOVING);
-        $container->addCompilerPass(new KnpMenuBuilderPass());
         $container->addCompilerPass(new ResourceRepositoryPass());
         $container->addCompilerPass(new ManagerVisitorPass());
         $container->addCompilerPass(new ContextPass());
@@ -45,6 +45,7 @@ class AdminPanelBundle extends Bundle
         $container->addCompilerPass(new DataGridPass());
         $container->addCompilerPass(new DataSourcePass());
         $container->addCompilerPass(new TemplatePathPass());
+        $container->addCompilerPass(new MenuExtensionPass());
     }
 
     /**

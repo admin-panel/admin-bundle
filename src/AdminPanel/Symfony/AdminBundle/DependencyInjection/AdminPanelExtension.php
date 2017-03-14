@@ -20,9 +20,11 @@ class AdminPanelExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('admin.locales', $config['locales']);
+        $container->setParameter('admin.menu', $config['menu']);
         $container->setParameter('admin.default_locale', $config['default_locale']);
-        $container->setParameter('admin.menu_config_path', $config['menu_config_path']);
         $container->setParameter('admin.elements.dirs', $config['annotations']['dirs']);
+        $container->setParameter('admin.main_menu_extension_service', $config['main_menu_extension_service']);
+        $container->setParameter('admin.tools_menu_extension_service', $config['tools_menu_extension_service']);
 
         $this->setTemplateParameters($container, $config['templates']);
 
@@ -31,7 +33,6 @@ class AdminPanelExtension extends Extension
         $loader->load('datagrid.xml');
         $loader->load('datasource.xml');
         $loader->load('menu.xml');
-        $loader->load('knp-menu.xml');
         $loader->load('locale_listener.xml');
         $loader->load('context/list.xml');
         $loader->load('context/batch.xml');

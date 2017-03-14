@@ -5,38 +5,40 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="admin.menu.builder.class">AdminPanel\Symfony\AdminBundle\Menu\Builder\MenuBuilder</parameter>
+        <parameter key="admin.menu.builder.class">AdminPanel\Symfony\AdminBundle\Menu\MenuBuilder</parameter>
         <parameter key="admin.menu.listener.locale.class">AdminPanel\Symfony\AdminBundle\EventListener\LocaleMenuListener</parameter>
-        <parameter key="admin.menu.listener.cleanup.class">AdminPanel\Symfony\AdminBundle\EventListener\CleanUpMenuListener</parameter>
-        <parameter key="admin.menu.listener.main.class">AdminPanel\Symfony\AdminBundle\EventListener\MainMenuListener</parameter>
+        <parameter key="admin.menu.locale_extension.class">AdminPanel\Symfony\AdminBundle\Menu\MenuBuilder\LocaleMenuExtension</parameter>
     </parameters>
 
     <services>
-        <service id="admin.menu.builder.main" class="%admin.menu.builder.class%">
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="constant">AdminPanel\Symfony\AdminBundle\Event\MenuEvents::MAIN</argument>
-        </service>
-
-        <service id="admin.menu.builder.tools" class="%admin.menu.builder.class%">
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="constant">AdminPanel\Symfony\AdminBundle\Event\MenuEvents::TOOLS</argument>
-        </service>
-
-        <service id="admin.menu.listener.main" class="%admin.menu.listener.main.class%">
-            <argument type="service" id="admin.manager"/>
-            <argument>%admin.menu_config_path%</argument>
-            <tag name="kernel.event_listener" event="admin_panel.menu.main" method="createMainMenu"/>
-        </service>
-
-        <service id="admin.menu.listener.locale" class="%admin.menu.listener.locale.class%">
+        <service id="admin.menu.locale_extension" class="AdminPanel\Symfony\AdminBundle\Menu\MenuBuilder\LocaleMenuExtension">
             <argument type="service" id="translator"/>
             <argument type="service" id="request_stack"/>
             <argument type="string">%admin.locales%</argument>
-            <tag name="kernel.event_listener" event="admin_panel.menu.tools" method="createLocaleMenu"/>
         </service>
 
-        <service id="admin.menu.listener.cleanup" class="%admin.menu.listener.cleanup.class%">
-            <tag name="kernel.event_listener" event="admin_panel.menu.main" method="cleanUpMenu" priority="-100"/>
+        <service id="admin.menu.builder.main" class="%admin.menu.builder.class%">
+            <argument>%admin.menu%</argument>
+            <argument type="service" id="admin.manager" />
+        </service>
+
+        <service id="admin.menu.builder.tools" class="%admin.menu.builder.class%">
+            <argument type="collection" />
+            <argument type="service" id="admin.manager" />
+            <call method="setMenuExtension">
+                <argument type="service" id="admin.menu.locale_extension" />
+            </call>
+        </service>
+
+        <service id="admin.menu.twig.extension" class="AdminPanel\Symfony\AdminBundle\Twig\Extension\MenuExtension" public="false">
+            <tag name="twig.extension" />
+            <argument type="service" id="admin.menu.builder.main" />
+            <argument type="service" id="admin.menu.builder.tools" />
+            <argument type="service" id="admin.menu.helper" />
+        </service>
+
+        <service id="admin.menu.helper" class="AdminPanel\Symfony\AdminBundle\Menu\UrlGeneratorMenuHelper">
+            <argument type="service" id="router" />
         </service>
     </services>
 </container>

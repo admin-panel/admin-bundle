@@ -81,8 +81,8 @@
         </div>
         <div class="collapse navbar-collapse admin-navbar-collapse">
             {% block navigation %}
-                {{ knp_menu_render('admin_panel.menu.main', {template: '@AdminPanel/Admin/main_menu_theme.html.twig', currentClass: 'active', ancestorClass: 'active'}) }}
-                {{ knp_menu_render('admin_panel.menu.tools', {template: '@AdminPanel/Admin/tools_menu_theme.html.twig', currentClass: 'active', ancestorClass: ''}) }}
+                {{ admin_panel_render_menu() }}
+                {{ admin_panel_render_tools_menu() }}
             {% endblock %}
         </div>
     </div>

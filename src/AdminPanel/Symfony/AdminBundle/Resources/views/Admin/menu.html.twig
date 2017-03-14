@@ -1,0 +1,19 @@
+{% if root.children | length > 0 %}
+<ul>
+    {% for item in root.children %}
+        {% set hasClass = (withoutFirstAndLast is not defined and (loop.first or loop.last)) or menuHelper.isActive(app.request.baseUrl ~ app.request.pathInfo, item) %}
+        <li {% if hasClass %}class="{% if withoutFirstAndLast is not defined and loop.first %}first {% endif %}{% if withoutFirstAndLast is not defined and loop.last and not loop.first %}last {% endif %}{% if menuHelper.isActive(app.request.baseUrl ~ app.request.pathInfo, item) %}active{% endif %}"{% endif %}>
+            {% if item.route|default(false) %}
+            <a href="{{ path(item.route, item.routeParameters) }}">
+                {{ item.label }}
+            </a>
+            {% else %}
+                {{ item.label }}
+            {% endif %}
+            {% if item.children %}
+                {% include 'Admin/menu.html.twig' with {'root': item, 'menuHelper': menuHelper, 'withoutFirstAndLast': true} %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}
