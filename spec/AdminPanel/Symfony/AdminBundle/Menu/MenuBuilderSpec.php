@@ -21,8 +21,7 @@ class MenuBuilderSpec extends ObjectBehavior
                 ["id" => "admin_custom_template_users", "name" => "Users (custom template)"],
                 ["id" => "admin_users_dbal", "name" => "Users (dbal)"]
             ],
-            $manager,
-            new MenuBuilder\DefaultMenuExtension()
+            $manager
         );
     }
 
@@ -59,8 +58,7 @@ class MenuBuilderSpec extends ObjectBehavior
            [
                ["route" => "test_route", "name" => "Users (dbal)"]
            ],
-           $manager,
-           new MenuBuilder\DefaultMenuExtension()
+           $manager
        );
         $manager->hasElement('admin_users_dbal')->willReturn(false);
 
@@ -79,9 +77,9 @@ class MenuBuilderSpec extends ObjectBehavior
             [
                 ["route" => "test_route", "name" => "Users (dbal)"]
             ],
-            $manager,
-            $menuExtension
+            $manager
         );
+        $this->setMenuExtension($menuExtension);
 
         $menuExtension
             ->extendMenu(Argument::any())
@@ -111,8 +109,7 @@ class MenuBuilderSpec extends ObjectBehavior
                 ],
                 ["route" => "test_route", "name" => "Test name", "parameters" => ['param' => 1]],
             ],
-            $manager,
-            new MenuBuilder\DefaultMenuExtension()
+            $manager
         );
 
         $menuItems = $this->build()->getChildren();
@@ -137,8 +134,7 @@ class MenuBuilderSpec extends ObjectBehavior
             [
                 ["route" => "test_route"]
             ],
-            $manager,
-            new MenuBuilder\DefaultMenuExtension()
+            $manager
         );
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();

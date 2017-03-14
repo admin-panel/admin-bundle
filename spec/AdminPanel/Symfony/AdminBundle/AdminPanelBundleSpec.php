@@ -10,6 +10,7 @@ use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ContextPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\DataGridPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\DataSourcePass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ManagerVisitorPass;
+use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\MenuExtensionPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\ResourceRepositoryPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\SetEventDispatcherPass;
 use AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler\TemplatePathPass;
@@ -49,6 +50,8 @@ class AdminPanelBundleSpec extends ObjectBehavior
         $builder->addCompilerPass(Argument::type(TemplatePathPass::class))
             ->shouldBeCalled();
         $builder->addCompilerPass(Argument::type(DataSourcePass::class))
+            ->shouldBeCalled();
+        $builder->addCompilerPass(Argument::type(MenuExtensionPass::class))
             ->shouldBeCalled();
 
         $this->build($builder);

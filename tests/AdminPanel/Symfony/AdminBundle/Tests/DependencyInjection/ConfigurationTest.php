@@ -122,6 +122,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'default_locale' => '%locale%',
             'locales' => ['%locale%'],
             'menu' => [],
+            'main_menu_extension_service' => null,
+            'tools_menu_extension_service' => null,
             'templates' => [
                 'base' => '@AdminPanel/base.html.twig',
                 'index_page' => '@AdminPanel/Admin/index.html.twig',

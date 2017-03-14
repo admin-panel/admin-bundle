@@ -62,6 +62,8 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->scalarNode('main_menu_extension_service')->defaultValue(null)->end()
+                ->scalarNode('tools_menu_extension_service')->defaultValue(null)->end()
                 ->arrayNode('templates')
                     ->addDefaultsIfNotSet()
                     ->children()

@@ -23,20 +23,26 @@ class MenuBuilder
     private $manager;
 
     /**
-     * @var MenuExtension
+     * @var MenuExtension|null
      */
     private $menuExtension;
 
     /**
      * @param array $menuItems
      * @param ManagerInterface $manager
-     * @param MenuExtension $menuExtension
      */
-    public function __construct(array $menuItems, ManagerInterface $manager, MenuExtension $menuExtension)
+    public function __construct(array $menuItems, ManagerInterface $manager)
     {
         $this->validateMenuItems($menuItems);
         $this->menuItems = $menuItems;
         $this->manager = $manager;
+    }
+
+    /**
+     * @param MenuExtension $menuExtension
+     */
+    public function setMenuExtension(MenuExtension $menuExtension)
+    {
         $this->menuExtension = $menuExtension;
     }
 
@@ -53,7 +59,11 @@ class MenuBuilder
 
         $root = new Item();
 
-        foreach ($this->menuExtension->extendMenu($items) as $item) {
+        if ($this->menuExtension) {
+            $items = $this->menuExtension->extendMenu($items);
+        }
+
+        foreach ($items as $item) {
             $root->addChild($item);
         }
 
