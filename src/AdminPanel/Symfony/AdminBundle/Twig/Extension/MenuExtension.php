@@ -55,7 +55,7 @@ class MenuExtension extends \Twig_Extension
     {
         $item = $this->menuBuilder->build();
 
-        return $environment->render('Admin/menu.html.twig', ['root' => $item, 'menuHelper' => $this->menuHelper]);
+        return $environment->render('@AdminPanel/Admin/menu.html.twig', ['root' => $item, 'menuHelper' => $this->menuHelper]);
     }
 
     /**
@@ -66,7 +66,7 @@ class MenuExtension extends \Twig_Extension
     {
         $item = $this->toolsMenuBuilder->build();
 
-        return $environment->render('Admin/menu.html.twig', ['root' => $item, 'menuHelper' => $this->menuHelper]);
+        return $environment->render('@AdminPanel/Admin/menu.html.twig', ['root' => $item, 'menuHelper' => $this->menuHelper]);
     }
 
     /**

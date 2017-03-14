@@ -1,5 +1,5 @@
 {% if root.children | length > 0 %}
-<ul>
+<ul class="nav navbar-nav">
     {% for item in root.children %}
         {% set hasClass = (withoutFirstAndLast is not defined and (loop.first or loop.last)) or menuHelper.isActive(app.request.baseUrl ~ app.request.pathInfo, item) %}
         <li {% if hasClass %}class="{% if withoutFirstAndLast is not defined and loop.first %}first {% endif %}{% if withoutFirstAndLast is not defined and loop.last and not loop.first %}last {% endif %}{% if menuHelper.isActive(app.request.baseUrl ~ app.request.pathInfo, item) %}active{% endif %}"{% endif %}>
