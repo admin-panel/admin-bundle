@@ -24,4 +24,12 @@ class Boolean extends DoctrineAbstractField
     {
         return 'boolean';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDBALType()
+    {
+        return Type::BOOLEAN;
+    }
 }
