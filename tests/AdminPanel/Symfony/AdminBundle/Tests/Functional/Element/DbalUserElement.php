@@ -9,6 +9,7 @@ use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Doctrine\DBAL\Connection;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 final class DbalUserElement extends GenericListBatchDeleteElement
 {
@@ -101,20 +102,29 @@ final class DbalUserElement extends GenericListBatchDeleteElement
             'sortable' => true
         ]);
 
-        $datasource->addField('createdAt', 'datetime', 'eq', [
+        $datasource->addField('createdAt', 'datetime', 'between', [
             'field' => 'u.createdAt',
             'form_filter' => true,
-            'sortable' => true
+            'sortable' => true,
+            'form_type'  => DateTimeType::class,
+            'form_from_options' => [
+                'widget' => 'single_text',
+                'input' => 'string',
+            ],
+            'form_to_options' => [
+                'widget' => 'single_text',
+                'input' => 'string',
+            ]
         ]);
 
         $datasource->addField('credits', 'number', 'eq', [
-            'field' => 'u.has_newsletter',
+            'field' => 'u.credits',
             'form_filter' => true,
             'sortable' => true
         ]);
 
         $datasource->addField('hasNewsletter', 'boolean', 'isNull', [
-            'field' => 'u.credits',
+            'field' => 'u.has_newsletter',
             'form_filter' => true
         ]);
 
