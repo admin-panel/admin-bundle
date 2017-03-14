@@ -30,7 +30,6 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
             [
                 'first_result' => 20,
                 'max_results' => 20,
-                'page' => 2,
                 'current_page' => 2
             ],
             [
@@ -73,21 +72,9 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
             $event = new ParametersEventArgs($datasource, []);
             $subscriber->postGetParameters($event);
 
-            if (isset($case['page'])) {
-                $this->assertSame(
-                    [
-                        'datasource' => [
-                            PaginationExtension::PARAMETER_MAX_RESULTS => 20,
-                            PaginationExtension::PARAMETER_PAGE => 2
-                        ]
-                    ],
-                    $event->getParameters()
-                );
-            } else {
-                $parameters = $event->getParameters();
-                if (isset($parameters['datasource'])) {
-                    $this->assertArrayNotHasKey(PaginationExtension::PARAMETER_PAGE, $parameters['datasource']);
-                }
+            $parameters = $event->getParameters();
+            if (isset($parameters['datasource'])) {
+                $this->assertArrayNotHasKey(PaginationExtension::PARAMETER_PAGE, $parameters['datasource']);
             }
 
             $view = $this->createMock(DataSourceViewInterface::class);

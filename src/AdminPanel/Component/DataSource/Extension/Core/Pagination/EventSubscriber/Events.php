@@ -67,17 +67,7 @@ class Events implements EventSubscriberInterface
             $parameters[$datasourceName][PaginationExtension::PARAMETER_MAX_RESULTS] = $maxresults;
         }
 
-        if ($maxresults == 0) {
-            $page = 1;
-        } else {
-            $current = $datasource->getFirstResult();
-            $page = (int) floor($current/$maxresults) + 1;
-        }
-
         unset($parameters[$datasourceName][PaginationExtension::PARAMETER_PAGE]);
-        if ($page > 1) {
-            $parameters[$datasourceName][PaginationExtension::PARAMETER_PAGE] = $page;
-        }
 
         $event->setParameters($parameters);
     }
