@@ -62,6 +62,7 @@ class AppKernel extends Kernel
     {
         $routes->mount('/', $routes->import('@AdminPanelBundle/Resources/config/routing/admin.yml'));
         $routes->add('/custom-action/{id}', 'kernel:customAction', 'custom_action');
+        $routes->add('/my-route', 'kernel:customAction', 'my_route');
     }
 
     /**
@@ -138,7 +139,14 @@ class AppKernel extends Kernel
                 'menu' => [
                     ["id" => "admin_users", "name" => "Users"],
                     ["id" => "admin_custom_template_users", "name" => "Users (custom template)"],
-                    ["id" => "admin_users_dbal", "name" => "Users (dbal)"]
+                    ["id" => "admin_users_dbal", "name" => "Users (dbal)"],
+                    ["route" => "my_route", "name" => "Custom"],
+                    [
+                        "name" => "Parent",
+                        "children" => [
+                            ["id" => "admin_users_dbal", "name" => "Users (dbal 2)"]
+                        ]
+                    ]
                 ]
             ]
         );

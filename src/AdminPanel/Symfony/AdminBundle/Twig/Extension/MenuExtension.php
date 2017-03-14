@@ -47,14 +47,22 @@ class MenuExtension extends \Twig_Extension
         return 'admin_menu';
     }
 
-    public function renderMenu(\Twig_Environment $environment)
+    /**
+     * @param \Twig_Environment $environment
+     * @return string
+     */
+    public function renderMenu(\Twig_Environment $environment) : string
     {
         $item = $this->menuBuilder->build();
 
         return $environment->render('Admin/menu.html.twig', ['root' => $item, 'menuHelper' => $this->menuHelper]);
     }
 
-    public function renderToolsMenu(\Twig_Environment $environment)
+    /**
+     * @param \Twig_Environment $environment
+     * @return string
+     */
+    public function renderToolsMenu(\Twig_Environment $environment) : string
     {
         $item = $this->toolsMenuBuilder->build();
 
@@ -76,7 +84,7 @@ class MenuExtension extends \Twig_Extension
                 $this,
                 'renderToolsMenu',
                 ['is_safe' => ['html'], 'needs_environment' => true]
-            ),
+            )
         ];
     }
 }

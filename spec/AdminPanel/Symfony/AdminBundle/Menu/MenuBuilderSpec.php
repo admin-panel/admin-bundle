@@ -108,7 +108,8 @@ class MenuBuilderSpec extends ObjectBehavior
                         ["route" => "test_route", "name" => "Test"],
                         ["route" => "test_route", "name" => "Users (dbal)"]
                     ]
-                ]
+                ],
+                ["route" => "test_route", "name" => "Test name", "parameters" => ['param' => 1]],
             ],
             $manager,
             new MenuBuilder\DefaultMenuExtension()
@@ -116,10 +117,12 @@ class MenuBuilderSpec extends ObjectBehavior
 
         $menuItems = $this->build()->getChildren();
 
-        $menuItems->shouldHaveCount(2);
+        $menuItems->shouldHaveCount(3);
         $menuItems['Users (dbal)']->shouldHaveType(RoutableItem::class);
         $menuItems['Users (dbal)']->getRoute()->shouldBe('test_route');
         $menuItems['Other menu']->shouldHaveType(Item::class);
+        $menuItems['Test name']->shouldHaveType(RoutableItem::class);
+        $menuItems['Test name']->getRouteParameters()->shouldBe(['param' => 1]);
 
         $otherMenuChildren = $menuItems['Other menu']->getChildren();
         $otherMenuChildren->shouldHaveCount(2);

@@ -38,7 +38,7 @@
             <argument type="service" id="admin.menu.helper" />
         </service>
 
-        <service id="admin.menu.helper" class="AdminPanel\Symfony\AdminBundle\Menu\MenuHelper">
+        <service id="admin.menu.helper" class="AdminPanel\Symfony\AdminBundle\Menu\UrlGeneratorMenuHelper">
             <argument type="service" id="router" />
         </service>
     </services>

@@ -4,7 +4,7 @@ declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Menu;
 
-use AdminPanel\Symfony\AdminBundle\Admin\Manager;
+use AdminPanel\Symfony\AdminBundle\Admin\ManagerInterface;
 use AdminPanel\Symfony\AdminBundle\Menu\Item\ElementItem;
 use AdminPanel\Symfony\AdminBundle\Menu\Item\Item;
 use AdminPanel\Symfony\AdminBundle\Menu\Item\RoutableItem;
@@ -18,7 +18,7 @@ class MenuBuilder
     private $menuItems;
 
     /**
-     * @var Manager
+     * @var ManagerInterface
      */
     private $manager;
 
@@ -29,10 +29,10 @@ class MenuBuilder
 
     /**
      * @param array $menuItems
-     * @param Manager $manager
+     * @param ManagerInterface $manager
      * @param MenuExtension $menuExtension
      */
-    public function __construct(array $menuItems, Manager $manager, MenuExtension $menuExtension)
+    public function __construct(array $menuItems, ManagerInterface $manager, MenuExtension $menuExtension)
     {
         $this->validateMenuItems($menuItems);
         $this->menuItems = $menuItems;
@@ -81,9 +81,9 @@ class MenuBuilder
     {
         $item = new Item($menuItem['name']);
 
-        if (isset($menuItem['id']) && $this->manager->hasElement($menuItem['id'])) {
+        if (isset($menuItem['id']) && $menuItem['id'] && $this->manager->hasElement($menuItem['id'])) {
             $item = new ElementItem($menuItem['name'], $this->manager->getElement($menuItem['id']));
-        } elseif (isset($menuItem['route'])) {
+        } elseif (isset($menuItem['route']) && $menuItem['route']) {
             $item = new RoutableItem(
                 $menuItem['name'],
                 $menuItem['route'],

@@ -44,18 +44,4 @@ class RoutableItem extends Item
     {
         return $this->routeParameters;
     }
-
-    /**
-     * @return array
-     */
-    public function getChildrenNames() : array
-    {
-        $names = [$this->getName()];
-
-        foreach ($this->getChildren() as $childItem) {
-            $names[] = $childItem->getName();
-        }
-
-        return $names;
-    }
 }
