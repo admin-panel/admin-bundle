@@ -233,6 +233,8 @@ class ListPage extends BasePage
         $this->form = $this->getCrawler()->filter("form.filters")->form([
             sprintf('%s[fields][username]', $this->pageName) => $filterCriteria['Username'] ?? '',
             sprintf('%s[fields][credits]', $this->pageName) => $filterCriteria['Credits'] ?? '',
+            sprintf('%s[fields][createdAt][from]', $this->pageName) => $filterCriteria['From'] ?? '',
+            sprintf('%s[fields][createdAt][to]', $this->pageName) => $filterCriteria['To'] ?? '',
         ], 'GET');
 
         return $this;

@@ -138,6 +138,42 @@ class ListPageTest extends FunctionalTestCase
             ->pressSearchButton()
             ->shouldHaveElementsOnTheList(1)
             ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
+            ->fillFilterForm([
+                'From' => (new \DateTime('-1 hour'))->format('Y-m-d H:i:s'),
+                'To' => (new \DateTime('+1 hours'))->format('Y-m-d H:i:s'),
+            ])
+            ->pressSearchButton()
+            ->shouldHaveElementsOnTheList(1)
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
+        ;
+    }
+
+    public function test_that_can_filter_result_by_different_types_for_dbal()
+    {
+        $this->dbContext->createUser('l3l0', true, 10.30, 6);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+
+        (new ListPage($this->client, 'admin_users_dbal'))
+            ->open()
+            ->fillFilterForm([
+                'Username' => 'l3l'
+            ])
+            ->pressSearchButton()
+            ->shouldHaveElementsOnTheList(1)
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
+            ->fillFilterForm([
+                'Credits' => 5.35
+            ])
+            ->pressSearchButton()
+            ->shouldHaveElementsOnTheList(1)
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
+            ->fillFilterForm([
+                'From' => (new \DateTime('-1 hour'))->format('Y-m-d H:i:s'),
+                'To' => (new \DateTime('+1 hours'))->format('Y-m-d H:i:s'),
+            ])
+            ->pressSearchButton()
+            ->shouldHaveElementsOnTheList(1)
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
         ;
     }
 

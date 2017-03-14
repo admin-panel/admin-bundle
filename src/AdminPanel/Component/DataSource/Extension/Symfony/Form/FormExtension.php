@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AdminPanel\Component\DataSource\Extension\Symfony\Form;
 
 use AdminPanel\Component\DataSource\DataSourceAbstractExtension;
+use AdminPanel\Component\DataSource\Extension\Symfony\Form\Driver\DriverExtension;
+use AdminPanel\Component\DataSource\Extension\Symfony\Form\EventSubscriber\Events;
 use Symfony\Component\Form\FormFactory;
 
 /**
@@ -35,7 +37,7 @@ class FormExtension extends DataSourceAbstractExtension
     public function loadDriverExtensions()
     {
         return [
-            new \AdminPanel\Component\DataSource\Extension\Symfony\Form\Driver\DriverExtension($this->formFactory),
+            new DriverExtension($this->formFactory),
         ];
     }
 
@@ -45,7 +47,7 @@ class FormExtension extends DataSourceAbstractExtension
     public function loadSubscribers()
     {
         return [
-            new \AdminPanel\Component\DataSource\Extension\Symfony\Form\EventSubscriber\Events(),
+            new Events(),
         ];
     }
 }

@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field;
 
+use AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Exception\DoctrineDriverException;
+use AdminPanel\Component\DataSource\Field\FieldAbstractType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\DoctrineField;
-use AdminPanel\Component\DataSource\Field\FieldAbstractType;
 
-abstract class AbstractField extends \AdminPanel\Component\DataSource\Field\FieldAbstractType implements DoctrineField
+abstract class AbstractField extends FieldAbstractType implements DoctrineField
 {
     /**
      * @param QueryBuilder $queryBuilder
-     * @throws \AdminPanel\Component\DataSource\Exception\FieldException
+     * @throws DoctrineDriverException
      */
     public function buildQuery(QueryBuilder $queryBuilder)
     {
@@ -34,6 +35,38 @@ abstract class AbstractField extends \AdminPanel\Component\DataSource\Field\Fiel
         if ($comparison == 'isNull') {
             $queryBuilder->$func($this->getOption('field') . ' IS ' . ($data === 'null' ? '' : 'NOT ') . 'NULL');
             return;
+        }
+
+        if ($comparison == 'between') {
+            if (!is_array($data)) {
+                throw new DoctrineDriverException('Fields with \'between\' comparison require to bind an array.');
+            }
+
+            $from = array_shift($data);
+            $to = array_shift($data);
+
+            if (empty($from) && ($from !== 0)) {
+                $from = null;
+            }
+
+            if (empty($to) && ($to !== 0)) {
+                $to = null;
+            }
+
+            if ($from === null && $to === null) {
+                return;
+            } elseif ($from === null) {
+                $comparison = 'lte';
+                $data = $to;
+            } elseif ($to === null) {
+                $comparison = 'gte';
+                $data = $from;
+            } else {
+                $queryBuilder->$func($this->getOption('field') . " BETWEEN :{$name}_from AND :{$name}_to");
+                $queryBuilder->setParameter("{$name}_from", $from);
+                $queryBuilder->setParameter("{$name}_to", $to);
+                return;
+            }
         }
 
         $queryBuilder->$func($queryBuilder->expr()->$comparison($this->getOption('field'), ":$name"));

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field;
 
+use AdminPanel\Component\DataSource\Event\FieldEvent\ParameterEventArgs;
+use AdminPanel\Component\DataSource\Event\FieldEvent\ViewEventArgs;
 use AdminPanel\Component\DataSource\Field\FieldAbstractExtension;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use AdminPanel\Component\DataSource\DataSourceInterface;
@@ -55,7 +57,7 @@ final class FormFieldExtension extends FieldAbstractExtension
      */
     public function getExtendedFieldTypes()
     {
-        return ['text', 'number', 'boolean', 'datetime'];
+        return ['text', 'number', 'boolean', 'datetime', 'date'];
     }
 
     /**
@@ -85,7 +87,7 @@ final class FormFieldExtension extends FieldAbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function postBuildView(\AdminPanel\Component\DataSource\Event\FieldEvent\ViewEventArgs $event)
+    public function postBuildView(ViewEventArgs $event)
     {
         $field = $event->getField();
         $view = $event->getView();
@@ -98,7 +100,7 @@ final class FormFieldExtension extends FieldAbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function preBindParameter(\AdminPanel\Component\DataSource\Event\FieldEvent\ParameterEventArgs $event)
+    public function preBindParameter(ParameterEventArgs $event)
     {
         $field = $event->getField();
         $field_oid = spl_object_hash($field);
@@ -142,7 +144,7 @@ final class FormFieldExtension extends FieldAbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function preGetParameter(\AdminPanel\Component\DataSource\Event\FieldEvent\ParameterEventArgs $event)
+    public function preGetParameter(ParameterEventArgs $event)
     {
         $field = $event->getField();
         $field_oid = spl_object_hash($field);
@@ -189,14 +191,21 @@ final class FormFieldExtension extends FieldAbstractExtension
         $form = $this->formFactory->createNamed($datasource->getName(), 'collection', null, ['csrf_protection' => false]);
         $fieldsForm = $this->formFactory->createNamed(DataSourceInterface::PARAMETER_FIELDS, 'form', null, ['auto_initialize' => false]);
 
-        $type = $field->hasOption('form_type') ? $field->getOption('form_type') : $field->getType();
-
-        switch ($type) {
-            case 'boolean':
-                $this->buildBooleanForm($fieldsForm, $field, $options);
+        switch ($field->getComparison()) {
+            case 'between':
+                $this->buildBetweenComparisonForm($fieldsForm, $field, $options);
                 break;
+
             default:
-                $fieldsForm->add($field->getName(), $type, $options);
+                $type = $field->hasOption('form_type') ? $field->getOption('form_type') : $field->getType();
+
+                switch ($type) {
+                    case 'boolean':
+                        $this->buildBooleanForm($fieldsForm, $field, $options);
+                        break;
+                    default:
+                        $fieldsForm->add($field->getName(), $type, $options);
+                }
         }
 
         $form->add($fieldsForm);
@@ -223,6 +232,31 @@ final class FormFieldExtension extends FieldAbstractExtension
 
         $options = array_merge($defaultOptions, $options);
         $form->add($field->getName(), 'choice', $options);
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormInterface $form
+     * @param \AdminPanel\Component\DataSource\Field\FieldTypeInterface $field
+     * @param array $options
+     */
+    protected function buildBetweenComparisonForm(FormInterface $form, FieldTypeInterface $field, $options = [])
+    {
+        $betweenBuilder = $this->getFormFactory()->createNamedBuilder($field->getName(), 'datasource_between', null, $options);
+
+        $fromOptions = $field->getOption('form_from_options');
+        $toOptions = $field->getOption('form_to_options');
+        $fromOptions = array_merge($options, $fromOptions);
+        $toOptions = array_merge($options, $toOptions);
+        $type = $field->getType();
+
+        if ($field->hasOption('form_type')) {
+            $type = $field->getOption('form_type');
+        }
+
+        $betweenBuilder->add('from', $type, $fromOptions);
+        $betweenBuilder->add('to', $type, $toOptions);
+
+        $form->add($betweenBuilder->getForm());
     }
 
     /**
