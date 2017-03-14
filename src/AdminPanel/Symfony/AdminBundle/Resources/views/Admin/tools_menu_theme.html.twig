@@ -1,8 +1,0 @@
-{% extends '@AdminPanel/Admin/main_menu_theme.html.twig' %}
-
-{% block root %}
-    {% set listAttributes = { class: 'nav navbar-nav navbar-right' } %}
-    {{ block('list') -}}
-{% endblock %}
-
-{% block label %}{{ item.label|trans({}, 'AdminPanelBundle') }}{% endblock %}
