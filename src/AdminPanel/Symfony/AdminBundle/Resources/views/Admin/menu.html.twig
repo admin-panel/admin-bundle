@@ -11,7 +11,7 @@
                 {{ item.label }}
             {% endif %}
             {% if item.children %}
-                {% include 'Admin/menu.html.twig' with {'root': item, 'menuHelper': menuHelper, 'withoutFirstAndLast': true} %}
+                {% include '@AdminPanel/Admin/menu.html.twig' with {'root': item, 'menuHelper': menuHelper, 'withoutFirstAndLast': true} %}
             {% endif %}
         </li>
     {% endfor %}

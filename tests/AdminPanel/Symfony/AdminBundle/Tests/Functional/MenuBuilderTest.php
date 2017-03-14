@@ -1,5 +1,4 @@
 <?php
-
 declare (strict_types = 1);
 
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional;
@@ -80,7 +79,7 @@ class MenuBuilderTest extends KernelTestCase
         $menu = $menuBuilder->build();
 
         $expectedMenu = <<<EOL
-<ul>
+<ul class="nav navbar-nav">
     <li class="first">
         <a href="/list/Users">Users</a>
     </li>
@@ -92,7 +91,7 @@ class MenuBuilderTest extends KernelTestCase
     </li>
     <li class="last">
         Root menu
-        <ul>
+        <ul class="nav navbar-nav">
             <li>
                 <a href="/list/Users">Users 123</a>
             </li>
@@ -112,7 +111,6 @@ EOL;
                 ['root' => $menu, 'menuHelper' => $this->getMenuHelper($activeName = 'Custom')]
             )
         ;
-
         self::assertHTMLEquals($expectedMenu, $renderedMenu);
     }
 
@@ -142,7 +140,7 @@ EOL;
         $menu = $menuBuilder->build();
 
         $expectedMenu = <<<EOL
-<ul>
+<ul class="nav navbar-nav">
     <li class="first">
         <a href="/list/Users">Users</a>
     </li>
@@ -154,7 +152,7 @@ EOL;
     </li>
     <li>
         Root menu
-        <ul>
+        <ul class="nav navbar-nav">
             <li>
                 <a href="/list/Users">Users 123</a>
             </li>
@@ -207,10 +205,10 @@ EOL;
         $menu = $menuBuilder->build();
 
         $expectedMenu = <<<EOL
-<ul>
+<ul class="nav navbar-nav">
     <li class="first">
         Root menu
-        <ul>
+        <ul class="nav navbar-nav">
             <li>
                 <a href="/list/Users">Users 123</a>
             </li>
