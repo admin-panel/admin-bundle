@@ -36,17 +36,18 @@ final class CoreExtension extends DriverAbstractExtension
     protected function loadFieldTypes() : array
     {
         return [
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\TextField(),
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\NumberField(),
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\DateTimeField(),
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\BooleanField(),
+            new Field\TextField(),
+            new Field\NumberField(),
+            new Field\DateTimeField(),
+            new Field\BooleanField(),
+            new Field\DateField(),
         ];
     }
 
     protected function loadFieldTypesExtensions() : array
     {
         return [
-            new \AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Field\FormFieldExtension($this->formFactory),
+            new Field\FormFieldExtension($this->formFactory),
         ];
     }
 }

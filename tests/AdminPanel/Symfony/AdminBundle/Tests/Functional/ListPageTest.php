@@ -174,6 +174,13 @@ class ListPageTest extends FunctionalTestCase
             ->pressSearchButton()
             ->shouldHaveElementsOnTheList(1)
             ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
+            ->fillFilterForm([
+                'DateFrom' => (new \DateTime())->format('Y-m-d'),
+                'DateTo' => (new \DateTime())->format('Y-m-d'),
+            ])
+            ->pressSearchButton()
+            ->shouldHaveElementsOnTheList(1)
+            ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
         ;
     }
 

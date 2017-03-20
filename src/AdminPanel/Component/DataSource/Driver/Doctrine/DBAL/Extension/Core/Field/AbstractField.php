@@ -8,6 +8,7 @@ use AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Exception\DoctrineDrive
 use AdminPanel\Component\DataSource\Field\FieldAbstractType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\DoctrineField;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 abstract class AbstractField extends FieldAbstractType implements DoctrineField
 {
@@ -57,12 +58,14 @@ abstract class AbstractField extends FieldAbstractType implements DoctrineField
                 return;
             } elseif ($from === null) {
                 $comparison = 'lte';
-                $data = $to;
+                $data = $this->isDateField() ? (new \DateTime($to))->modify('+ 23 hours 59 minutes 59 seconds')->format('Y-m-d H:i:s') : $to;
             } elseif ($to === null) {
                 $comparison = 'gte';
-                $data = $from;
+                $data = $this->isDateField() ? (new \DateTime($from))->format('Y-m-d H:i:s') : $from;
             } else {
                 $queryBuilder->$func($this->getOption('field') . " BETWEEN :{$name}_from AND :{$name}_to");
+                $to = $this->isDateField() ? (new \DateTime($to))->modify('+ 23 hours 59 minutes 59 seconds')->format('Y-m-d H:i:s') : $to;
+                $from = $this->isDateField() ? (new \DateTime($from))->format('Y-m-d H:i:s') : $from;
                 $queryBuilder->setParameter("{$name}_from", $from);
                 $queryBuilder->setParameter("{$name}_to", $to);
                 return;
@@ -98,5 +101,13 @@ abstract class AbstractField extends FieldAbstractType implements DoctrineField
             ->setNormalizer('clause', function ($options, $value) {
                 return strtolower($value);
             });
+    }
+
+    /**
+     * @return bool
+     */
+    private function isDateField() : bool
+    {
+        return $this->hasOption('form_type') && $this->getOption('form_type') === DateType::class;
     }
 }

@@ -11,12 +11,12 @@ use Symfony\Component\Translation\TranslatorInterface;
 class FormFieldExtension extends FieldAbstractExtension
 {
     /**
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     protected $translator;
 
     /**
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator)
     {
@@ -34,7 +34,7 @@ class FormFieldExtension extends FieldAbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function initOptions(\AdminPanel\Component\DataSource\Field\FieldTypeInterface $field)
+    public function initOptions(FieldTypeInterface $field)
     {
         if ($field->getComparison() == 'isNull') {
             $field->getOptionsResolver()

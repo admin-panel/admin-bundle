@@ -10,6 +10,7 @@ use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 final class DbalUserElement extends GenericListBatchDeleteElement
 {
@@ -107,6 +108,19 @@ final class DbalUserElement extends GenericListBatchDeleteElement
             'form_filter' => true,
             'sortable' => true,
             'form_type'  => DateTimeType::class,
+            'form_from_options' => [
+                'widget' => 'single_text',
+                'input' => 'string',
+            ],
+            'form_to_options' => [
+                'widget' => 'single_text',
+                'input' => 'string',
+            ]
+        ]);
+        $datasource->addField('createdAtDate', 'datetime', 'between', [
+            'field' => 'u.createdAt',
+            'form_filter' => true,
+            'form_type'  => DateType::class,
             'form_from_options' => [
                 'widget' => 'single_text',
                 'input' => 'string',
