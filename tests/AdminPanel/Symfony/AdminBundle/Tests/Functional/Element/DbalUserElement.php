@@ -5,12 +5,12 @@ declare (strict_types = 1);
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
+use AdminPanel\Symfony\AdminBundle\Form\Type\BetweenDateType;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 final class DbalUserElement extends GenericListBatchDeleteElement
 {
@@ -120,12 +120,14 @@ final class DbalUserElement extends GenericListBatchDeleteElement
         $datasource->addField('createdAtDate', 'datetime', 'between', [
             'field' => 'u.createdAt',
             'form_filter' => true,
-            'form_type'  => DateType::class,
+            'form_type'  => BetweenDateType::class,
             'form_from_options' => [
+                'date_format' => 'Y-m-d 00:00:00',
                 'widget' => 'single_text',
                 'input' => 'string',
             ],
             'form_to_options' => [
+                'date_format' => 'Y-m-d 23:59:59',
                 'widget' => 'single_text',
                 'input' => 'string',
             ]

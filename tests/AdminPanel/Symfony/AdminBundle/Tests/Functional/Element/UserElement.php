@@ -6,12 +6,12 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
 use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
+use AdminPanel\Symfony\AdminBundle\Form\Type\BetweenDateType;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 final class UserElement extends GenericListBatchDeleteElement
 {
@@ -120,12 +120,14 @@ final class UserElement extends GenericListBatchDeleteElement
         $datasource->addField('createdAtDate', 'datetime', 'between', [
             'field' => 'created_at',
             'form_filter' => true,
-            'form_type'  => DateType::class,
+            'form_type'  => BetweenDateType::class,
             'form_from_options' => [
+                'date_format' => 'yyyy-MM-dd 00:00:00',
                 'widget' => 'single_text',
                 'input' => 'string',
             ],
             'form_to_options' => [
+                'date_format' => 'yyyy-MM-dd 23:59:59',
                 'widget' => 'single_text',
                 'input' => 'string',
             ]

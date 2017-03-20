@@ -6,7 +6,6 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Page;
 
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Form;
-use Symfony\Component\DomCrawler\Link;
 
 class ListPage extends BasePage
 {

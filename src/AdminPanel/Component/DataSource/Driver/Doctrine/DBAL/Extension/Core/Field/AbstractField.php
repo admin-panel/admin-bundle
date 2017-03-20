@@ -58,14 +58,14 @@ abstract class AbstractField extends FieldAbstractType implements DoctrineField
                 return;
             } elseif ($from === null) {
                 $comparison = 'lte';
-                $data = $this->isDateField() ? (new \DateTime($to))->modify('+ 23 hours 59 minutes 59 seconds')->format('Y-m-d H:i:s') : $to;
+                $data = $this->hasDateToFormat() ? (new \DateTime($to))->format($this->getDateToFormat()) : $to;
             } elseif ($to === null) {
                 $comparison = 'gte';
-                $data = $this->isDateField() ? (new \DateTime($from))->format('Y-m-d H:i:s') : $from;
+                $data = $this->hasDateFromFormat() ? (new \DateTime($from))->format($this->getDateFromFormat()) : $from;
             } else {
                 $queryBuilder->$func($this->getOption('field') . " BETWEEN :{$name}_from AND :{$name}_to");
-                $to = $this->isDateField() ? (new \DateTime($to))->modify('+ 23 hours 59 minutes 59 seconds')->format('Y-m-d H:i:s') : $to;
-                $from = $this->isDateField() ? (new \DateTime($from))->format('Y-m-d H:i:s') : $from;
+                $to = $this->hasDateToFormat() ? (new \DateTime($to))->format($this->getDateToFormat()) : $to;
+                $from = $this->hasDateFromFormat() ? (new \DateTime($from))->format($this->getDateFromFormat()) : $from;
                 $queryBuilder->setParameter("{$name}_from", $from);
                 $queryBuilder->setParameter("{$name}_to", $to);
                 return;
@@ -106,8 +106,40 @@ abstract class AbstractField extends FieldAbstractType implements DoctrineField
     /**
      * @return bool
      */
-    private function isDateField() : bool
+    private function hasDateFromFormat() : bool
     {
-        return $this->hasOption('form_type') && $this->getOption('form_type') === DateType::class;
+        return $this->getOption('form_from_options') && isset($this->getOption('form_from_options')['date_format']);
+    }
+
+    /**
+     * @return bool
+     */
+    private function hasDateToFormat() : bool
+    {
+        return $this->getOption('form_to_options') && isset($this->getOption('form_from_options')['date_format']);
+    }
+
+    /**
+     * @return string
+     */
+    private function getDateFromFormat() : string
+    {
+        if ($this->hasDateFromFormat()) {
+            return $this->getOption('form_from_options')['date_format'];
+        }
+
+        throw new \RuntimeException('Date from format not exists.');
+    }
+
+    /**
+     * @return string
+     */
+    private function getDateToFormat() : string
+    {
+        if ($this->hasDateToFormat()) {
+            return $this->getOption('form_to_options')['date_format'];
+        }
+
+        throw new \RuntimeException('Date to format not exists.');
     }
 }
