@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
 
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
+use AdminPanel\Symfony\AdminBundle\Form\Type\BetweenDateType;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
@@ -112,6 +113,21 @@ final class DbalUserElement extends GenericListBatchDeleteElement
                 'input' => 'string',
             ],
             'form_to_options' => [
+                'widget' => 'single_text',
+                'input' => 'string',
+            ]
+        ]);
+        $datasource->addField('createdAtDate', 'datetime', 'between', [
+            'field' => 'u.createdAt',
+            'form_filter' => true,
+            'form_type'  => BetweenDateType::class,
+            'form_from_options' => [
+                'date_format' => 'Y-m-d 00:00:00',
+                'widget' => 'single_text',
+                'input' => 'string',
+            ],
+            'form_to_options' => [
+                'date_format' => 'Y-m-d 23:59:59',
                 'widget' => 'single_text',
                 'input' => 'string',
             ]

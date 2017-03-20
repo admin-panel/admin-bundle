@@ -6,7 +6,6 @@ namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Page;
 
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Form;
-use Symfony\Component\DomCrawler\Link;
 
 class ListPage extends BasePage
 {
@@ -235,6 +234,8 @@ class ListPage extends BasePage
             sprintf('%s[fields][credits]', $this->pageName) => $filterCriteria['Credits'] ?? '',
             sprintf('%s[fields][createdAt][from]', $this->pageName) => $filterCriteria['From'] ?? '',
             sprintf('%s[fields][createdAt][to]', $this->pageName) => $filterCriteria['To'] ?? '',
+            sprintf('%s[fields][createdAtDate][from]', $this->pageName) => $filterCriteria['DateFrom'] ?? '',
+            sprintf('%s[fields][createdAtDate][to]', $this->pageName) => $filterCriteria['DateTo'] ?? '',
         ], 'GET');
 
         return $this;

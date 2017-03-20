@@ -9,9 +9,6 @@ use AdminPanel\Component\DataSource\Event\FieldEvent\ParameterEventArgs;
 use AdminPanel\Component\DataSource\Event\FieldEvent\ViewEventArgs;
 use AdminPanel\Component\DataSource\Exception\FieldException;
 use AdminPanel\Component\DataSource\DataSourceInterface;
-use AdminPanel\Component\DataSource\Field\FieldExtensionInterface;
-use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
-use AdminPanel\Component\DataSource\Field\FieldView;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use AdminPanel\Component\DataSource\Event\FieldEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -64,17 +61,17 @@ abstract class FieldAbstractType implements FieldTypeInterface
     protected $dirty = true;
 
     /**
-     * @var \AdminPanel\Component\DataSource\DataSourceInterface
+     * @var DataSourceInterface
      */
     protected $datasource;
 
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcher
+     * @var EventDispatcher
      */
     private $eventDispatcher;
 
     /**
-     * @var \Symfony\Component\OptionsResolver\OptionsResolver
+     * @var OptionsResolver
      */
     private $optionsResolver;
 
@@ -108,7 +105,7 @@ abstract class FieldAbstractType implements FieldTypeInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \AdminPanel\Component\DataSource\Exception\FieldException
+     * @throws FieldException
      */
     public function setComparison($comparison)
     {
@@ -154,7 +151,7 @@ abstract class FieldAbstractType implements FieldTypeInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \AdminPanel\Component\DataSource\Exception\FieldException
+     * @throws FieldException
      */
     public function getOption($name)
     {
