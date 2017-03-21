@@ -9,9 +9,11 @@ At this moment we have handle list and batch elements.
 
 ### 1. Create element
 
-We create element which will work with doctrine entity and allow to batch delete all users.
+We will create element which will work with doctrine entity and allow to batch delete all users.
 In element you can define data grid fields (fields visible on list) and you can define data source
-so place when you decide from where element will fetch data.
+so place when you decide from where element will fetch data. Please read comments in the example below.
+
+Example:
 
 ```php
 <?php
@@ -29,6 +31,7 @@ use AdminPanel\Component\DataGrid\DataGridInterface;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AppBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class UserElement extends GenericListBatchDeleteElement
 {
@@ -68,6 +71,7 @@ class UserElement extends GenericListBatchDeleteElement
      */
     protected function initDataGrid(DataGridFactoryInterface $factory)
     {
+        // here we adds different elements to our list
         $datagrid = $factory->createDataGrid($this->getId());
         $datagrid->addColumn('username', 'text', [
             'label' => 'Username'
@@ -82,6 +86,9 @@ class UserElement extends GenericListBatchDeleteElement
             'label' => 'Credits',
             'currency' => 'EUR'
         ]);
+
+        // here we adds custom action with our custom class for given element.
+        // parameters_field_mapping maps element from our entity to param for given route_name
         $datagrid->addColumn('actions', 'action', [
             'label' => 'Actions',
             'field_mapping' => ['id'],
@@ -110,15 +117,54 @@ class UserElement extends GenericListBatchDeleteElement
      */
     protected function initDataSource(DataSourceFactoryInterface $factory)
     {
-        return $factory->createDataSource(
+        // Here we define data source (storage) layer and we can add here filter which will be shown on list
+        $datasource = $factory->createDataSource(
             'doctrine',
             ['entity' => $this->getClassName()],
-            $this->getId()
+            $this->getClassName()
         );
+
+        // show 10 result per page
+        $datasource->setMaxResults(10);
+
+        // allow to sort and filter by username field. Apply like filter to that field
+        $datasource->addField(
+            'username',
+            'text',
+            'like',
+            [
+                'sortable' => true,
+                'form_filter' => true
+            ]
+        );
+
+        // allot to sort and filter by date period
+        $datasource->addField(
+            'createdAt',
+            'datetime',
+            'between',
+            [
+                'sortable' => true,
+                'form_filter' => true,
+                'form_type'  => DateType::class,
+                'form_from_options' => [
+                    'widget' => 'single_text',
+                    'input' => 'string',
+                ],
+                'form_to_options' => [
+                    'widget' => 'single_text',
+                    'input' => 'string',
+                ]
+            ]
+        );
+
+        return $datasource;
     }
 
     /**
-     * @param mixed $index
+     * Handle how we will remove our entity.
+     *
+     * @param mixed $index - primary key of our entity
      */
     public function delete($index)
     {
