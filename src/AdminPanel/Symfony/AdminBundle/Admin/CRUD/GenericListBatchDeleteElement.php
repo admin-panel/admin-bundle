@@ -25,7 +25,7 @@ abstract class GenericListBatchDeleteElement extends AbstractElement implements 
     protected $datagridFactory;
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc}$a
      */
     public function getRoute()
     {

@@ -106,6 +106,9 @@ abstract class BasePage implements Page
      */
     protected function getCrawler() : Crawler
     {
+        if (!$this->client->getCrawler()) {
+            throw new \Exception('Client not found, so Crawler cannot be returned');
+        }
         return $this->client->getCrawler();
     }
 

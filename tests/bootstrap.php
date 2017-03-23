@@ -3,8 +3,13 @@
 declare(strict_types=1);
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Symfony\Component\HttpKernel\Kernel;
 
-error_reporting(E_ALL | E_STRICT);
+if (version_compare(Kernel::VERSION, '2.8.0', '<')) {
+    error_reporting(E_ALL ^ E_USER_DEPRECATED);
+} else {
+    error_reporting(E_ALL | E_STRICT);
+}
 
 const VAR_DIR = __DIR__ . '/var';
 

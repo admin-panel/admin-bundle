@@ -75,14 +75,14 @@ class MenuExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'admin_panel_render_menu' => new \Twig_Function_Method(
-                $this,
-                'renderMenu',
+             new \Twig_SimpleFunction(
+                'admin_panel_render_menu',
+                [$this, 'renderMenu'],
                 ['is_safe' => ['html'], 'needs_environment' => true]
             ),
-            'admin_panel_render_tools_menu' => new \Twig_Function_Method(
-                $this,
-                'renderToolsMenu',
+            new \Twig_SimpleFunction(
+                'admin_panel_render_tools_menu',
+                [$this, 'renderToolsMenu'],
                 ['is_safe' => ['html'], 'needs_environment' => true]
             )
         ];

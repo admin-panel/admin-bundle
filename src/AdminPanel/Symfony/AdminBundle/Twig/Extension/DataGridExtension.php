@@ -59,6 +59,10 @@ class DataGridExtension extends \Twig_Extension
      */
     public function initRuntime(\Twig_Environment $environment)
     {
+        if ($this->environment instanceof  \Twig_Environment) {
+            return;
+        }
+
         $this->environment = $environment;
         for ($i = count($this->baseThemes) - 1; $i >= 0; $i--) {
             $this->baseThemes[$i] = $this->environment->loadTemplate($this->baseThemes[$i]);
@@ -71,14 +75,14 @@ class DataGridExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'datagrid_widget' => new \Twig_Function_Method($this, 'datagrid', ['is_safe' => ['html']]),
-            'datagrid_header_widget' =>  new \Twig_Function_Method($this, 'datagridHeader', ['is_safe' => ['html']]),
-            'datagrid_rowset_widget' =>  new \Twig_Function_Method($this, 'datagridRowset', ['is_safe' => ['html']]),
-            'datagrid_column_header_widget' =>  new \Twig_Function_Method($this, 'datagridColumnHeader', ['is_safe' => ['html']]),
-            'datagrid_column_cell_widget' =>  new \Twig_Function_Method($this, 'datagridColumnCell', ['is_safe' => ['html']]),
-            'datagrid_column_cell_form_widget' =>  new \Twig_Function_Method($this, 'datagridColumnCellForm', ['is_safe' => ['html']]),
-            'datagrid_column_type_action_cell_action_widget' =>  new \Twig_Function_Method($this, 'datagridColumnActionCellActionWidget', ['is_safe' => ['html']]),
-            'datagrid_attributes_widget' =>  new \Twig_Function_Method($this, 'datagridAttributes', ['is_safe' => ['html']])
+             new \Twig_SimpleFunction('datagrid_widget', [$this, 'datagrid'], ['is_safe' => ['html'], 'needs_environment' => true]),
+             new \Twig_SimpleFunction('datagrid_header_widget', [$this, 'datagridHeader'], ['is_safe' => ['html'], 'needs_environment' => true]),
+             new \Twig_SimpleFunction('datagrid_rowset_widget', [$this, 'datagridRowset'], ['is_safe' => ['html'], 'needs_environment' => true]),
+             new \Twig_SimpleFunction('datagrid_column_header_widget', [$this, 'datagridColumnHeader'], ['is_safe' => ['html'], 'needs_environment' => true]),
+             new \Twig_SimpleFunction('datagrid_column_cell_widget', [$this, 'datagridColumnCell'], ['is_safe' => ['html'], 'needs_environment' => true]),
+             new \Twig_SimpleFunction('datagrid_column_cell_form_widget', [$this, 'datagridColumnCellForm'], ['is_safe' => ['html'], 'needs_environment' => true]),
+             new \Twig_SimpleFunction('datagrid_column_type_action_cell_action_widget', [$this, 'datagridColumnActionCellActionWidget'], ['is_safe' => ['html'], 'needs_environment' => true]),
+             new \Twig_SimpleFunction('datagrid_attributes_widget', [$this, 'datagridAttribute'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
@@ -128,11 +132,13 @@ class DataGridExtension extends \Twig_Extension
     }
 
     /**
+     * @param \Twig_Environment $environment
      * @param \AdminPanel\Component\DataGrid\DataGridViewInterface $view
      * @return string
      */
-    public function datagrid(DataGridViewInterface $view)
+    public function datagrid(\Twig_Environment $environment, DataGridViewInterface $view)
     {
+        $this->initRuntime($environment);
         $blockNames = [
             'datagrid_' . $view->getName(),
             'datagrid',
@@ -149,12 +155,14 @@ class DataGridExtension extends \Twig_Extension
     /**
      * Render header row in datagrid.
      *
+     * @param \Twig_Environment $environment
      * @param \AdminPanel\Component\DataGrid\DataGridViewInterface $view
      * @param array $vars
      * @return string
      */
-    public function datagridHeader(DataGridViewInterface $view, array $vars = [])
+    public function datagridHeader(\Twig_Environment $environment, DataGridViewInterface $view, array $vars = [])
     {
+        $this->initRuntime($environment);
         $blockNames = [
             'datagrid_' . $view->getName() . '_header',
             'datagrid_header',
@@ -174,12 +182,15 @@ class DataGridExtension extends \Twig_Extension
     /**
      * Render column header.
      *
+     * @param \Twig_Environment $environment
      * @param HeaderViewInterface $view
      * @param array $vars
      * @return string
      */
-    public function datagridColumnHeader(HeaderViewInterface $view, array $vars = [])
+    public function datagridColumnHeader(\Twig_Environment $environment, HeaderViewInterface $view, array $vars = [])
     {
+        $this->initRuntime($environment);
+
         $dataGridView = $view->getDataGridView();
         $blockNames = [
             'datagrid_' . $dataGridView->getName() . '_column_name_' . $view->getName() . '_header',
@@ -205,12 +216,15 @@ class DataGridExtension extends \Twig_Extension
     /**
      * Render DataGrid rows except header.
      *
+     * @param \Twig_Environment $environment
      * @param DataGridViewInterface $view
      * @param array $vars
      * @return string
      */
-    public function datagridRowset(DataGridViewInterface $view, array $vars = [])
+    public function datagridRowset(\Twig_Environment $environment, DataGridViewInterface $view, array $vars = [])
     {
+        $this->initRuntime($environment);
+
         $blockNames = [
             'datagrid_' . $view->getName() . '_rowset',
             'datagrid_rowset',
@@ -230,12 +244,15 @@ class DataGridExtension extends \Twig_Extension
     /**
      * Render column cell.
      *
+     * @param \Twig_Environment $environment
      * @param \AdminPanel\Component\DataGrid\Column\CellViewInterface $view
      * @param array $vars
      * @return string
      */
-    public function datagridColumnCell(CellViewInterface $view, array $vars = [])
+    public function datagridColumnCell(\Twig_Environment $environment, CellViewInterface $view, array $vars = [])
     {
+        $this->initRuntime($environment);
+
         $dataGridView = $view->getDataGridView();
         $blockNames = [
             'datagrid_' . $dataGridView->getName() . '_column_name_' . $view->getName() . '_cell',
@@ -267,11 +284,13 @@ class DataGridExtension extends \Twig_Extension
      * @param array $vars
      * @return string
      */
-    public function datagridColumnCellForm(CellViewInterface $view, array $vars = [])
+    public function datagridColumnCellForm(\Twig_Environment $environment, CellViewInterface $view, array $vars = [])
     {
         if (!$view->hasAttribute('form')) {
             return ;
         }
+
+        $this->initRuntime($environment);
 
         $dataGridView = $view->getDataGridView();
         $blockNames = [
@@ -295,6 +314,7 @@ class DataGridExtension extends \Twig_Extension
     }
 
     /**
+     * @param \Twig_Environment $environment
      * @param \AdminPanel\Component\DataGrid\Column\CellViewInterface $view
      * @param $action
      * @param $content
@@ -302,8 +322,9 @@ class DataGridExtension extends \Twig_Extension
      * @param array $fieldMappingValues
      * @return string
      */
-    public function datagridColumnActionCellActionWidget(CellViewInterface $view, $action, $content, $urlAttrs = [], $fieldMappingValues = [])
+    public function datagridColumnActionCellActionWidget(\Twig_Environment $environment, CellViewInterface $view, $action, $content, $urlAttrs = [], $fieldMappingValues = [])
     {
+        $this->initRuntime($environment);
         $dataGridView = $view->getDataGridView();
         $blockNames = [
             'datagrid_' . $dataGridView->getName() . '_column_type_action_cell_action_' . $action,
@@ -332,8 +353,9 @@ class DataGridExtension extends \Twig_Extension
      * @param null $translationDomain
      * @return string
      */
-    public function datagridAttributes(array $attributes, $translationDomain = null)
+    public function datagridAttributes(\Twig_Environment $environment, array $attributes, $translationDomain = null)
     {
+        $this->initRuntime($environment);
         $attrs = [];
 
         foreach ($attributes as $attributeName => $attributeValue) {

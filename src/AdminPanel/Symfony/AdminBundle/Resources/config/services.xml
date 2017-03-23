@@ -54,7 +54,7 @@
         </service>
 
         <service id="admin.form.between_date_type" class="%admin.form.between_date_type.class%">
-            <tag name="form.type" />
+            <tag name="form.type" alias="between_dates" />
         </service>
 
         <!-- ProductionLine Workers -->

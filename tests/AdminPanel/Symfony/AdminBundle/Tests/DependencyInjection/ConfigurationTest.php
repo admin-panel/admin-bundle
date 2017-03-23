@@ -28,29 +28,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testDeprecatedTemplateOption()
-    {
-        $this->setExpectedException('PHPUnit_Framework_Error_Deprecated');
-
-        $processor = new Processor();
-        $config = $processor->processConfiguration(
-            new Configuration(),
-            [
-                'admin_panel' => [
-                    'data_grid' => [
-                        'twig' => [
-                            'template' => 'custom_datagrid.html.twig'
-                        ]
-                    ]
-                ]
-            ]);
-
-        $this->assertSame(
-            $config,
-            self::getBundleDefaultOptions()
-        );
-    }
-
     public function testTemplateOption()
     {
         \PHPUnit_Framework_Error_Deprecated::$enabled = false;

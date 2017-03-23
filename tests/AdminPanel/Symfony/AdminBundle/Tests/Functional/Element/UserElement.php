@@ -12,6 +12,7 @@ use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\HttpKernel\Kernel;
 
 final class UserElement extends GenericListBatchDeleteElement
 {
@@ -106,7 +107,7 @@ final class UserElement extends GenericListBatchDeleteElement
             [
                 'sortable' => true,
                 'form_filter' => true,
-                'form_type'  => DateTimeType::class,
+                'form_type'  => version_compare(Kernel::VERSION, '2.8.0', '<') ? 'datetime' : DateTimeType::class,
                 'form_from_options' => [
                     'widget' => 'single_text',
                     'input' => 'string',
@@ -120,7 +121,7 @@ final class UserElement extends GenericListBatchDeleteElement
         $datasource->addField('createdAtDate', 'datetime', 'between', [
             'field' => 'created_at',
             'form_filter' => true,
-            'form_type'  => BetweenDateType::class,
+            'form_type'  => version_compare(Kernel::VERSION, '2.8.0', '<') ? 'between_dates' : BetweenDateType::class,
             'form_from_options' => [
                 'date_format' => 'yyyy-MM-dd 00:00:00',
                 'widget' => 'single_text',

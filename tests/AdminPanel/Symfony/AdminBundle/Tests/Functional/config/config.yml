@@ -1,0 +1,70 @@
+parameters:
+    locale: en
+
+services:
+    user_admin_element:
+        class: AdminPanel\Symfony\AdminBundle\Tests\Functional\Element\UserElement
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+        tags:
+            - { name: admin.element }
+
+    custom_template_user_admin_element:
+        class: AdminPanel\Symfony\AdminBundle\Tests\Functional\Element\CustomTemplateUserElement
+        tags:
+            - { name: admin.element }
+
+    dbal_user_admin_element:
+        class: AdminPanel\Symfony\AdminBundle\Tests\Functional\Element\DbalUserElement
+        arguments:
+            - '@doctrine.dbal.default_connection'
+        tags:
+            - { name: admin.element }
+
+framework:
+    translator:
+        fallback: '%locale%'
+    secret: 'secret123'
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    test: true
+    form: true
+    csrf_protection:
+        enabled: true
+    templating:
+        engines: ['twig']
+    session:
+        storage_id: 'session.storage.mock_file'
+
+twig:
+    paths:
+        '%kernel.root_dir%/config/Resources/views': 'app'
+
+doctrine:
+    dbal:
+        driver: 'pdo_sqlite'
+        path: '%kernel.cache_dir%/test.db'
+        charset: 'UTF-8'
+    orm:
+        mappings:
+            TestMapping:
+                type: 'annotation'
+                is_bundle: false
+                dir: '%kernel.root_dir%/Entity'
+                prefix: 'AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity'
+
+sensio_framework_extra:
+    request:
+        converters: true
+
+admin_panel:
+    menu:
+        - {id: "admin_users", name: "Users"}
+        - {id: "admin_custom_template_users", name: "Users (custom template)"}
+        - {id: "admin_users_dbal", name: "Users (dbal)"}
+        - {route: "my_route", name: "Custom"}
+        -
+          name: "Parent"
+          children:
+              - {"id": "admin_users_dbal", "name": "Users (dbal 2)"}

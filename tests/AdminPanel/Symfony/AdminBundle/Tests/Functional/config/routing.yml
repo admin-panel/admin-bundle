@@ -1,0 +1,11 @@
+admin:
+    resource: "@AdminPanelBundle/Resources/config/routing/admin.yml"
+    prefix:   /
+
+custom_action:
+    path: /custom-action/{id}
+    defaults: { _controller: kernel:customAction }
+
+my_route:
+    path: /my-route
+    defaults: { _controller: kernel:customAction }
