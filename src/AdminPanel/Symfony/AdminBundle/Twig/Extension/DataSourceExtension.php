@@ -69,6 +69,9 @@ class DataSourceExtension extends \Twig_Extension
 
     public function initRuntime(\Twig_Environment $environment)
     {
+        if ($this->environment instanceof \Twig_Environment) {
+            return;
+        }
         $this->environment = $environment;
         $this->themes[self::DEFAULT_THEME] = $this->environment->loadTemplate($this->baseTemplate);
     }
@@ -79,12 +82,12 @@ class DataSourceExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('datasource_filter_widget', [$this, 'datasourceFilter'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('datasource_filter_count', [$this, 'datasourceFilterCount'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('datasource_field_widget', [$this, 'datasourceField'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('datasource_sort_widget', [$this, 'datasourceSort'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('datasource_pagination_widget', [$this, 'datasourcePagination'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('datasource_max_results_widget', [$this, 'datasourceMaxResults'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('datasource_filter_widget', [$this, 'datasourceFilter'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new \Twig_SimpleFunction('datasource_filter_count', [$this, 'datasourceFilterCount'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new \Twig_SimpleFunction('datasource_field_widget', [$this, 'datasourceField'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new \Twig_SimpleFunction('datasource_sort_widget', [$this, 'datasourceSort'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new \Twig_SimpleFunction('datasource_pagination_widget', [$this, 'datasourcePagination'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new \Twig_SimpleFunction('datasource_max_results_widget', [$this, 'datasourceMaxResults'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
@@ -128,8 +131,9 @@ class DataSourceExtension extends \Twig_Extension
         $this->additional_parameters[$dataSource->getName()] = $additional_parameters;
     }
 
-    public function datasourceFilter(DataSourceViewInterface $view, array $vars = [])
+    public function datasourceFilter(\Twig_Environment $environment, DataSourceViewInterface $view, array $vars = [])
     {
+        $this->initRuntime($environment);
         $blockNames = [
             'datasource_' . $view->getName() . '_filter',
             'datasource_filter',
@@ -146,8 +150,9 @@ class DataSourceExtension extends \Twig_Extension
         return $this->renderTheme($view, $viewData, $blockNames);
     }
 
-    public function datasourceFilterCount(DataSourceViewInterface $view)
+    public function datasourceFilterCount(\Twig_Environment $environment, DataSourceViewInterface $view)
     {
+        $this->initRuntime($environment);
         $fields = $view->getFields();
         $count = 0;
         /** @var $field \AdminPanel\Component\DataSource\Field\FieldViewInterface */
@@ -159,8 +164,9 @@ class DataSourceExtension extends \Twig_Extension
         return $count;
     }
 
-    public function datasourceField(FieldViewInterface $fieldView, array $vars = [])
+    public function datasourceField(\Twig_Environment $environment, FieldViewInterface $fieldView, array $vars = [])
     {
+        $this->initRuntime($environment);
         $dataSourceView = $fieldView->getDataSourceView();
         $blockNames = [
             'datasource_' . $dataSourceView->getName() . '_field_name_' . $fieldView->getName(),
@@ -182,29 +188,13 @@ class DataSourceExtension extends \Twig_Extension
         return $this->renderTheme($dataSourceView, $viewData, $blockNames);
     }
 
-    private function validateSortOptions(array $options, DataSourceViewInterface $dataSource)
-    {
-        $optionsResolver = new OptionsResolver();
-        $optionsResolver
-            ->setDefaults([
-                'route' => $this->getCurrentRoute($dataSource),
-                'additional_parameters' => [],
-                'ascending' => '&uarr;',
-                'descending' => '&darr;',
-            ])
-            ->setAllowedTypes('route', 'string')
-            ->setAllowedTypes('additional_parameters', 'array')
-            ->setAllowedTypes('ascending', 'string')
-            ->setAllowedTypes('descending', 'string');
-        $options = $optionsResolver->resolve($options);
-        return $options;
-    }
-
-    public function datasourceSort(FieldViewInterface $fieldView, array $options = [], array $vars = [])
+    public function datasourceSort(\Twig_Environment $environment, FieldViewInterface $fieldView, array $options = [], array $vars = [])
     {
         if (!$fieldView->getAttribute('sortable')) {
             return;
         }
+
+        $this->initRuntime($environment);
 
         $dataSourceView = $fieldView->getDataSourceView();
         $blockNames = [
@@ -231,30 +221,9 @@ class DataSourceExtension extends \Twig_Extension
         return $this->renderTheme($dataSourceView, $viewData, $blockNames);
     }
 
-    private function validatePaginationOptions(array $options, DataSourceViewInterface $dataSource)
+    public function datasourcePagination(\Twig_Environment $environment, DataSourceViewInterface $view, $options = [], $vars = [])
     {
-        $optionsResolver = new OptionsResolver();
-        $optionsResolver
-            ->setDefined(['max_pages'])
-            ->setDefaults([
-                'route' => $this->getCurrentRoute($dataSource),
-                'additional_parameters' => [],
-                'active_class' => 'active',
-                'disabled_class' => 'disabled',
-                'translation_domain' => 'AdminPanelBundle'
-            ])
-            ->setAllowedTypes('route', 'string')
-            ->setAllowedTypes('additional_parameters', 'array')
-            ->setAllowedTypes('max_pages', 'int')
-            ->setAllowedTypes('active_class', 'string')
-            ->setAllowedTypes('disabled_class', 'string')
-            ->setAllowedTypes('translation_domain', 'string');
-        $options = $optionsResolver->resolve($options);
-        return $options;
-    }
-
-    public function datasourcePagination(DataSourceViewInterface $view, $options = [], $vars = [])
-    {
+        $this->initRuntime($environment);
         $blockNames = [
             'datasource_' . $view->getName() . '_pagination',
             'datasource_pagination',
@@ -317,34 +286,10 @@ class DataSourceExtension extends \Twig_Extension
         return $this->renderTheme($view, $viewData, $blockNames);
     }
 
-    /**
-     * Validate and resolve options passed in Twig to datasource_results_per_page_widget
-     *
-     * @param array $options
-     * @return array
-     */
-    private function validateMaxResultsOptions(array $options, DataSourceViewInterface $dataSource)
+    public function datasourceMaxResults(\Twig_Environment $environment, DataSourceViewInterface $view, $options = [], $vars = [])
     {
-        $optionsResolver = new OptionsResolver();
-        $optionsResolver
-            ->setDefaults([
-                'route' => $this->getCurrentRoute($dataSource),
-                'active_class' => 'active',
-                'additional_parameters' => [],
-                'results' => [5, 10, 20, 50, 100]
-            ])
-            ->setAllowedTypes('route', 'string')
-            ->setAllowedTypes('active_class', 'string')
-            ->setAllowedTypes('additional_parameters', 'array')
-            ->setAllowedTypes('results', 'array');
+        $this->initRuntime($environment);
 
-        $options = $optionsResolver->resolve($options);
-
-        return $options;
-    }
-
-    public function datasourceMaxResults(DataSourceViewInterface $view, $options = [], $vars = [])
-    {
         $options = $this->validateMaxResultsOptions($options, $view);
         $blockNames = [
             'datasource_' . $view->getName() . '_max_results',
@@ -371,6 +316,72 @@ class DataSourceExtension extends \Twig_Extension
         ];
 
         return $this->renderTheme($view, $viewData, $blockNames);
+    }
+
+    private function validateSortOptions(array $options, DataSourceViewInterface $dataSource)
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver
+            ->setDefaults([
+                'route' => $this->getCurrentRoute($dataSource),
+                'additional_parameters' => [],
+                'ascending' => '&uarr;',
+                'descending' => '&darr;',
+            ])
+            ->setAllowedTypes('route', 'string')
+            ->setAllowedTypes('additional_parameters', 'array')
+            ->setAllowedTypes('ascending', 'string')
+            ->setAllowedTypes('descending', 'string');
+        $options = $optionsResolver->resolve($options);
+        return $options;
+    }
+
+    private function validatePaginationOptions(array $options, DataSourceViewInterface $dataSource)
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver
+            ->setDefined(['max_pages'])
+            ->setDefaults([
+                'route' => $this->getCurrentRoute($dataSource),
+                'additional_parameters' => [],
+                'active_class' => 'active',
+                'disabled_class' => 'disabled',
+                'translation_domain' => 'AdminPanelBundle'
+            ])
+            ->setAllowedTypes('route', 'string')
+            ->setAllowedTypes('additional_parameters', 'array')
+            ->setAllowedTypes('max_pages', 'int')
+            ->setAllowedTypes('active_class', 'string')
+            ->setAllowedTypes('disabled_class', 'string')
+            ->setAllowedTypes('translation_domain', 'string');
+        $options = $optionsResolver->resolve($options);
+        return $options;
+    }
+
+    /**
+     * Validate and resolve options passed in Twig to datasource_results_per_page_widget
+     *
+     * @param array $options
+     * @return array
+     */
+    private function validateMaxResultsOptions(array $options, DataSourceViewInterface $dataSource)
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver
+            ->setDefaults([
+                'route' => $this->getCurrentRoute($dataSource),
+                'active_class' => 'active',
+                'additional_parameters' => [],
+                'results' => [5, 10, 20, 50, 100]
+            ])
+            ->setAllowedTypes('route', 'string')
+            ->setAllowedTypes('active_class', 'string')
+            ->setAllowedTypes('additional_parameters', 'array')
+            ->setAllowedTypes('results', 'array');
+
+        $options = $optionsResolver->resolve($options);
+
+        return $options;
     }
 
     private function getCurrentRoute(DataSourceViewInterface $dataSource)

@@ -20,4 +20,9 @@ final class BetweenDateType extends DateType
             'date_format' => null,
         ]);
     }
+
+    public function getName()
+    {
+        return 'between_dates';
+    }
 }

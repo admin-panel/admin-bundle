@@ -52,26 +52,9 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
         $this->extension = new DataSourceExtension($this->getContainer(), 'datasource.html.twig');
     }
 
-    /**
-     * @expectedException \Twig_Error_Loader
-     * @expectedExceptionMessage Unable to find template "this_is_not_valid_path.html.twig"
-     */
-    public function testInitRuntimeShouldThrowExceptionBecauseNotExistingTheme()
-    {
-        $this->twig->addExtension(new DataSourceExtension($this->getContainer(), 'this_is_not_valid_path.html.twig'));
-        $this->twig->initRuntime();
-    }
-
-    public function testInitRuntimeWithValidPathToTheme()
-    {
-        $this->twig->addExtension($this->extension);
-        $this->twig->initRuntime();
-    }
-
     public function testDataSourceFilterCount()
     {
         $this->twig->addExtension($this->extension);
-        $this->twig->initRuntime();
 
         $datasourceView = $this->getDataSourceView('datasource');
         $fieldView1 = $this->createMock(FieldViewInterface::class);
@@ -94,7 +77,7 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue([$fieldView1, $fieldView2, $fieldView3]));
 
         $this->assertEquals(
-            $this->extension->datasourceFilterCount($datasourceView),
+            $this->extension->datasourceFilterCount($this->twig, $datasourceView),
             2
         );
     }
@@ -102,7 +85,6 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
     public function testDataSourceRenderBlock()
     {
         $this->twig->addExtension($this->extension);
-        $this->twig->initRuntime();
         $template = $this->createMock('\Twig_Template');
 
         $template->expects($this->at(0))
@@ -132,13 +114,16 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
             ])
             ->will($this->returnValue(true));
 
-        $this->extension->datasourceFilter($datasourceView);
+        $this->extension->datasourceFilter($this->twig, $datasourceView);
     }
 
     public function testDataSourceRenderBlockFromParent()
     {
         $this->twig->addExtension($this->extension);
-        $this->twig->initRuntime();
+
+        if (method_exists($this->twig, 'initRuntime')) {
+            $this->twig->initRuntime();
+        }
 
         $parent = $this->createMock('\Twig_Template');
         $template = $this->createMock('\Twig_Template');
@@ -180,7 +165,7 @@ class DataSourceExtensionTest extends \PHPUnit_Framework_TestCase
             ])
             ->will($this->returnValue(true));
 
-        $this->extension->datasourceFilter($datasourceView);
+        $this->extension->datasourceFilter($this->twig, $datasourceView);
     }
 
     private function getRouter()

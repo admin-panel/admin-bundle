@@ -1,19 +1,30 @@
+# Dbal support
+
+We supporting not only entites, but results of custom dbal queries as well.
+To use dbal queries we need to create element which use connection and dbal driver from admin panel. 
+
+### 1. Create element with dbal
+
+Example:
+
+```php
 <?php
 
-declare (strict_types = 1);
+// src/AppBundle/Admin/UserElement.php
 
-namespace AdminPanel\Symfony\AdminBundle\Tests\Functional\Element;
+namespace AppBundle\Admin;
 
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
 use AdminPanel\Symfony\AdminBundle\Form\Type\BetweenDateType;
 use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
+use AdminPanel\Component\DataSource\DataSourceInterface;
+use AdminPanel\Component\DataGrid\DataGridInterface;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\HttpKernel\Kernel;
 
-final class DbalUserElement extends GenericListBatchDeleteElement
+class UserElement extends GenericListBatchDeleteElement
 {
     /**
      * @var Connection
@@ -29,8 +40,8 @@ final class DbalUserElement extends GenericListBatchDeleteElement
     /**
      * Initialize DataGrid.
      *
-     * @param \AdminPanel\Component\DataGrid\DataGridFactoryInterface $factory
-     * @return \AdminPanel\Component\DataGrid\DataGridInterface
+     * @param DataGridFactoryInterface $factory
+     * @return DataGridInterface
      */
     protected function initDataGrid(DataGridFactoryInterface $factory)
     {
@@ -38,6 +49,8 @@ final class DbalUserElement extends GenericListBatchDeleteElement
         $datagrid = $factory->createDataGrid(
             $this->getId() // this is the ID of the element's datagrid
         );
+
+        //field mapping is important here!!
         $datagrid->addColumn('username', 'text', [
             'label' => 'Username',
             'field_mapping' => ['[username]'],
@@ -79,8 +92,8 @@ final class DbalUserElement extends GenericListBatchDeleteElement
     /**
      * Initialize DataSource.
      *
-     * @param \AdminPanel\Component\DataSource\DataSourceFactoryInterface $factory
-     * @return \AdminPanel\Component\DataSource\DataSourceInterface
+     * @param DataSourceFactoryInterface $factory
+     * @return DataSourceInterface
      */
     protected function initDataSource(DataSourceFactoryInterface $factory)
     {
@@ -91,6 +104,7 @@ final class DbalUserElement extends GenericListBatchDeleteElement
             ->from('admin_panel_users', 'u')
             ->orderBy('u.createdAt', 'DESC');
 
+        // here we are using dbal driver and pass needed options like queryBuilder, countField and indexField
         $datasource = $factory->createDataSource('doctrine-dbal', [
             'queryBuilder' => $queryBuilder,
             'countField' => 'u.id',
@@ -108,7 +122,7 @@ final class DbalUserElement extends GenericListBatchDeleteElement
             'field' => 'u.createdAt',
             'form_filter' => true,
             'sortable' => true,
-            'form_type'  => version_compare(Kernel::VERSION, '2.8.0', '<') ? 'datetime' : DateTimeType::class,
+            'form_type'  => DateTimeType::class,
             'form_from_options' => [
                 'widget' => 'single_text',
                 'input' => 'string',
@@ -121,7 +135,7 @@ final class DbalUserElement extends GenericListBatchDeleteElement
         $datasource->addField('createdAtDate', 'datetime', 'between', [
             'field' => 'u.createdAt',
             'form_filter' => true,
-            'form_type'  => version_compare(Kernel::VERSION, '2.8.0', '<') ? 'between_dates' : BetweenDateType::class,
+            'form_type'  => BetweenDateType::class,
             'form_from_options' => [
                 'date_format' => 'Y-m-d 00:00:00',
                 'widget' => 'single_text',
@@ -151,14 +165,13 @@ final class DbalUserElement extends GenericListBatchDeleteElement
     /**
      * ID will appear in routes:
      * - http://example.com/admin/list/{name}
-     * - http://example.com/admin/form/{name}
      * etc.
      *
      * @return string
      */
     public function getId()
     {
-        return 'admin_users_dbal';
+        return 'admin_users';
     }
 
     /**
@@ -177,3 +190,20 @@ final class DbalUserElement extends GenericListBatchDeleteElement
         $this->connection->delete('admin_panel_users', ['id' => $index]);
     }
 }
+```
+
+### 2. Register element
+
+After you create element you have to register using symfony DIC configuration.
+
+Example Element definition in yaml:
+
+```yml
+services:
+    app.user.admin_element:
+        class: AppBundle\Admin\UserElement
+        arguments:
+            - '@doctrine.dbal.default_connection'
+        tags:
+            - { name: admin.element }
+```
