@@ -7,7 +7,6 @@ namespace AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context;
 use AdminPanel\Symfony\AdminBundle\Admin\Context\ContextAbstract;
 use AdminPanel\Symfony\AdminBundle\Admin\Context\Request\HandlerInterface;
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\BatchElement;
-use AdminPanel\Symfony\AdminBundle\Admin\CRUD\FormElement;
 use AdminPanel\Symfony\AdminBundle\Admin\Element;
 use AdminPanel\Symfony\AdminBundle\Event\FormEvent;
 use Symfony\Component\Form\Form;

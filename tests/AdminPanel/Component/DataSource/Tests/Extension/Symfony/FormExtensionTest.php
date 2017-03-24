@@ -416,7 +416,7 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
 
                     case 'form_type':
                         if ($type == 'number') {
-                            return 'text';
+                            return Form\Extension\Core\Type\TextType::class;
                         } else {
                             return null;
                         }

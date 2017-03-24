@@ -3,17 +3,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="datagrid.twig.extension.class">AdminPanel\Symfony\AdminBundle\Twig\Extension\DataGridExtension</parameter>
-        <parameter key="datasource.twig.extension.class">AdminPanel\Symfony\AdminBundle\Twig\Extension\DataSourceExtension</parameter>
-    </parameters>
-
     <services>
-        <service id="datagrid.twig.extension" class="%datagrid.twig.extension.class%" public="false">
+        <service id="datagrid.twig.extension" class="AdminPanel\Symfony\AdminBundle\Twig\Extension\DataGridExtension">
             <tag name="twig.extension" />
             <argument>%datagrid.twig.themes%</argument>
         </service>
-        <service id="datasource.twig.extension" class="%datasource.twig.extension.class%" public="false">
+        <service id="datasource.twig.extension" class="AdminPanel\Symfony\AdminBundle\Twig\Extension\DataSourceExtension">
             <tag name="twig.extension" />
             <argument type="service" id="service_container" />
             <argument>%datasource.twig.template%</argument>

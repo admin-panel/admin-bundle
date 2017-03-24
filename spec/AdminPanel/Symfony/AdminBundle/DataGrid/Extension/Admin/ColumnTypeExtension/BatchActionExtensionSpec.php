@@ -11,6 +11,8 @@ use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
 use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
@@ -147,7 +149,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
             ]
         )->willReturn('path_to_batch_action');
 
-        $formBuilder->add('action', 'choice', [
+        $formBuilder->add('action', ChoiceType::class, [
             'choices' => [
                 0 => 'crud.list.batch.empty_choice',
                 'path_to_batch_action' => 'batch_action_label'
@@ -155,7 +157,7 @@ class BatchActionExtensionSpec extends ObjectBehavior
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
 
-        $formBuilder->add('submit', 'submit', [
+        $formBuilder->add('submit', SubmitType::class, [
             'label' => 'crud.list.batch.confirm',
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
@@ -203,14 +205,14 @@ class BatchActionExtensionSpec extends ObjectBehavior
             ]
         )->willReturn('path_to_batch_action');
 
-        $formBuilder->add('action', 'choice', [
+        $formBuilder->add('action', ChoiceType::class, [
             'choices' => [
                 0 => 'crud.list.batch.empty_choice',
                 'path_to_batch_action' => 'batch_action_label'
             ],
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
-        $formBuilder->add('submit', 'submit', [
+        $formBuilder->add('submit', SubmitType::class, [
             'label' => 'crud.list.batch.confirm',
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
@@ -254,14 +256,14 @@ class BatchActionExtensionSpec extends ObjectBehavior
             ]
         )->willReturn('path_to_batch_action');
 
-        $formBuilder->add('action', 'choice', [
+        $formBuilder->add('action', ChoiceType::class, [
             'choices' => [
                 0 => 'crud.list.batch.empty_choice',
                 'path_to_batch_action' => 'batch_action_label'
             ],
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
-        $formBuilder->add('submit', 'submit', [
+        $formBuilder->add('submit', SubmitType::class, [
             'label' => 'crud.list.batch.confirm',
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
@@ -300,14 +302,14 @@ class BatchActionExtensionSpec extends ObjectBehavior
             ]
         )->willReturn('path_to_batch_action');
 
-        $formBuilder->add('action', 'choice', [
+        $formBuilder->add('action', ChoiceType::class, [
             'choices' => [
                 0 => 'crud.list.batch.empty_choice',
                 'path_to_batch_action' => 'action_name'
             ],
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
-        $formBuilder->add('submit', 'submit', [
+        $formBuilder->add('submit', SubmitType::class, [
             'label' => 'crud.list.batch.confirm',
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();

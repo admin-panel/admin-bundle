@@ -6,9 +6,19 @@ namespace AdminPanel\Component\DataSource\Driver\Doctrine\DBAL\Extension\Core\Fi
 
 use AdminPanel\Component\DataSource\Event\FieldEvent\ParameterEventArgs;
 use AdminPanel\Component\DataSource\Event\FieldEvent\ViewEventArgs;
+use AdminPanel\Component\DataSource\Extension\Symfony\Form\Type\BetweenType;
 use AdminPanel\Component\DataSource\Field\FieldAbstractExtension;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use AdminPanel\Component\DataSource\DataSourceInterface;
+use AdminPanel\Symfony\AdminBundle\Form\Type\BetweenDateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use AdminPanel\Component\DataSource\Event\FieldEvents;
@@ -188,8 +198,8 @@ final class FormFieldExtension extends FieldAbstractExtension
         $options = $field->getOption('form_options');
         $options = array_merge($options, ['required' => false, 'auto_initialize' => false]);
 
-        $form = $this->formFactory->createNamed($datasource->getName(), 'collection', null, ['csrf_protection' => false]);
-        $fieldsForm = $this->formFactory->createNamed(DataSourceInterface::PARAMETER_FIELDS, 'form', null, ['auto_initialize' => false]);
+        $form = $this->formFactory->createNamed($datasource->getName(), CollectionType::class, null, ['csrf_protection' => false]);
+        $fieldsForm = $this->formFactory->createNamed(DataSourceInterface::PARAMETER_FIELDS, FormType::class, null, ['auto_initialize' => false]);
 
         switch ($field->getComparison()) {
             case 'between':
@@ -202,6 +212,24 @@ final class FormFieldExtension extends FieldAbstractExtension
                 switch ($type) {
                     case 'boolean':
                         $this->buildBooleanForm($fieldsForm, $field, $options);
+                        break;
+                    case 'text':
+                        $fieldsForm->add($field->getName(), TextType::class, $options);
+                        break;
+                    case 'date':
+                        $fieldsForm->add($field->getName(), DateType::class, $options);
+                        break;
+                    case 'time':
+                        $fieldsForm->add($field->getName(), TimeType::class, $options);
+                        break;
+                    case 'datetime':
+                        $fieldsForm->add($field->getName(), DateTimeType::class, $options);
+                        break;
+                    case 'choice':
+                        $fieldsForm->add($field->getName(), ChoiceType::class, $options);
+                        break;
+                    case 'number':
+                        $fieldsForm->add($field->getName(), NumberType::class, $options);
                         break;
                     default:
                         $fieldsForm->add($field->getName(), $type, $options);
@@ -227,11 +255,10 @@ final class FormFieldExtension extends FieldAbstractExtension
                 '0' => 'no'
             ],
             'multiple' => false,
-            'empty_value' => ''
         ];
 
         $options = array_merge($defaultOptions, $options);
-        $form->add($field->getName(), 'choice', $options);
+        $form->add($field->getName(), ChoiceType::class, $options);
     }
 
     /**
@@ -241,13 +268,13 @@ final class FormFieldExtension extends FieldAbstractExtension
      */
     protected function buildBetweenComparisonForm(FormInterface $form, FieldTypeInterface $field, $options = [])
     {
-        $betweenBuilder = $this->getFormFactory()->createNamedBuilder($field->getName(), 'datasource_between', null, $options);
+        $betweenBuilder = $this->getFormFactory()->createNamedBuilder($field->getName(), BetweenType::class, null, $options);
 
         $fromOptions = $field->getOption('form_from_options');
         $toOptions = $field->getOption('form_to_options');
         $fromOptions = array_merge($options, $fromOptions);
         $toOptions = array_merge($options, $toOptions);
-        $type = $field->getType();
+        $type = DateTimeType::class;
 
         if ($field->hasOption('form_type')) {
             $type = $field->getOption('form_type');

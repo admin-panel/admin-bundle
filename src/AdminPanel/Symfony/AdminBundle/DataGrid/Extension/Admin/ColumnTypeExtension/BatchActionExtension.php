@@ -9,6 +9,8 @@ use AdminPanel\Symfony\AdminBundle\Exception\RuntimeException;
 use AdminPanel\Component\DataGrid\Column\ColumnAbstractTypeExtension;
 use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
 use AdminPanel\Component\DataGrid\Column\HeaderViewInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
@@ -38,7 +40,7 @@ class BatchActionExtension extends ColumnAbstractTypeExtension
     protected $formBuilder;
 
     /**
-     * @var \Symfony\Component\OptionsResolver\OptionsResolverInterface
+     * @var \Symfony\Component\OptionsResolver\OptionsResolver
      */
     protected $actionOptionsResolver;
 
@@ -160,11 +162,11 @@ class BatchActionExtension extends ColumnAbstractTypeExtension
     private function buildBatchForm(ColumnTypeInterface $column, array $batchActions)
     {
         if (count($batchActions) > 1) {
-            $this->formBuilder->add('action', 'choice', [
+            $this->formBuilder->add('action', ChoiceType::class, [
                 'choices' => $batchActions,
                 'translation_domain' => $column->getOption('translation_domain')
             ]);
-            $this->formBuilder->add('submit', 'submit', [
+            $this->formBuilder->add('submit', SubmitType::class, [
                 'label' => 'crud.list.batch.confirm',
                 'translation_domain' => 'AdminPanelBundle'
             ]);

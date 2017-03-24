@@ -7,6 +7,7 @@ namespace AdminPanel\Component\DataSource\Tests\Extension\Symfony;
 use AdminPanel\Component\DataSource\Driver\Collection\Extension\Core\Field\Boolean;
 use AdminPanel\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension;
 use ReflectionMethod;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +38,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
         $form->expects($this->exactly(1))->method('add')
             ->with(
                 $this->equalTo('name'),
-                $this->equalTo('choice'),
+                $this->equalTo(ChoiceType::class),
                 $this->equalTo(
                     [
                         'choices' => [
@@ -45,7 +46,6 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
                             '0' => 'nie',
                         ],
                         'multiple' => false,
-                        'empty_value' => ''
                     ]
                 )
             );
@@ -92,7 +92,7 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
         $form->expects($this->exactly(1))->method('add')
             ->with(
                 $this->equalTo('name'),
-                $this->equalTo('choice'),
+                $this->equalTo(ChoiceType::class),
                 $this->equalTo(
                     [
                         'choices' => [
@@ -100,7 +100,6 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
                             '0' => 'no',
                         ],
                         'multiple' => false,
-                        'empty_value' => ''
                     ]
                 )
             );
