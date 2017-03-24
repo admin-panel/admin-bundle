@@ -16,7 +16,6 @@ namespace AppBundle\Admin;
 
 use AdminPanel\Symfony\AdminBundle\Admin\CRUD\GenericListBatchDeleteElement;
 use AdminPanel\Symfony\AdminBundle\Form\Type\BetweenDateType;
-use AdminPanel\Symfony\AdminBundle\Tests\Functional\Entity\User;
 use AdminPanel\Component\DataGrid\DataGridFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceFactoryInterface;
 use AdminPanel\Component\DataSource\DataSourceInterface;
@@ -198,4 +197,20 @@ services:
             - '@doctrine.dbal.default_connection'
         tags:
             - { name: admin.element }
+```
+
+Example Element definition in xml:
+
+```xml
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="app.user.admin_element" class="AppBundle\Admin\UserElement">
+            <argument type="service" id="doctrine.dbal.default_connection"/>
+            <tag name="admin.element"/>
+        </service>
+    </services>
+</container>
 ```
