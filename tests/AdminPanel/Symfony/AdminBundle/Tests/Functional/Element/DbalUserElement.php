@@ -162,14 +162,6 @@ final class DbalUserElement extends GenericListBatchDeleteElement
     }
 
     /**
-     * @return string
-     */
-    public function getClassName()
-    {
-        return User::class;
-    }
-
-    /**
      * @param mixed $index
      */
     public function delete($index)
