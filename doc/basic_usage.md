@@ -5,6 +5,9 @@ Element is just object which allow admin panel to handling your website resource
 
 At this moment we have handle list and batch elements.
 
+This document assumes that you are using typical doctrine entity with getters and setters,
+If you fetch data from database without any entity please check our [dbal](dbal.md) documentation.
+
 ## To generate list of our resources we need do following steps:
 
 ### 1. Create element
