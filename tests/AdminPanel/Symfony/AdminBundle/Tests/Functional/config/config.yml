@@ -38,6 +38,12 @@ framework:
         storage_id: 'session.storage.mock_file'
     assets: ~
 
+monolog:
+    handlers:
+        main:
+            type: console
+            level: error
+
 twig:
     paths:
         '%kernel.root_dir%/config/Resources/views': 'app'
