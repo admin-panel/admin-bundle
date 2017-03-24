@@ -36,6 +36,7 @@ framework:
         engines: ['twig']
     session:
         storage_id: 'session.storage.mock_file'
+    assets: ~
 
 twig:
     paths:
