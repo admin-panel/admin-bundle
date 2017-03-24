@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace AdminPanel\Symfony\AdminBundle\DataGrid\Extension\Symfony\ColumnTypeExtension;
 
 use AdminPanel\Symfony\AdminBundle\Form\Type\RowType;
-use AdminPanel\Symfony\AdminBundle\Form\Type\Symfony3RowType;
-use Doctrine\Common\Util\ClassUtils;
 use AdminPanel\Component\DataGrid\Column\CellViewInterface;
 use AdminPanel\Component\DataGrid\Column\ColumnAbstractTypeExtension;
 use AdminPanel\Component\DataGrid\Column\ColumnTypeInterface;
-use AdminPanel\Component\DataGrid\DataGridInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -150,7 +149,7 @@ class FormExtension extends ColumnAbstractTypeExtension
             case 'entity':
                 $field = [
                     'name' => $column->getOption('relation_field'),
-                    'type' => $this->isSymfony3() ? $this->getEntityTypeName() : 'entity',
+                    'type' => EntityType::class,
                     'options' => [],
                 ];
 
@@ -195,9 +194,7 @@ class FormExtension extends ColumnAbstractTypeExtension
                 foreach ($fields as &$field) {
                     $value = $column->getDataMapper()->getData($field['name'], $object);
                     if (!isset($field['type'])) {
-                        $field['type'] = $this->isSymfony3()
-                            ? $this->getDateTimeTypeName()
-                            : 'datetime';
+                        $field['type'] = DateTimeType::class;
                     }
                     if (is_numeric($value) && !isset($field['options']['input'])) {
                         $field['options']['input'] = 'timestamp';
@@ -212,21 +209,12 @@ class FormExtension extends ColumnAbstractTypeExtension
                 break;
         }
 
-        if ($this->isSymfony3()) {
-            $formBuilderOptions = [
-                'entry_type' => $this->getRowTypeName(),
-                'csrf_protection' => false,
-            ];
-        } else {
-            $formBuilderOptions = [
-                'type' => new RowType($fields),
-                'csrf_protection' => false,
-            ];
-        }
+        $formBuilderOptions = [
+            'entry_type' => RowType::class,
+            'csrf_protection' => false,
+        ];
 
-        if ($this->isSymfony3()) {
-            $formBuilderOptions['entry_options']['fields'] = $fields;
-        }
+        $formBuilderOptions['entry_options']['fields'] = $fields;
 
         $formData = [];
         foreach (array_keys($fields) as $fieldName) {
@@ -236,9 +224,7 @@ class FormExtension extends ColumnAbstractTypeExtension
         //Create form builder.
         $formBuilder = $this->formFactory->createNamedBuilder(
             $column->getDataGrid()->getName(),
-            ($this->isSymfony3())
-                ? $this->getCollectionTypeName()
-                : 'collection',
+            CollectionType::class,
             [$index => $formData],
             $formBuilderOptions
         );
@@ -249,40 +235,4 @@ class FormExtension extends ColumnAbstractTypeExtension
         return $this->forms[$formId];
     }
 
-    /**
-     * @return string
-     */
-    private function getEntityTypeName()
-    {
-        return 'Symfony\Bridge\Doctrine\Form\Type\EntityType';
-    }
-
-    /**
-     * @return string
-     */
-    private function getDateTimeTypeName()
-    {
-        return 'Symfony\Component\Form\Extension\Core\Type\DateTimeType';
-    }
-
-    private function getCollectionTypeName()
-    {
-        return 'Symfony\Component\Form\Extension\Core\Type\CollectionType';
-    }
-
-    /**
-     * @return string
-     */
-    private function getRowTypeName()
-    {
-        return Symfony3RowType::class;
-    }
-
-    /**
-     * @return bool
-     */
-    private function isSymfony3()
-    {
-        return method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
-    }
 }
