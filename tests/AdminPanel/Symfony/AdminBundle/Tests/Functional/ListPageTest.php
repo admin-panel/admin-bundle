@@ -150,8 +150,8 @@ class ListPageTest extends FunctionalTestCase
 
     public function test_that_can_filter_result_by_different_types_for_dbal()
     {
-        $this->dbContext->createUser('l3l0', true, 10.30, 6);
-        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'));
+        $this->dbContext->createUser('l3l0', true, 10.30, 6, null, false);
+        $this->dbContext->createUser('otherUser', false, 5.35, 4, new \DateTime('+1 day'), true);
 
         (new ListPage($this->client, 'admin_users_dbal'))
             ->open()
@@ -181,6 +181,11 @@ class ListPageTest extends FunctionalTestCase
             ->pressSearchButton()
             ->shouldHaveElementsOnTheList(1)
             ->shouldHaveElementOnTheListAtPosition('l3l0', 1)
+            ->fillFilterForm([
+                'hasSomethingElse' => true
+            ])
+            ->pressSearchButton()
+            ->shouldHaveElementOnTheListAtPosition('otherUser', 1)
         ;
     }
 
