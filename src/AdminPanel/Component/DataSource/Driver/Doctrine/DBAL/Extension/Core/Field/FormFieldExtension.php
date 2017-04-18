@@ -10,7 +10,7 @@ use AdminPanel\Component\DataSource\Extension\Symfony\Form\Type\BetweenType;
 use AdminPanel\Component\DataSource\Field\FieldAbstractExtension;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use AdminPanel\Component\DataSource\DataSourceInterface;
-use AdminPanel\Symfony\AdminBundle\Form\Type\BetweenDateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -67,7 +67,7 @@ final class FormFieldExtension extends FieldAbstractExtension
      */
     public function getExtendedFieldTypes()
     {
-        return ['text', 'number', 'boolean', 'datetime', 'date'];
+        return ['text', 'number', 'boolean', 'datetime', 'date', 'checkbox'];
     }
 
     /**
@@ -227,6 +227,9 @@ final class FormFieldExtension extends FieldAbstractExtension
                         break;
                     case 'choice':
                         $fieldsForm->add($field->getName(), ChoiceType::class, $options);
+                        break;
+                    case 'checkbox':
+                        $fieldsForm->add($field->getName(), CheckboxType::class, $options);
                         break;
                     case 'number':
                         $fieldsForm->add($field->getName(), NumberType::class, $options);

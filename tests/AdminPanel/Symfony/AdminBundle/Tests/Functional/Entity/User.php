@@ -30,6 +30,11 @@ class User
     public $hasNewsletter = false;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    public $hasSomethingElse;
+
+    /**
      * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     public $credits = 0.00;

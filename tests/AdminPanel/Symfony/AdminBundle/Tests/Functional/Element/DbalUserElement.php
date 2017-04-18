@@ -87,7 +87,7 @@ final class DbalUserElement extends GenericListBatchDeleteElement
         /* @var \Doctrine\DBAL\Query\QueryBuilder $queryBuilder */
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
-            ->select('u.id, u.username, u.hasNewsletter, u.credits, u.createdAt')
+            ->select('u.id, u.username, u.hasNewsletter, u.hasSomethingElse, u.credits, u.createdAt')
             ->from('admin_panel_users', 'u')
             ->orderBy('u.createdAt', 'DESC');
 
@@ -142,6 +142,14 @@ final class DbalUserElement extends GenericListBatchDeleteElement
 
         $datasource->addField('hasNewsletter', 'boolean', 'isNull', [
             'field' => 'u.has_newsletter',
+            'form_filter' => true
+        ]);
+
+        $datasource->addField('hasSomethingElse', 'checkbox', 'eq', [
+            'field' => 'u.hasSomethingElse',
+            'form_options' => [
+                'label' => 'Something'
+            ],
             'form_filter' => true
         ]);
 
