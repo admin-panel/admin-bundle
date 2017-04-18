@@ -229,14 +229,21 @@ class ListPage extends BasePage
      */
     public function fillFilterForm(array $filterCriteria) : ListPage
     {
-        $this->form = $this->getCrawler()->filter("form.filters")->form([
+        $parameters = [
             sprintf('%s[fields][username]', $this->pageName) => $filterCriteria['Username'] ?? '',
             sprintf('%s[fields][credits]', $this->pageName) => $filterCriteria['Credits'] ?? '',
             sprintf('%s[fields][createdAt][from]', $this->pageName) => $filterCriteria['From'] ?? '',
             sprintf('%s[fields][createdAt][to]', $this->pageName) => $filterCriteria['To'] ?? '',
             sprintf('%s[fields][createdAtDate][from]', $this->pageName) => $filterCriteria['DateFrom'] ?? '',
             sprintf('%s[fields][createdAtDate][to]', $this->pageName) => $filterCriteria['DateTo'] ?? '',
-        ], 'GET');
+        ];
+
+        if (isset($filterCriteria['hasSomethingElse'])) {
+            $parameters[sprintf('%s[fields][hasSomethingElse]', $this->pageName)] = (bool) $filterCriteria['hasSomethingElse'];
+        }
+
+        $this->form = $this->getCrawler()->filter("form.filters")->form($parameters, 'GET');
+
 
         return $this;
     }

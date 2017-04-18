@@ -41,6 +41,7 @@ final class CoreExtension extends DriverAbstractExtension
             new Field\DateTimeField(),
             new Field\BooleanField(),
             new Field\DateField(),
+            new Field\CheckboxField()
         ];
     }
 

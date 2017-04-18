@@ -57,7 +57,7 @@ final class FormFieldExtension extends FieldAbstractExtension
      */
     public function getExtendedFieldTypes()
     {
-        return ['text', 'number', 'boolean', 'datetime', 'date'];
+        return ['text', 'number', 'boolean', 'datetime', 'date', 'checkbox'];
     }
 
     /**
