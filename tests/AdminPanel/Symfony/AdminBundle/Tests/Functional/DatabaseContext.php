@@ -43,6 +43,7 @@ final class DatabaseContext
      * @param float $credits
      * @param int $itemQuantity
      * @param \DateTimeInterface $dateTime
+     * @param bool $hasSomethingElse
      * @return User
      */
     public function createUser(
@@ -50,13 +51,15 @@ final class DatabaseContext
         bool $hasNewsletter = false,
         float $credits = 0.00,
         int $itemQuantity = 0,
-        \DateTimeInterface $dateTime = null
+        \DateTimeInterface $dateTime = null,
+        bool $hasSomethingElse = false
     ) : User {
         $user = new User();
         $user->username = $username;
         $user->hasNewsletter = $hasNewsletter;
         $user->credits = $credits;
         $user->itemQuantity = $itemQuantity;
+        $user->hasSomethingElse = $hasSomethingElse;
 
         if ($dateTime) {
             $user->createdAt = $dateTime;
