@@ -450,11 +450,11 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
 
         if ($comparison == 'isNull') {
             $this->assertEquals(
-                'null',
+                'empty',
                 $form['fields']['name']->vars['choices'][0]->label
             );
             $this->assertEquals(
-                'notnull',
+                'not empty',
                 $form['fields']['name']->vars['choices'][1]->label
             );
         }
