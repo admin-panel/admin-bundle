@@ -89,7 +89,8 @@ final class DbalUserElement extends GenericListBatchDeleteElement
         $queryBuilder
             ->select('u.id, u.username, u.hasNewsletter, u.hasSomethingElse, u.credits, u.createdAt')
             ->from('admin_panel_users', 'u')
-            ->orderBy('u.createdAt', 'DESC');
+            ->orderBy('u.createdAt', 'DESC')
+            ->groupBy('u.id');
 
         $datasource = $factory->createDataSource('doctrine-dbal', [
             'queryBuilder' => $queryBuilder,
