@@ -75,7 +75,7 @@ final class DoctrineDriver extends DriverAbstract
 
         $countQueryBuilder = clone $this->currentQueryBuilder;
 
-        $countQueryBuilder->select(sprintf('COUNT(%s)', $this->countField));
+        $countQueryBuilder->select(sprintf('%s', $this->countField));
         $countQueryBuilder->resetQueryPart('orderBy');
 
         if ($max > 0) {
@@ -89,7 +89,7 @@ final class DoctrineDriver extends DriverAbstract
             $indexedResults[$sigleRow[$this->indexBy]] = $sigleRow;
         }
 
-        $count = $connection->fetchColumn($countQueryBuilder->getSQL(), $this->currentQueryBuilder->getParameters());
+        $count = count($connection->executeQuery($countQueryBuilder->getSQL(), $this->currentQueryBuilder->getParameters())->fetchAll());
 
         return new Result($indexedResults, $count);
     }
