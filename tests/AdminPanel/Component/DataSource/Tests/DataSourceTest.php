@@ -319,6 +319,36 @@ class DataSourceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Checks if exception is thrown when page is out of bound
+     */
+    public function testPageNotFoundException()
+    {
+        $driver = $this->createMock(DriverInterface::class);
+        $dataSource = new DataSource($driver);
+
+        $driver
+            ->expects($this->once())
+            ->method('getResult')
+            ->will($this->returnValue(
+                new class implements \IteratorAggregate, \Countable
+                {
+                    public function count()
+                    {
+                        return 12;
+                    }
+
+                    public function getIterator()
+                    {
+                        return new \ArrayIterator([]);
+                    }
+                }
+            ));
+
+        $this->expectException('AdminPanel\Component\DataSource\Exception\PageNotFoundException');
+        $dataSource->getResult();
+    }
+
+    /**
      * Checks preGetParameters and postGetParameters calls.
      */
     public function testGetParameters()

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\Request;
 
 use AdminPanel\Component\DataSource\DataSource;
+use AdminPanel\Component\DataSource\Exception\PageNotFoundException;
 use AdminPanel\Symfony\AdminBundle\Event\AdminEvent;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvents;
@@ -14,6 +15,7 @@ use PhpSpec\ObjectBehavior;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DataGridSetDataHandlerSpec extends ObjectBehavior
 {
@@ -95,5 +97,19 @@ class DataGridSetDataHandlerSpec extends ObjectBehavior
 
         $this->handleRequest($event, $request)
             ->shouldReturnAnInstanceOf('Symfony\Component\HttpFoundation\Response');
+    }
+
+    public function it_throws_not_found_exception_if_current_page_is_out_of_bound(
+        DataSource $dataSource,
+        DataGrid $dataGrid,
+        ListEvent $event,
+        Request $request
+    ) {
+        $dataSource->getResult()->willThrow(new PageNotFoundException());
+
+        $event->getDataGrid()->willReturn($dataGrid);
+        $event->getDataSource()->willReturn($dataSource);
+
+        $this->shouldThrow(NotFoundHttpException::class)->during('handleRequest', [$event, $request]);
     }
 }
