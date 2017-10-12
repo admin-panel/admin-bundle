@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace AdminPanel\Symfony\AdminBundle\Admin\CRUD\Context\Request;
 
+use AdminPanel\Component\DataSource\Exception\PageNotFoundException;
 use AdminPanel\Symfony\AdminBundle\Admin\Context\Request\AbstractHandler;
 use AdminPanel\Symfony\AdminBundle\Event\AdminEvent;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvent;
 use AdminPanel\Symfony\AdminBundle\Event\ListEvents;
 use AdminPanel\Symfony\AdminBundle\Exception\RequestHandlerException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DataGridSetDataHandler extends AbstractHandler
 {
@@ -28,7 +30,12 @@ class DataGridSetDataHandler extends AbstractHandler
             return $event->getResponse();
         }
 
-        $event->getDataGrid()->setData($event->getDataSource()->getResult());
+        try {
+            $event->getDataGrid()->setData($event->getDataSource()->getResult());
+        } catch (PageNotFoundException $e) {
+            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
+        }
+
         $this->eventDispatcher->dispatch(ListEvents::LIST_DATAGRID_DATA_POST_BIND, $event);
 
         if ($event->hasResponse()) {

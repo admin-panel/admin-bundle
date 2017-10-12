@@ -7,7 +7,7 @@
     "require": {
         "php": "^7.0",
         "twig/twig": "^1.7",
-        "symfony/framework-bundle" : "^3.0",
+        "symfony/framework-bundle" : "^3.3",
         "symfony/form" : "^3.0",
         "symfony/intl" : "^3.0",
         "symfony/options-resolver": "^3.0",
@@ -20,7 +20,8 @@
         "symfony/translation": "^3.0",
         "sensio/framework-extra-bundle": "^3.0",
         "symfony/twig-bundle": "^3.0",
-        "doctrine/orm": "^2.5"
+        "doctrine/orm": "^2.5",
+        "symfony/security": "^3.3"
     },
     "require-dev": {
         "symfony/class-loader": "^3.0",

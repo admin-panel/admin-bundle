@@ -616,6 +616,7 @@ class DoctrineDriverTest extends \PHPUnit_Framework_TestCase
             ->select('n')
             ->from('AdminPanel\Component\DataSource\Tests\Fixtures\News', 'n')
             ->join('n.category', 'c')
+            ->groupBy('n.category')
         ;
 
         $driverOptions = [
@@ -642,7 +643,7 @@ class DoctrineDriverTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->testDoctrineExtension->getQueryBuilder()->getQuery()->getDQL(),
-            'SELECT n FROM AdminPanel\Component\DataSource\Tests\Fixtures\News n INNER JOIN n.category c HAVING n.category IN (:category)'
+            'SELECT n FROM AdminPanel\Component\DataSource\Tests\Fixtures\News n INNER JOIN n.category c GROUP BY n.category HAVING n.category IN (:category)'
         );
     }
 
