@@ -10,6 +10,7 @@ use AdminPanel\Component\DataSource\Event\DataSourceEvent\ParametersEventArgs;
 use AdminPanel\Component\DataSource\Event\DataSourceEvent\ResultEventArgs;
 use AdminPanel\Component\DataSource\Event\DataSourceEvent\ViewEventArgs;
 use AdminPanel\Component\DataSource\Exception\DataSourceException;
+use AdminPanel\Component\DataSource\Exception\PageNotFoundException;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use AdminPanel\Component\DataSource\Event\DataSourceEvents;
@@ -251,6 +252,8 @@ class DataSource implements DataSourceInterface
 
         $result = $this->driver->getResult($this->fields, $this->getFirstResult(), $this->getMaxResults());
 
+        $this->assertPage($result);
+
         foreach ($this->getFields() as $field) {
             $field->setDirty(false);
         }
@@ -471,6 +474,23 @@ class DataSource implements DataSourceInterface
         if ($dirty) {
             $this->cache = [];
             $this->dirty = false;
+        }
+    }
+
+    private function assertPage($result)
+    {
+        if (!$result instanceof \IteratorAggregate) {
+            // Invalid results
+            return;
+        }
+
+        if (count($result) === 0) {
+            // List with no results at all
+            return;
+        }
+
+        if (count($result->getIterator()) === 0) {
+            throw new PageNotFoundException();
         }
     }
 }
