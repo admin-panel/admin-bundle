@@ -7,7 +7,7 @@
     "require": {
         "php": "^7.0",
         "twig/twig": "^1.7",
-        "symfony/framework-bundle" : "^3.0",
+        "symfony/framework-bundle" : "^3.3",
         "symfony/form" : "^3.0",
         "symfony/intl" : "^3.0",
         "symfony/options-resolver": "^3.0",
