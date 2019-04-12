@@ -7,6 +7,7 @@ namespace spec\AdminPanel\Symfony\AdminBundle\DependencyInjection\Compiler;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Config\Resource\ResourceInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
@@ -25,13 +26,7 @@ class ResourceRepositoryPassSpec extends ObjectBehavior
         $container->hasExtension(Argument::type('string'))->willReturn(false);
         $container->hasExtension('admin_panel_resource_repository')->willReturn(true);
 
-        $container->addResource(Argument::allOf(
-            Argument::type('Symfony\Component\Config\Resource\FileResource'),
-            Argument::that(function ($value) {
-                return $value instanceof FileResource &&
-                    preg_match('/context\/resource\.xml$/', $value->getResource());
-            })
-        ))->shouldBeCalled();
+        $container->fileExists(Argument::type('string'))->willReturn(true);
 
         $container->getParameterBag()->willReturn($bag);
         $container->setDefinition(
