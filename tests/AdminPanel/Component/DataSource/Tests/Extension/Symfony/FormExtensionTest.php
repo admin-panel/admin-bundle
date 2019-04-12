@@ -14,6 +14,7 @@ use AdminPanel\Component\DataSource\Field\FieldAbstractExtension;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use AdminPanel\Component\DataSource\Field\FieldView;
 use AdminPanel\Component\DataSource\Field\FieldViewInterface;
+use AdminPanel\Component\DataSource\Tests\Fixtures\Form\Extension\TestCore\TestCoreExtension;
 use Symfony\Component\Form;
 use Symfony\Component\Security;
 use AdminPanel\Component\DataSource\DataSourceInterface;
@@ -35,8 +36,8 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
         return [
             ['text'],
             ['number'],
-            ['date'],
             ['time'],
+            ['date'],
             ['datetime'],
         ];
     }
@@ -84,14 +85,14 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
         $typeFactory->createResolvedType(new BetweenType(), []);
         $registry = new Form\FormRegistry(
             [
-                new \AdminPanel\Component\DataSource\Tests\Fixtures\Form\Extension\TestCore\TestCoreExtension(),
+                new TestCoreExtension(),
                 new Form\Extension\Core\CoreExtension(),
                 new Form\Extension\Csrf\CsrfExtension(new Security\Csrf\CsrfTokenManager()),
                 new DatasourceExtension()
             ],
             $typeFactory
         );
-        return new Form\FormFactory($registry, $typeFactory);
+        return new Form\FormFactory($registry);
     }
 
     /**
@@ -131,8 +132,6 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testFormOrder()
     {
-        $self = $this;
-
         $datasource = $this->createMock('AdminPanel\Component\DataSource\DataSourceInterface');
         $view = $this->createMock('AdminPanel\Component\DataSource\DataSourceViewInterface');
 
@@ -201,13 +200,13 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
         $view
             ->expects($this->once())
             ->method('setFields')
-            ->will($this->returnCallback(function (array $fields) use ($self) {
+            ->will($this->returnCallback(function (array $fields) {
                 $names = [];
                 foreach ($fields as $field) {
                     $names[] = $field->getName();
                 }
 
-                $self->assertSame(
+                $this->assertSame(
                     [
                         'field0', 'field1', 'field2', 'field3', 'field5',
                         'field6', 'field7', 'field8', 'field9', 'field10', 'field4',
@@ -230,7 +229,6 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testFields($type)
     {
-        $self = $this;
         $formFactory = $this->getFormFactory();
         $extension = new DriverExtension($formFactory);
         $field = $this->createMock(FieldTypeInterface::class);
@@ -294,11 +292,11 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
         if ($type == 'datetime') {
             $parameters = ['datasource' => [DataSourceInterface::PARAMETER_FIELDS => ['name' =>
                 [
-                    'date' => ['year' => 2012, 'month' => 12, 'day' => 12],
+                    'date' => ['year' => (new \DateTime('now'))->format('Y'), 'month' => 12, 'day' => 12],
                     'time' => ['hour' => 12, 'minute' => 12],
                 ],
             ]]];
-            $parameters2 = ['datasource' => [DataSourceInterface::PARAMETER_FIELDS => ['name' => new \DateTime('2012-12-12 12:12:00')]]];
+            $parameters2 = ['datasource' => [DataSourceInterface::PARAMETER_FIELDS => ['name' => new \DateTime((new \DateTime('now'))->format('Y-12-12 12:12:00'))]]];
         } elseif ($type == 'time') {
             $parameters = ['datasource' => [DataSourceInterface::PARAMETER_FIELDS => ['name' =>
                 [
@@ -310,12 +308,12 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
         } elseif ($type == 'date') {
             $parameters = ['datasource' => [DataSourceInterface::PARAMETER_FIELDS => ['name' =>
                 [
-                    'year' => 2012,
-                    'month' => 12,
-                    'day' => 12,
+                    'year' => (new \DateTime('now'))->format('Y'),
+                    'month' => 10,
+                    'day' => 10,
                 ],
             ]]];
-            $parameters2 = ['datasource' => [DataSourceInterface::PARAMETER_FIELDS => ['name' => new \DateTime('2012-12-12')]]];
+            $parameters2 = ['datasource' => [DataSourceInterface::PARAMETER_FIELDS => ['name' => new \DateTime((new \DateTime('now'))->format('Y-10-10'))]]];
         } elseif ($type == 'number') {
             $parameters = ['datasource' => [DataSourceInterface::PARAMETER_FIELDS => ['name' => 123]]];
             $parameters2 = $parameters;
@@ -330,15 +328,16 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
             $ext->preBindParameter($args);
         }
         $parameters = $args->getParameter();
+
         $this->assertEquals($parameters2, $parameters);
         $fieldView = $this->createMock(FieldViewInterface::class);
 
         $fieldView
             ->expects($this->atLeastOnce())
             ->method('setAttribute')
-            ->will($this->returnCallback(function ($attribute, $value) use ($self, $type) {
+            ->will($this->returnCallback(function ($attribute, $value) use ($type) {
                 if ($attribute == 'form') {
-                    $self->assertInstanceOf('\Symfony\Component\Form\FormView', $value);
+                    $this->assertInstanceOf('\Symfony\Component\Form\FormView', $value);
                 }
             }))
         ;
@@ -356,7 +355,6 @@ class FormExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormFields($type, $comparison, $expected)
     {
-        $self = $this;
         $formFactory = $this->getFormFactory();
         $extension = new DriverExtension($formFactory);
         $field = $this->createMock(FieldTypeInterface::class);

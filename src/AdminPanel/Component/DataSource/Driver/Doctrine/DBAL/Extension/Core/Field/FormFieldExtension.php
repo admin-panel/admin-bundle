@@ -11,6 +11,7 @@ use AdminPanel\Component\DataSource\Field\FieldAbstractExtension;
 use AdminPanel\Component\DataSource\Field\FieldTypeInterface;
 use AdminPanel\Component\DataSource\DataSourceInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use AdminPanel\Symfony\AdminBundle\Form\Type\BetweenDateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

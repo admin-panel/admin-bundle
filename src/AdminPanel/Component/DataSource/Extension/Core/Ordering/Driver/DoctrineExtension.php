@@ -40,7 +40,7 @@ class DoctrineExtension extends DriverExtension implements EventSubscriberInterf
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [
             DriverEvents::PRE_GET_RESULT => ['preGetResult'],

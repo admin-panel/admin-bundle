@@ -9,7 +9,6 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Routing\RouteCollectionBuilder;
 
 class AppKernel extends Kernel
 {
@@ -25,7 +24,8 @@ class AppKernel extends Kernel
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new \AdminPanel\Symfony\AdminBundle\AdminPanelBundle()
+            new \AdminPanel\Symfony\AdminBundle\AdminPanelBundle(),
+            new \Symfony\Bundle\MonologBundle\MonologBundle()
         ];
     }
 
