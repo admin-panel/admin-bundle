@@ -55,8 +55,8 @@ class BooleanColumnExtension extends ColumnAbstractTypeExtension
                         [
                             $field => [
                                 'choices' => [
-                                    0 => $translator->trans('datagrid.boolean.no', [], 'AdminPanelBundle'),
-                                    1 => $translator->trans('datagrid.boolean.yes', [], 'AdminPanelBundle')
+                                    $translator->trans('datagrid.boolean.no', [], 'AdminPanelBundle') => 0,
+                                    $translator->trans('datagrid.boolean.yes', [], 'AdminPanelBundle') => 1
                                 ]
                             ]
                         ],

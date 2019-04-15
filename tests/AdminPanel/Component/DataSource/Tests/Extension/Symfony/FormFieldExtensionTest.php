@@ -42,8 +42,8 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(
                     [
                         'choices' => [
-                            '1' => 'tak',
-                            '0' => 'nie',
+                            'tak' => '1',
+                            'nie' => '0'
                         ],
                         'multiple' => false,
                     ]
@@ -52,8 +52,8 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
 
         $options =  [
             'choices' => [
-                '1' => 'tak',
-                '0' => 'nie'
+                'tak' => '1',
+                'nie' => '0'
             ]
         ];
 
@@ -96,8 +96,111 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(
                     [
                         'choices' => [
-                            '1' => 'yes',
-                            '0' => 'no',
+                            'yes' => '1',
+                            'no' => '0'
+                        ],
+                        'multiple' => false,
+                    ]
+                )
+            );
+
+        $options =  [];
+
+        $method->invoke(
+            $formFielExtension,
+            $form,
+            $field,
+            $options
+        );
+    }
+
+    public function testBuildNullComparisonFormWhenOptionsProvided()
+    {
+        $formFactory = $this->getMockBuilder('Symfony\Component\Form\FormFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $formFielExtension = new FormFieldExtension($formFactory);
+
+        $method = new ReflectionMethod(
+            'AdminPanel\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension',
+            'buildIsNullComparisonForm'
+        );
+        $method->setAccessible(true);
+
+        $field = $this->createMock(Boolean::class);
+
+        $field->expects($this->once())
+            ->method('getname')
+            ->will($this->returnValue('name'));
+
+        $form = $this->getMockBuilder('Symfony\Component\Form\Form')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $form->expects($this->exactly(1))->method('add')
+            ->with(
+                $this->equalTo('name'),
+                $this->equalTo(ChoiceType::class),
+                $this->equalTo(
+                    [
+                        'choices' => [
+                            'pusty' => 'null',
+                            'niepusty' => 'notnull'
+                        ],
+                        'multiple' => false,
+                    ]
+                )
+            );
+
+        $options =  [
+            'choices' => [
+                'pusty' => 'null',
+                'niepusty' => 'notnull'
+            ]
+        ];
+
+        $method->invoke(
+            $formFielExtension,
+            $form,
+            $field,
+            $options
+        );
+    }
+
+    public function testBuildNullComparisonFormWhenOptionsNotProvided()
+    {
+        $formFactory = $this->getMockBuilder('Symfony\Component\Form\FormFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $formFielExtension = new FormFieldExtension($formFactory);
+
+        $method = new ReflectionMethod(
+            'AdminPanel\Component\DataSource\Extension\Symfony\Form\Field\FormFieldExtension',
+            'buildIsNullComparisonForm'
+        );
+        $method->setAccessible(true);
+
+        $field = $this->createMock(Boolean::class);
+
+        $field->expects($this->once())
+            ->method('getname')
+            ->will($this->returnValue('name'));
+
+        $form = $this->getMockBuilder('Symfony\Component\Form\Form')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $form->expects($this->exactly(1))->method('add')
+            ->with(
+                $this->equalTo('name'),
+                $this->equalTo(ChoiceType::class),
+                $this->equalTo(
+                    [
+                        'choices' => [
+                            'empty' => 'null',
+                            'not empty' => 'notnull'
                         ],
                         'multiple' => false,
                     ]

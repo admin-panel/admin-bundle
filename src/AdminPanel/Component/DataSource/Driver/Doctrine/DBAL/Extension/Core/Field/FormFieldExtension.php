@@ -255,8 +255,8 @@ final class FormFieldExtension extends FieldAbstractExtension
     {
         $defaultOptions = [
             'choices' => [
-                '1' => 'yes',
-                '0' => 'no'
+                'yes' => '1',
+                'no' => '0'
             ],
             'multiple' => false,
         ];

@@ -20,8 +20,8 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
             ->with([
                 'form_options' => [
                     'choices' => [
-                        'null' => 'is_null_translated',
-                        'no_null' => 'is_not_null_translated'
+                        'is_null_translated' => 'null',
+                        'is_not_null_translated' => 'no_null'
                     ]
                 ]
             ]);
@@ -69,8 +69,8 @@ class FormFieldExtensionTest extends \PHPUnit_Framework_TestCase
             ->with([
                 'form_options' => [
                     'choices' => [
-                        '1' => 'yes_translated',
-                        '0' => 'no_translated'
+                        'yes_translated' => '1',
+                        'no_translated' => '0'
                     ]
                 ]
             ]);

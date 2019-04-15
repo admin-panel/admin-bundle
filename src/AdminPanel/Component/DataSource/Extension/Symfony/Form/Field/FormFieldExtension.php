@@ -288,16 +288,13 @@ class FormFieldExtension extends FieldAbstractExtension
         $defaultOptions = [
             'choices' => [
                 'empty' => 'null',
-                'not empty' => 'notnull',
+                'not empty' => 'notnull'
             ],
             'multiple' => false,
         ];
 
         if (isset($options['choices'])) {
-            $options['choices'] = array_merge(
-                $defaultOptions['choices'],
-                array_intersect_key($options['choices'], $defaultOptions['choices'])
-            );
+            $options['choices'] = array_intersect($options['choices'], $defaultOptions['choices']);
         }
 
         $options = array_merge($defaultOptions, $options);
@@ -313,14 +310,14 @@ class FormFieldExtension extends FieldAbstractExtension
     {
         $defaultOptions = [
             'choices' => [
-                '1' => 'yes',
-                '0' => 'no'
+                'yes' => '1',
+                'no' => '0'
             ],
             'multiple' => false,
         ];
 
         if (isset($options['choices'])) {
-            $options['choices'] = array_intersect_key($options['choices'], $defaultOptions['choices']);
+            $options['choices'] = array_intersect($options['choices'], $defaultOptions['choices']);
         }
 
         $options = array_merge($defaultOptions, $options);
