@@ -131,13 +131,14 @@ class BatchActionExtension extends ColumnAbstractTypeExtension
      */
     private function buildBatchActions(ColumnTypeInterface $column)
     {
-        $batchActions = ['crud.list.batch.empty_choice'];
+        $batchActions['crud.list.batch.empty_choice'] = 0;
 
         foreach ($column->getOption('actions') as $name => $action) {
             $actionOptions = $this->actionOptionsResolver->resolve($action);
 
-            $batchActions[$this->getBatchActionUrl($actionOptions)] =
-                isset($actionOptions['label']) ? $actionOptions['label'] : $name;
+            $batchActions[
+            isset($actionOptions['label']) ? $actionOptions['label'] : $name
+            ] = $this->getBatchActionUrl($actionOptions);
         }
 
         return $batchActions;
