@@ -151,8 +151,8 @@ class BatchActionExtensionSpec extends ObjectBehavior
 
         $formBuilder->add('action', ChoiceType::class, [
             'choices' => [
-                0 => 'crud.list.batch.empty_choice',
-                'path_to_batch_action' => 'batch_action_label'
+                'crud.list.batch.empty_choice' => 0,
+                'batch_action_label' => 'path_to_batch_action'
             ],
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
@@ -207,8 +207,8 @@ class BatchActionExtensionSpec extends ObjectBehavior
 
         $formBuilder->add('action', ChoiceType::class, [
             'choices' => [
-                0 => 'crud.list.batch.empty_choice',
-                'path_to_batch_action' => 'batch_action_label'
+                'crud.list.batch.empty_choice' => 0,
+                'batch_action_label' => 'path_to_batch_action'
             ],
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
@@ -258,8 +258,8 @@ class BatchActionExtensionSpec extends ObjectBehavior
 
         $formBuilder->add('action', ChoiceType::class, [
             'choices' => [
-                0 => 'crud.list.batch.empty_choice',
-                'path_to_batch_action' => 'batch_action_label'
+                'crud.list.batch.empty_choice' => 0,
+                'batch_action_label' => 'path_to_batch_action'
             ],
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();
@@ -304,8 +304,8 @@ class BatchActionExtensionSpec extends ObjectBehavior
 
         $formBuilder->add('action', ChoiceType::class, [
             'choices' => [
-                0 => 'crud.list.batch.empty_choice',
-                'path_to_batch_action' => 'action_name'
+                'crud.list.batch.empty_choice' => 0,
+                'action_name' => 'path_to_batch_action'
             ],
             'translation_domain' => 'AdminPanelBundle'
         ])->willReturn();

@@ -21,7 +21,7 @@
         "sensio/framework-extra-bundle": "^5.3",
         "symfony/twig-bundle": "^3.4",
         "doctrine/orm": "^2.5",
-        "symfony/security-csrf": "^4.2"
+        "symfony/security-csrf": "^3.4"
     },
     "require-dev": {
         "symfony/class-loader": "^3.0",
