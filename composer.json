@@ -17,7 +17,7 @@
         "symfony/proxy-manager-bridge": "^3.4",
         "symfony/doctrine-bridge": "^3.4",
         "symfony/twig-bridge": "^3.4",
-        "symfony/translation": "^3.4",
+        "symfony/translation": "^4.3",
         "sensio/framework-extra-bundle": "^5.3",
         "symfony/twig-bundle": "^3.4",
         "doctrine/orm": "^2.5",
