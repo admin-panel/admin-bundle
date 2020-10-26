@@ -16,7 +16,7 @@
         "symfony/validator": "^3.4",
         "symfony/proxy-manager-bridge": "^3.4",
         "symfony/doctrine-bridge": "^3.4",
-        "symfony/twig-bridge": "^3.4",
+        "symfony/twig-bridge": "^4.0",
         "symfony/translation": "^3.4",
         "sensio/framework-extra-bundle": "^5.3",
         "symfony/twig-bundle": "^3.4",
