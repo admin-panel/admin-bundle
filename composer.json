@@ -30,7 +30,7 @@
         "symfony/browser-kit": "^3.0",
         "symfony/css-selector": "^3.0",
         "symfony/asset": "^3.2",
-        "symfony/templating": "^3.2",
+        "symfony/templating": "^5.1",
         "phpunit/phpunit": "^5.7",
         "sebastian/recursion-context": "~2.0",
         "sebastian/exporter": "~2.0",
