@@ -12,7 +12,7 @@
         "symfony/intl" : "^3.4",
         "symfony/options-resolver": "^3.4",
         "symfony/expression-language": "^3.4",
-        "symfony/dependency-injection": "^3.4",
+        "symfony/dependency-injection": "^4.4",
         "symfony/validator": "^3.4",
         "symfony/proxy-manager-bridge": "^3.4",
         "symfony/doctrine-bridge": "^3.4",
