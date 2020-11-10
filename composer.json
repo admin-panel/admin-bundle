@@ -35,7 +35,7 @@
         "sebastian/recursion-context": "~2.0",
         "sebastian/exporter": "~2.0",
         "doctrine/doctrine-bundle": "^1.5",
-        "phpspec/phpspec": "^3.2",
+        "phpspec/phpspec": "^6.3",
         "phpspec/prophecy": "^1.7",
         "fzaninotto/faker": "^1.2",
         "friendsofphp/php-cs-fixer": "^2.0"
