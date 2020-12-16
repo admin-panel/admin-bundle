@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.1",
-        "twig/twig": "^1.7",
+        "twig/twig": "^2.13",
         "symfony/framework-bundle" : "^3.4",
         "symfony/form" : "^3.4",
         "symfony/intl" : "^3.4",
